@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DN Miku | Login</title>
+	<link rel="stylesheet" type="text/css" href="/css/signUp.css">
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Quicksand|Palanquin">
+
+</head>
+
+<body>
+	<nav>
+		<div class="nav-item">
+			<ul>
+				<li class="nav-not-active"><a href="/">Home</a></li>
+				<li class="nav-not-active"><a href="/download/">Download</a></li>
+				<li class="nav-not-active"><a href="/register/">Register</a></li>
+				<li class="nav-active"><a href="/login/">Login</a></li>
+			</ul>
+	</nav>
+	<section class="signup">
+		<div class="container">
+			<div class="signup-content">
+				<form action="/login" method="POST" id="signup-form" class="signup-form">
+					<h2 class="form-title">Login</h2>
+					<div class="form-group">
+						<input type="text" class="form-input" name="id" id="id" placeholder="Username" />
+						<small class="error"> <?= form_error('id'); ?> </small>
+					</div>
+
+					<div class="form-group">
+						<input type="password" class="form-input" name="password" id="password"
+							placeholder="Password" />
+						<small class="error"> <?= form_error('password'); ?> </small>
+					</div>
+					<input type="submit" name="submit" id="submit" class="form-submit" value="Login" />
+				</form>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
