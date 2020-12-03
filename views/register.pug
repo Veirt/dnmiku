@@ -1,0 +1,35 @@
+doctype html
+head
+	meta(charset='UTF-8')
+	meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	title DN Miku | Register
+	link(rel='stylesheet', type='text/css', href='/css/signUp.css')
+	link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Quicksand|Palanquin')
+nav
+	.nav-item
+		ul
+			li.nav-not-active
+				a(href='/') Home
+			li.nav-not-active
+				a(href='/download/') Download
+			li.nav-active
+				a(href='/register/') Register
+			li.nav-not-active
+				a(href='/login/') Login
+section.signup
+	.container
+		.signup-content
+			form#signup-form.signup-form(method='POST', action='/register')
+				h2.form-title Register
+				.form-group
+					input#id.form-input(type='text', name='id', placeholder='Username')
+					small.error  
+				.form-group
+					input#email.form-input(type='email', name='email', placeholder='Enter your email')
+					small.error
+				.form-group
+					input#password.form-input(type='password', name='password', placeholder='Password')
+					small.error
+				.form-group
+					input#confirm-password.form-input(type='password', name='confirm-password', placeholder='Repeat your password')
+				input#submit.form-submit(type='submit', name='submit', value='Submit')
