@@ -1,3 +1,6 @@
+// MS SQL Server Database
+const database = require('./core/pool')
+// Express
 const express = require('express')
 const session = require('express-session');
 const path = require('path')
@@ -9,11 +12,12 @@ app.use(express.urlencoded({
 }))
 
 
+
 // Web Assets
 app.use(express.static(path.join(__dirname, 'assets')))
 
 app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
+app.set('view engine', 'pug')
 // Index router
 app.use('/', pageRouter);
 
@@ -29,5 +33,6 @@ app.use((err, req, res, next) => {
     res.send(err.message)
 })
 
-app.listen(8080)
+app.listen(80)
+
 module.exports = app
