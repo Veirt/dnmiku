@@ -1,38 +1,27 @@
-// MS SQL Server Database
-const database = require('./core/pool')
-// Express
-const express = require('express')
-const session = require('express-session');
-const path = require('path')
-const pageRouter = require('./routes/pages')
-const app = express()
-
-app.use(express.urlencoded({
-    extended: false
-}))
+// Express Server
+const express = require('express');
+const app = express();
 
 
 
-// Web Assets
-app.use(express.static(path.join(__dirname, 'assets')))
+// .env
+const dotenv = require('dotenv');
+dotenv.config({
+    path: './.env'
+});
 
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'pug')
-// Index router
-app.use('/', pageRouter);
+const path = require('path');
 
-// Error routers
-app.use((req, res, next) => {
-    var err = new Error('Page not found')
-    err.status = 404
-    next(err)
-})
 
-app.use((err, req, res, next) => {
-    res.status(err.status || 500)
-    res.send(err.message)
-})
+// Views
+const assetsDirectory = path.join(__dirname, './assets');
+app.use(express.static(assetsDirectory));
+app.set('view engine', 'pug');
 
-app.listen(80)
+// Routes
+app.use('/', require('./routes/routes'));
 
-module.exports = app
+// Start server 
+app.listen(1111, () => {
+    console.log("Your server started on port 1111")
+});
