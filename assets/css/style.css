@@ -101,6 +101,28 @@ main h1 {
 	font-size: 2rem;
 }
 
+.dashboard {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.account-dashboard {
+	border: 1px solid #e6e6e6;
+	margin: 15px;
+	width: 20%;
+	text-align: center;
+}
+
+.account-dashboard h1 {
+	margin: 15px;
+}
+
+.title {
+	text-align: center;
+}
+
 @media screen and (max-width: 768px) {
 
 	.accounts,

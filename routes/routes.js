@@ -57,7 +57,8 @@ router.get('/dashboard', (req, res) => {
     let user = req.session.user;
     if (user) {
         res.render('dashboard', {
-            opp: req.session.opp
+            opp: req.session.opp,
+            user
         });
         return;
     }
