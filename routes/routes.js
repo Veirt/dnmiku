@@ -161,10 +161,6 @@ router.post('/register', urlencodedParser, [
 router.post('/login', urlencodedParser, [
     check('id')
     .isAlphanumeric().withMessage("Username must not contain special chars")
-    .isLength({
-        min: 6,
-        max: 12
-    }).withMessage("Username must be 6-12 chars")
     .not().isEmpty().withMessage("Username cannot be empty"),
 
     check('password')
@@ -173,42 +169,61 @@ router.post('/login', urlencodedParser, [
         max: 14
     }).withMessage("Password must be 6-14 chars")
 ], (req, res) => {
-    (async function () {
-        try {
-            let pool = await sql.connect(db.config)
-            let login = await pool.request()
-                .input('id', sql.NVarChar(50), req.body.id)
-                .query('SELECT * FROM Accounts WHERE AccountName = @id ')
+    const errors = validationResult(req)
+    // If Error IS NOT Empty
+    if (!errors.isEmpty()) {
+        const alert = errors.array()
+        for (i in alert) {
+            if (alert[i].param === "id") {
+                var idError = alert[i].msg
+            } else if (alert[i].param === "password") {
+                var passwordError = alert[i].msg
+            }
+        }
+        res.status(400).render("login", {
+            "idError": idError,
+            "passwordError": passwordError,
+            "id": req.body.id,
+        })
+    } else {
+        (async function () {
+            try {
+                let pool = await sql.connect(db.config)
+                let login = await pool.request()
+                    .input('id', sql.NVarChar(50), req.body.id)
+                    .query('SELECT * FROM Accounts WHERE AccountName = @id ')
 
-            let getEncryptedPassword = await pool.request()
-                .input('vchPassphrase', sql.VarChar(12), req.body.password)
-                .execute('EncryptPassword')
-            const EncryptedPassword = getEncryptedPassword.recordset[0].EncryptedPassword
-            if (login.rowsAffected[0] < 1) {
-                res.status(401).render('login', {
-                    "idError": "Username doesn't exist",
-                    "id": req.body.id
-                })
-            } else {
-                if (Buffer.compare(EncryptedPassword, login.recordset[0].Passphrase) === 0) {
-                    const id = login.recordset[0].AccountName
-                    // Store the user data in a session.
-                    req.session.user = login.recordset[0];
-                    req.session.opp = 1;
-                    res.status(200).redirect("/dashboard")
-
-                    // If password is incorrect
-                } else {
+                let getEncryptedPassword = await pool.request()
+                    .input('vchPassphrase', sql.VarChar(12), req.body.password)
+                    .execute('EncryptPassword')
+                const EncryptedPassword = getEncryptedPassword.recordset[0].EncryptedPassword
+                if (login.rowsAffected[0] < 1) {
                     res.status(401).render('login', {
-                        "passwordError": "Password is incorrect",
+                        "idError": "Username doesn't exist",
                         "id": req.body.id
                     })
+                } else {
+                    if (Buffer.compare(EncryptedPassword, login.recordset[0].Passphrase) === 0) {
+                        const id = login.recordset[0].AccountName
+                        // Store the user data in a session.
+                        req.session.user = login.recordset[0];
+                        req.session.opp = 1;
+                        res.status(200).redirect("/dashboard")
+
+                        // If password is incorrect
+                    } else {
+                        res.status(401).render('login', {
+                            "passwordError": "Password is incorrect",
+                            "id": req.body.id
+                        })
+                    }
                 }
+            } catch (err) {
+                console.log(err)
             }
-        } catch (err) {
-            console.log(err)
-        }
-    })()
+        })()
+    }
+
 })
 
 function isMentionNameInUse(mentionName) {
