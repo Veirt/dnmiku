@@ -3,7 +3,7 @@ head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(http-equiv='X-UA-Compatible', content='ie=edge')
-    title DN Miku
+    title DN Miku | Dashboard
     script(src='/js/jquery-3.5.1.min.js')
     script(src='https://kit.fontawesome.com/36c08e2acc.js', crossorigin='anonymous')
     link(rel='stylesheet', type='text/css', href='/css/style.css')
@@ -11,27 +11,13 @@ head
 nav
     .nav-item
         ul
-            li.nav-active
+            li.nav-not-active
                 a(href='/') Home
+            li.nav-active
+                a(href='/dashboard') Dashboard
             li.nav-not-active
-                a(href='/download/') Download
-            li.nav-not-active
-                a(href='/register/') Register
-            li.nav-not-active
-                a(href='/login/') Login
-main
-    div
-        h1 DN Miku
-section.stats
-    .accounts
-        i.fas.fa-user
-        h1 Accounts
-        p #{nowTotalAccount}
-    .characters
-        i.fas.fa-users
-        h1 Characters
-        p #{nowTotalCharacter}
-    .online
-        i.fas.fa-globe
-        h1 Online
-        p #{nowOnline}
+                a(href='/logout') Log out
+section.dashboard
+    h1 Account Stats
+
+

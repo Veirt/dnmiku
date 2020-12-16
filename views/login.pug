@@ -24,9 +24,12 @@ section.signup
                 if message
                     p(style={color: 'green'}) Registered Successfully
                 .form-group
-                    input#id.form-input(type='text', name='id', placeholder='Username')
-                    small.error
+                    if id
+                        input#id.form-input(type='text', name='id', placeholder='Username', value=`${id}`)
+                    else
+                        input#id.form-input(type='text', name='id', placeholder='Username')
+                    small.error #{idError}
                 .form-group
                     input#password.form-input(type='password', name='password', placeholder='Password')
-                    small.error
+                    small.error #{passwordError}
                 input#submit.form-submit(type='submit', value='Login')
