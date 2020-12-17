@@ -22,6 +22,12 @@ section.dashboard
     .account-dashboard
         h1 Cash
         p #{user.cash}
-
+    form(action='/dashboard', method="post")
+        p #{user.claimDaily}
+        if user.claimDaily === 1
+            input(type="submit", value="Claim" disabled)    
+        else
+            input(type="submit", value="Claim" ) 
+    
 
 

@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
+// Database
 const db = require('../core/db')
 const sql = require('mssql');
-
+// Schedule
+const schedule = require('node-schedule');
+// Body parser and validator
 const bodyParser = require('body-parser');
 const {
     check,
     validationResult,
-    cookie,
+    cookie
 } = require('express-validator');
 const urlencodedParser = bodyParser.urlencoded({
     extended: true
@@ -19,7 +22,6 @@ router.get('/', (req, res) => {
             let pool = await sql.connect(db.config)
             let getOnlinePlayer = await pool.request()
                 .query("SELECT COUNT(CertifyingStep) AS OnlinePlayer FROM DNAuth WHERE CertifyingStep = 2")
-
             let getTotalAccount = await pool.request().query("SELECT COUNT(AccountID) AS TotalAccount FROM Accounts")
             let getTotalCharacter = await pool.request().query("SELECT COUNT(CharacterID) AS TotalCharacter FROM Characters")
             var nowOnline = getOnlinePlayer.recordset[0].OnlinePlayer
@@ -53,12 +55,23 @@ router.get('/register', (req, res) => {
 router.get('/login', (req, res) => {
     res.render('login');
 })
+var resetDaily = schedule.scheduleJob('@daily', () => {
+    (async function () {
+        try {
+            let pool = await sql.connect(config)
+            let resetDaily = await pool.request()
+                .query("UPDATE Accounts SET claimDaily = 0")
+        } catch (err) {
+            console.log(err)
+        }
+    })()
+});
 router.get('/dashboard', (req, res) => {
     let user = req.session.user;
     if (user) {
         res.render('dashboard', {
             opp: req.session.opp,
-            user
+            user,
         });
         return;
     }
@@ -93,7 +106,6 @@ router.post('/register', urlencodedParser, [
             throw new Error('Username already exists');
         }
     }),
-
     // Email validation 
     check('email')
     .isEmail().withMessage("Email is not valid")
@@ -104,7 +116,6 @@ router.post('/register', urlencodedParser, [
             throw new Error('Email already exists');
         }
     }),
-
     // Password Validation 
     check('password')
     .isLength({
@@ -162,7 +173,6 @@ router.post('/login', urlencodedParser, [
     check('id')
     .isAlphanumeric().withMessage("Username must not contain special chars")
     .not().isEmpty().withMessage("Username cannot be empty"),
-
     check('password')
     .isLength({
         min: 6,
@@ -225,6 +235,30 @@ router.post('/login', urlencodedParser, [
     }
 
 })
+
+router.post('/dashboard', (req, res) => {
+    let user = req.session.user
+    let cash = user.cash
+    let randomAmountCash = Math.floor(Math.random() * 10000);
+    (async function () {
+        try {
+            let pool = await sql.connect(db.config)
+            let claimCash = await pool.request()
+                .input('id', sql.NVarChar(50), user.AccountName)
+                .input('randomAmountCash', sql.Int, cash + randomAmountCash)
+                .query('UPDATE Accounts SET cash = @randomAmountCash, claimDaily = 1 WHERE AccountName = @id')
+
+            let login = await pool.request()
+                .input('id', sql.NVarChar(50), user.AccountName)
+                .query('SELECT * FROM Accounts WHERE AccountName = @id ')
+            req.session.user = login.recordset[0]
+            res.redirect('/dashboard')
+        } catch (err) {
+            console.log(err)
+        }
+    })()
+})
+
 
 function isMentionNameInUse(mentionName) {
     return new Promise((resolve, reject) => {
