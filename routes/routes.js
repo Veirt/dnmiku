@@ -240,23 +240,27 @@ router.post('/dashboard', (req, res) => {
     let user = req.session.user
     let cash = user.cash
     let randomAmountCash = Math.floor(Math.random() * 10000);
-    (async function () {
-        try {
-            let pool = await sql.connect(db.config)
-            let claimCash = await pool.request()
-                .input('id', sql.NVarChar(50), user.AccountName)
-                .input('randomAmountCash', sql.Int, cash + randomAmountCash)
-                .query('UPDATE Accounts SET cash = @randomAmountCash, claimDaily = 1 WHERE AccountName = @id')
+    if (user.claimDaily === 1) {
+        res.send("Fuck you")
+    } else {
+        (async function () {
+            try {
+                let pool = await sql.connect(db.config)
+                let claimCash = await pool.request()
+                    .input('id', sql.NVarChar(50), user.AccountName)
+                    .input('randomAmountCash', sql.Int, cash + randomAmountCash)
+                    .query('UPDATE Accounts SET cash = @randomAmountCash, claimDaily = 1 WHERE AccountName = @id')
 
-            let login = await pool.request()
-                .input('id', sql.NVarChar(50), user.AccountName)
-                .query('SELECT * FROM Accounts WHERE AccountName = @id ')
-            req.session.user = login.recordset[0]
-            res.redirect('/dashboard')
-        } catch (err) {
-            console.log(err)
-        }
-    })()
+                let login = await pool.request()
+                    .input('id', sql.NVarChar(50), user.AccountName)
+                    .query('SELECT * FROM Accounts WHERE AccountName = @id ')
+                req.session.user = login.recordset[0]
+                res.redirect('/dashboard')
+            } catch (err) {
+                console.log(err)
+            }
+        })()
+    }
 })
 
 
