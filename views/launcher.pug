@@ -1,0 +1,49 @@
+doctype html
+head
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(charset='utf-8')
+  title DN Miku | Launcher
+  link(rel='stylesheet' type='text/css' href='/css/reset.css')
+  link(rel='stylesheet' type='text/css' href='/css/base.css')
+  link(rel='stylesheet' type='text/css' href='/css/etc.css')
+  link(rel='stylesheet' type='text/css' href='/css/jquery.bxslider.css')
+  link(rel='stylesheet' type='text/css' href='/css/launcher.css')
+  script(type='text/javascript' src='/js/jquery.min.js')
+  script(type='text/javascript' src='/js/jquery.bxslider.min.js')
+#lchrWrap
+  .vLlchr
+    a(href='http://dn.pupugame.com/event/200806_augupdate/event/intro.html' target='_blank')
+      img(src='/image/launcher.jpg' alt='August Intro' style='width: 401px; height: 366px')
+  // Patch Note
+  .vRlchr
+    .newLchr
+      p.title
+        span(style='color: #ace60d')
+          strong Patch Note
+      ul(style='height: 120px')
+        li
+          a(href='http://dn.pupugame.com/news/notice.html?mode=read&no=2269' target='_blank') Tgl/Bulan Patch...
+          span 08.21
+        li
+          a(href='http://dn.pupugame.' target='_blank') Tgl/Bulan Patch...
+          span 08.20
+        li
+          a(href='http://dn.pupugame.com/news/notice.html?mode=read&no=2265' target='_blank') Tgl/Bulan Patch...
+          span 08.19
+      p.more
+        a(href='http://dn.pupugame.com/news/notice.html' target='_blank') View
+    .upLchr
+      p.title
+        span(style='color: #ace60d')
+          strong Register
+      .imgUp
+        form#signup-form.signup-form(action='/launcher' method='POST')
+          .form-group
+            input#id.form-input(type='text' name='id' placeholder='Username' required)
+          .form-group
+            input#email.form-input(type='email' name='email' placeholder='Email' required)
+          .form-group
+            input#password.form-input(type='password' name='password' placeholder='Password' required)
+          input#submit.form-submit(type='submit' value='Register')
+      p.more
+        a(href='http://dn.pupugame.com/news/notice.html?category=update' target='_blank') View
