@@ -97,12 +97,7 @@ router.post('/register', urlencodedParser, [
 router.post('/login', urlencodedParser, [
     check('id')
     .isAlphanumeric().withMessage("Username must not contain special chars")
-    .not().isEmpty().withMessage("Username cannot be empty"),
-    check('password')
-    .isLength({
-        min: 6,
-        max: 14
-    }).withMessage("Password must be 6-14 chars")
+    .not().isEmpty().withMessage("Username cannot be empty")
 ], (req, res) => {
     const errors = validationResult(req)
     // If Error IS NOT Empty
@@ -111,14 +106,11 @@ router.post('/login', urlencodedParser, [
         for (i in alert) {
             if (alert[i].param === "id") {
                 var idError = alert[i].msg
-            } else if (alert[i].param === "password") {
-                var passwordError = alert[i].msg
             }
         }
         res.status(400).render("login", {
             "idError": idError,
-            "passwordError": passwordError,
-            "id": req.body.id,
+            "id": req.body.id
         })
     } else {
         (async function () {
@@ -164,6 +156,7 @@ router.post('/login', urlencodedParser, [
 router.post('/dashboard', (req, res) => {
     let user = req.session.user
     let cash = user.cash
+    // Random amount cash 0-10000
     let randomAmountCash = Math.floor(Math.random() * 10000);
     if (user.claimDaily === 1) {
         res.send("Fuck you")
@@ -187,7 +180,20 @@ router.post('/dashboard', (req, res) => {
         })()
     }
 })
-
+// Daily
+const schedule = require('node-schedule');
+var resetDaily = schedule.scheduleJob('@daily', () => {
+    (async function () {
+        try {
+            let pool = await sql.connect(db.config)
+            let resetDaily = await pool.request()
+                .query("UPDATE Accounts SET claimDaily = 0")
+            console.log("Daily has been resetted")
+        } catch (err) {
+            console.log(err)
+        }
+    })()
+});
 
 function isMentionNameInUse(mentionName) {
     return new Promise((resolve, reject) => {
