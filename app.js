@@ -26,7 +26,22 @@ app.use(express.static(assetsDirectory));
 app.set('view engine', 'pug');
 
 // Routes
-app.use('/', require('./routes/routes'));
+app.use('/', require('./routes/routesGet'));
+app.use('/', require('./routes/routesPost'));
+
+// Daily
+const schedule = require('node-schedule');
+var resetDaily = schedule.scheduleJob('@daily', () => {
+    (async function () {
+        try {
+            let pool = await sql.connect(config)
+            let resetDaily = await pool.request()
+                .query("UPDATE Accounts SET claimDaily = 0")
+        } catch (err) {
+            console.log(err)
+        }
+    })()
+});
 
 // Start server 
 app.listen(1111, () => {
