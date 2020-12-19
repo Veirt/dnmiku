@@ -173,7 +173,11 @@ router.post('/dashboard', (req, res) => {
                     .input('id', sql.NVarChar(50), user.AccountName)
                     .query('SELECT * FROM Accounts WHERE AccountName = @id ')
                 req.session.user = login.recordset[0]
-                res.redirect('/dashboard')
+                user = req.session.user
+                res.render('dashboard', {
+                    gotCash: randomAmountCash,
+                    user
+                })
             } catch (err) {
                 console.log(err)
             }

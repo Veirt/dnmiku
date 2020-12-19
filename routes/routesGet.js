@@ -52,13 +52,27 @@ router.get('/launcher', (req, res) => {
 router.get('/dashboard', (req, res) => {
     let user = req.session.user;
     if (user) {
-        res.render('dashboard', {
-            opp: req.session.opp,
-            user
-        });
-        return;
+        // Refresh session when reload
+        (async function () {
+            try {
+                let pool = await sql.connect(db.config)
+                let login = await pool.request()
+                    .input('id', sql.NVarChar(50), user.AccountName)
+                    .query('SELECT * FROM Accounts WHERE AccountName = @id ')
+
+                req.session.user = login.recordset[0]
+                user = req.session.user
+                res.render('dashboard', {
+                    opp: req.session.opp,
+                    user
+                });
+            } catch (err) {
+                console.log(err)
+            }
+        })()
+    } else {
+        res.redirect('/');
     }
-    res.redirect('/');
 })
 router.get('/logout', (req, res) => {
     // Check if the session is exist

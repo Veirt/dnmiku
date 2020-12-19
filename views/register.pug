@@ -39,3 +39,7 @@ section.signup
 				.form-group
 					input#repeatPassword.form-input(type='password', name='repeatPassword', placeholder='Repeat your password')
 				input#submit.form-submit(type='submit', value='Submit')
+script().
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+	}
