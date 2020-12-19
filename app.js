@@ -2,17 +2,6 @@
 const express = require('express');
 const app = express();
 
-const sql = require('mssql');
-const config = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_HOST,
-    database: process.env.DB,
-    options: {
-        enableArithAbort: true,
-        encrypt: true
-    }
-}
 // Express Session
 const session = require('express-session')
 app.use(session({
@@ -39,8 +28,6 @@ app.set('view engine', 'pug');
 // Routes
 app.use('/', require('./routes/routesGet'));
 app.use('/', require('./routes/routesPost'));
-
-
 
 // Start server 
 app.listen(1111, () => {
