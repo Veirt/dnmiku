@@ -1,2 +1,6 @@
-node_modules/
+# Modules
+node_modules
+# Idea settings
+.idea
+# Local .env
 .env
