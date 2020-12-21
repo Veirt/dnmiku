@@ -80,7 +80,7 @@ router.post('/register', urlencodedParser, [
                     .input("id", sql.NVarChar(50), req.body.id)
                     .input("password", sql.VarChar(12), req.body.password)
                     .input("email", sql.VarChar(50), req.body.email)
-                    .query("INSERT INTO dbo.Accounts (AccountName, AccountLevelCode, CharacterCreateLimit, CharacterMaxCount, RegisterDate, PublisherCode, Passphrase, mail) VALUES (@id, 99, 4, 8, GETDATE(), 0, CONVERT(BINARY(20),HashBytes('MD5',@password),2), @email)")
+                    .query("INSERT INTO DNMembership.dbo.Accounts (AccountName, AccountLevelCode, CharacterCreateLimit, CharacterMaxCount, RegisterDate, PublisherCode, Passphrase, mail) VALUES (@id, 99, 4, 8, GETDATE(), 0, CONVERT(BINARY(20),HashBytes('MD5',@password),2), @email)")
 
                 res.render('login', {
                     "message": "Register Success"
@@ -118,11 +118,11 @@ router.post('/login', urlencodedParser, [
                 let pool = await sql.connect(db.config)
                 let login = await pool.request()
                     .input('id', sql.NVarChar(50), req.body.id)
-                    .query('SELECT * FROM Accounts WHERE AccountName = @id ')
+                    .query('SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id ')
 
                 let getEncryptedPassword = await pool.request()
                     .input('vchPassphrase', sql.VarChar(12), req.body.password)
-                    .execute('EncryptPassword')
+                    .execute('DNMembership.dbo.EncryptPassword')
                 const EncryptedPassword = getEncryptedPassword.recordset[0].EncryptedPassword
                 if (login.rowsAffected[0] < 1) {
                     res.status(401).render('login', {
@@ -153,7 +153,7 @@ router.post('/login', urlencodedParser, [
 
 })
 
-router.post('/dashboard', (req, res) => {
+router.post('/dashboard/api/cash', (req, res) => {
     let user = req.session.user
     let cash = user.cash
     // Random amount cash 0-10000
@@ -167,17 +167,15 @@ router.post('/dashboard', (req, res) => {
                 let claimCash = await pool.request()
                     .input('id', sql.NVarChar(50), user.AccountName)
                     .input('randomAmountCash', sql.Int, cash + randomAmountCash)
-                    .query('UPDATE Accounts SET cash = @randomAmountCash, claimDaily = 1 WHERE AccountName = @id')
+                    .query('UPDATE DNMembership.dbo.Accounts SET cash = @randomAmountCash, claimDaily = 1 WHERE AccountName = @id')
 
                 let login = await pool.request()
                     .input('id', sql.NVarChar(50), user.AccountName)
-                    .query('SELECT * FROM Accounts WHERE AccountName = @id ')
+                    .query('SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id ')
                 req.session.user = login.recordset[0]
                 user = req.session.user
-                res.render('dashboard', {
-                    gotCash: randomAmountCash,
-                    user
-                })
+                req.session.cash = randomAmountCash
+                res.redirect('/dashboard')
             } catch (err) {
                 console.log(err)
             }
@@ -191,7 +189,7 @@ var resetDaily = schedule.scheduleJob('@daily', () => {
         try {
             let pool = await sql.connect(db.config)
             let resetDaily = await pool.request()
-                .query("UPDATE Accounts SET claimDaily = 0")
+                .query("UPDATE DNMembership.dbo.Accounts SET claimDaily = 0")
             console.log("Daily has been resetted")
         } catch (err) {
             console.log(err)
@@ -199,12 +197,38 @@ var resetDaily = schedule.scheduleJob('@daily', () => {
     })()
 });
 
+router.post('/dashboard/api/ftg', urlencodedParser, (req, res) => {
+    let user = req.session.user
+    if (user) {
+        (async function () {
+            try {
+                let pool = await sql.connect(db.config)
+
+                let buyFTG = await pool.request()
+                    .input('CharacterID', sql.BigInt, parseInt(req.body.CharacterID))
+                    .query("UPDATE DNWorld.dbo.CharacterStatus SET Fatigue = Fatigue+5000 WHERE CharacterID = @CharacterID")
+
+                let reducePoint = await pool.request()
+                    .input('CharacterID', sql.BigInt, parseInt(req.body.CharacterID))
+                    .query("UPDATE DNWorld.dbo.Points SET Point = Point-1000 WHERE CharacterID = @CharacterID AND PointCode = 19")
+
+                res.redirect('/dashboard')
+
+            } catch (err) {
+                res.redirect('/dashboard')
+            }
+        })()
+    } else {
+        res.redirect('/')
+    }
+})
+
 function isMentionNameInUse(mentionName) {
     return new Promise((resolve, reject) => {
         sql.connect(db.config, err => {
             new sql.Request()
                 .input('id', sql.NVarChar(50), mentionName)
-                .query('SELECT COUNT(AccountName) AS ExistedAccountName FROM Accounts WHERE AccountName = @id', (err, result) => {
+                .query('SELECT COUNT(AccountName) AS ExistedAccountName FROM DNMembership.dbo.Accounts WHERE AccountName = @id', (err, result) => {
                     if (err) {
                         return reject
                     } else {
@@ -220,8 +244,7 @@ function isMentionEmailInUse(mentionEmail) {
         sql.connect(db.config, err => {
             new sql.Request()
                 .input('email', sql.VarChar(50), mentionEmail)
-                .query('SELECT COUNT(mail) AS ExistedEmail FROM Accounts WHERE mail = @email', (err, result) => {
-                    // ... error checks
+                .query('SELECT COUNT(mail) AS ExistedEmail FROM DNMembership.dbo.Accounts WHERE mail = @email', (err, result) => {
                     if (err) {
                         return reject
                     } else {

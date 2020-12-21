@@ -22,18 +22,42 @@ section.dashboard
     .account-dashboard
         h1 Cash
         p #{user.cash}
-    form(action='/dashboard', method="post")
-        p #{user.claimDaily}
-        if user.claimDaily === 1
-            input(type="submit", value="Claim" disabled)    
-        else
-            input(type="submit", value="Claim" ) 
+        form(action='/dashboard/api/cash', method="post")
+            if user.claimDaily === 1
+                input(type="submit", value="Claim" disabled)    
+            else
+                input(type="submit", value="Claim" ) 
+    .account-dashboard
+        h1 Cash Point
+            if chars
+                form(action='/dashboard/api/ftg', method="post")
+                    select(name='CharacterID')
+                        each char in chars
+                            option(value=`${char.CharacterID}`) #{char.CharacterName}, Point : #{char.Point}
+
+                    input(type="submit", value="Buy FTG")
+
+
+table(border=1, width='15%', align='center')
+    tr
+        th Character Name
+        th FTG
+    if charStats
+        each char in charStats
+            tr
+                td= char.CharacterName
+                td= char.Fatigue
+
 if gotCash
     script().
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
-        }
+            }
         alert("You got #{gotCash}")
-    
 
-
+if error
+    script().
+        if ( window.history.replaceState ) {
+                window.history.replaceState( null, null, window.location.href );
+            }
+        alert("#{error}")
