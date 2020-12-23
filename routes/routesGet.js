@@ -39,11 +39,21 @@ router.get('/', (req, res) => {
 })
 
 router.get('/register', (req, res) => {
-  res.render('register');
+  let user = req.session.user
+  if (user) {
+    res.redirect('/dashboard')
+  } else {
+    res.render('register');
+  }
 })
 
 router.get('/login', (req, res) => {
-  res.render('login');
+  let user = req.session.user
+  if (user) {
+    res.redirect('/dashboard')
+  } else {
+    res.render('login');
+  }
 })
 
 router.get('/launcher', (req, res) => {
