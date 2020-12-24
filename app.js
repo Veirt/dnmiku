@@ -29,6 +29,8 @@ app.set('view engine', 'pug');
 app.use('/', require('./routes/routesGet'));
 app.use('/', require('./routes/routesPost'));
 
+const flash = require('connect-flash')
+app.use(flash());
 // Start server 
 app.listen(1111, () => {
     console.log("http://localhost:1111")

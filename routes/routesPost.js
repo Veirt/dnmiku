@@ -1,17 +1,15 @@
 const express = require('express');
 // Database
-const db = require('../core/db')
+const db = require('../core/db');
 const sql = require('mssql');
 // Body parser and validator
 const bodyParser = require('body-parser');
 const {
     check,
-    validationResult,
-    cookie
+    validationResult
 } = require('express-validator');
-const urlencodedParser = bodyParser.urlencoded({
-    extended: true
-});
+const urlencodedParser = bodyParser.urlencoded();
+const flash = require('connect-flash');
 
 const router = express.Router();
 
@@ -166,12 +164,13 @@ router.post('/dashboard/api/cash', (req, res) => {
                 let pool = await sql.connect(db.config)
                 let claimCash = await pool.request()
                     .input('id', sql.NVarChar(50), user.AccountName)
-                    .input('randomAmountCash', sql.Int, cash + randomAmountCash)
-                    .query('UPDATE DNMembership.dbo.Accounts SET cash = @randomAmountCash, claimDaily = 1 WHERE AccountName = @id')
+                    .input('randomAmountCash', sql.Int, randomAmountCash)
+                    .query('UPDATE DNMembership.dbo.Accounts SET cash = cash + @randomAmountCash, claimDaily = 1 WHERE AccountName = @id')
 
                 let login = await pool.request()
                     .input('id', sql.NVarChar(50), user.AccountName)
                     .query('SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id ')
+
                 req.session.user = login.recordset[0]
                 user = req.session.user
                 req.session.cash = randomAmountCash
@@ -213,7 +212,6 @@ router.post('/dashboard/api/ftg', urlencodedParser, (req, res) => {
                     .query("UPDATE DNWorld.dbo.Points SET Point = Point-1000 WHERE CharacterID = @CharacterID AND PointCode = 19")
 
                 res.redirect('/dashboard')
-
             } catch (err) {
                 res.redirect('/dashboard')
             }

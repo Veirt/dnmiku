@@ -104,11 +104,14 @@ router.get('/dashboard', (req, res) => {
         // let point = getCharCashPoint.recordset
         req.session.user = login.recordset[0]
         user = req.session.user
+        let gotCash = req.session.cash;
+        req.session.cash = null;
         res.render('dashboard', {
           opp: req.session.opp,
           user,
           chars,
           charStats,
+          gotCash
         });
       } catch (err) {
         console.log(err)

@@ -20,6 +20,8 @@ h1.title Account Name
 h2.title #{user.AccountName}
 section.dashboard
     .account-dashboard
+        if gotCash
+            p(style={color: 'green'}) You got #{gotCash}
         h1 Cash
         p #{user.cash}
         form(action='/dashboard/api/cash', method="post")
@@ -47,13 +49,6 @@ table(border=1, width='15%', align='center')
             tr
                 td= char.CharacterName
                 td= char.Fatigue
-
-if gotCash
-    script().
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-            }
-        alert("You got #{gotCash}")
 
 if error
     script().
