@@ -9,7 +9,6 @@ const {
     validationResult
 } = require('express-validator');
 const urlencodedParser = bodyParser.urlencoded();
-const flash = require('connect-flash');
 
 const router = express.Router();
 
