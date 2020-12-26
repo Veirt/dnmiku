@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "build:css": "tailwind build assets/css/styles.css -o assets/css/styles.css"
+    "build:css": "tailwind build ./assets/css/tailwind.css -o ./dist/assets/css/tailwind.css"
   },
   "repository": {
     "type": "git",
