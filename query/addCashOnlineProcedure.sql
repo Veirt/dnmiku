@@ -1,4 +1,4 @@
-CREATE PROCEDURE DNMembership.dbo.AddCash
+CREATE PROCEDURE [dbo].[AddCash]
 @IntCashAmount nvarchar (10)
 AS
 UPDATE Accounts
