@@ -1,58 +1,43 @@
 doctype html
 head
-    meta(charset='UTF-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    meta(http-equiv='X-UA-Compatible', content='ie=edge')
-    title DN Miku | Dashboard
-    script(src='https://kit.fontawesome.com/36c08e2acc.js', crossorigin='anonymous')
-    link(rel='stylesheet', type='text/css', href='/css/style.css')
-    link(rel='stylesheet', type='text/css', href='https://fonts.googleapis.com/css?family=Quicksand|Palanquin')
-nav
-    .nav-item
-        ul
-            li.nav-not-active
-                a(href='/') Home
-            li.nav-active
-                a(href='/dashboard') Dashboard
-            li.nav-not-active
-                a(href='/logout') Log out
-h1.title Account Name
-h2.title #{user.AccountName}
-section.dashboard
-    .account-dashboard
-        if gotCash
-            p(style={color: 'green'}) You got #{gotCash}
-        h1 Cash
-        p #{user.cash}
-        form(action='/dashboard/api/cash', method="post")
-            if user.claimDaily === 1
-                input(type="submit", value="Claim" disabled)    
-            else
-                input(type="submit", value="Claim" ) 
-    .account-dashboard
-        h1 Cash Point
-            if chars
-                form(action='/dashboard/api/ftg', method="post")
-                    select(name='CharacterID')
-                        each char in chars
-                            option(value=`${char.CharacterID}`) #{char.CharacterName}, Point : #{char.Point}
-
-                    input(type="submit", value="Buy FTG")
-
-
-table(border=1, width='15%', align='center')
-    tr
-        th Character Name
-        th FTG
-    if charStats
-        each char in charStats
-            tr
-                td= char.CharacterName
-                td= char.Fatigue
-
-if error
-    script().
-        if ( window.history.replaceState ) {
-                window.history.replaceState( null, null, window.location.href );
-            }
-        alert("#{error}")
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title DN Miku
+  link(rel='stylesheet' href='/assets/css/styles.css')
+  link(rel='shortcut icon' href='/assets/image/favicon.ico' type='image/x-icon')
+  script(src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js' defer='')
+nav.bg-black.px-8.pt-2.shadow-md
+  .-mb-px.flex.justify-center
+    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='index.html')  Home 
+    a.no-underline.text-red-300.border-b-2.border-red-300.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(href='/dashboard')
+      | Dashboard
+    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3(class='hover:text-red-300' href='/logout')
+      | Log out
+.mx-auto.max-w-8xl.p-12
+  h3.text-2xl.text-black.font-semibold.leading-tight.my-3
+    | Username : 
+    span.text-sm.font-normal exlog28
+  h3.text-2xl.text-black.font-semibold.leading-tight.my-3
+    | Email : 
+    span.text-sm.font-normal exlog@dnmiku.com
+  h3.text-2xl.text-black.font-semibold.leading-tight.my-3
+    | Cash : 
+    span.text-sm.font-normal 2000
+  form(action='/dashboard/api/cash' method='post')
+    input.py-1.px-2.text-red-300.cursor-pointer.bg-black.rounded.text-xs.tr-mt.text-center(class='hover:text-red-400' type='button' value='Claim')
+.mx-auto.px-12.pt-10
+  h1.text-black.font-bold.text-xl Characters
+.flex.flex-col.w-full.flex-wrap
+  .flex.flex-wrap.flex-col(class='md:flex-row')
+    form(action='/dashboard/api/ftg')
+    .flex.flex-wrap.bg-white.border-b.border-blue-tial-100.mx-5(class='md:w-1/2 lg:w-1/5')
+      .flex.w-full.m-4
+        .flex.items-center
+          .flex.flex-col.p-4
+            h3.font-bold.text-md.text-tial-400 ExLog
+            span.font-light.text-sm FTG : 30000
+            span.font-light.text-sm Point : 30000
+            .flex
+        .flex.flex-1.flex-grow.w-full.items-center.justify-end
+          .flex.items-center.mr-2
+            input.text-lg.uppercase.font-semibold.text-red-300.bg-transparent.cursor-pointer(type='submit' value='Buy FTG' name='10002' class='hover:text-red-400')
