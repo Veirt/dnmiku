@@ -52,7 +52,11 @@ router.get('/login', (req, res) => {
   if (user) {
     res.redirect('/dashboard')
   } else {
-    res.render('login');
+    let message = req.session.message;
+    req.session.message = null;
+    res.render('login', {
+      message
+    });
   }
 })
 
@@ -70,38 +74,13 @@ router.get('/dashboard', (req, res) => {
           .input('id', sql.NVarChar(50), user.AccountName)
           .query('SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id ')
 
-        let getCharPoints = await pool.request()
-          .input('AccountID', sql.Int, user.AccountID)
-          .query(`
-          SELECT DNWorld.dbo.Points.CharacterID,
-          DNWorld.dbo.Points.Point,
-          DNMembership.dbo.Characters.CharacterName,
-          DNMembership.dbo.Characters.AccountID,
-          DNWorld.dbo.CharacterStatus.Fatigue
-          FROM DNWorld.dbo.Points
-          INNER JOIN DNMembership.dbo.Characters ON DNMembership.dbo.Characters.CharacterID = DNWorld.dbo.Points.CharacterID
-          INNER JOIN DNWorld.dbo.CharacterStatus ON DNWorld.dbo.Points.CharacterID = DNWorld.dbo.CharacterStatus.CharacterID
-          WHERE DNWorld.dbo.Points.PointCode = 19 AND DNMembership.dbo.Characters.AccountID = @AccountID `)
-
-        let chars = getCharPoints.recordset
         let getCharList = await pool.request()
           .input('AccountID', sql.Int, user.AccountID)
-          .query(`SELECT DNMembership.dbo.Characters.CharacterName, DNMembership.dbo.Characters.CharacterID, DNWorld.dbo.CharacterStatus.Fatigue
-              FROM DNMembership.dbo.Characters FULL OUTER JOIN DNWorld.dbo.CharacterStatus ON DNWorld.dbo.CharacterStatus.CharacterID = DNMembership.dbo.Characters.CharacterID WHERE AccountID = @AccountID AND DeleteFlag = 0 `)
+          .query(`
+          SELECT DNMembership.dbo.Characters.CharacterID, DNMembership.dbo.Characters.CharacterName, DNWorld.dbo.Points.Point, DNMembership.dbo.Characters.AccountID, DNWorld.dbo.CharacterStatus.Fatigue FROM DNMembership.dbo.Characters LEFT JOIN DNWorld.dbo.Points ON DNMembership.dbo.Characters.CharacterID = DNWorld.dbo.Points.CharacterID AND DNWorld.dbo.Points.PointCode = 19 LEFT JOIN DNWorld.dbo.CharacterStatus ON DNMembership.dbo.Characters.CharacterID = DNWorld.dbo.CharacterStatus.CharacterID WHERE DNMembership.dbo.Characters.AccountID = @AccountID
+          `)
+        let chars = getCharList.recordset
 
-        let charStats = getCharList.recordset
-        // console.log(chars.map((charID) => charID.CharacterID))
-        // let getCharCashPoint = await pool.request()
-        //   .input('id', sql.Int, user.AccountID)
-        //   .query(`
-        //   SELECT DNWorld.dbo.Points.CharacterID, DNWorld.dbo.Points.Point, DNMembership.dbo.Characters.CharacterName, DNMembership.dbo.Characters.AccountID
-        //   FROM DNWorld.dbo.Points
-        //   INNER JOIN DNMembership.dbo.Characters
-        //   ON DNMembership.dbo.Characters.CharacterID = DNWorld.dbo.Points.CharacterID
-        //   WHERE DNWorld.dbo.Points.PointCode = 19 AND DNMembership.dbo.Characters.AccountID = @id
-        //   `)
-
-        // let point = getCharCashPoint.recordset
         req.session.user = login.recordset[0]
         user = req.session.user
         let gotCash = req.session.cash;
@@ -110,7 +89,6 @@ router.get('/dashboard', (req, res) => {
           opp: req.session.opp,
           user,
           chars,
-          charStats,
           gotCash
         });
       } catch (err) {

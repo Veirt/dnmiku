@@ -79,9 +79,8 @@ router.post('/register', urlencodedParser, [
                     .input("email", sql.VarChar(50), req.body.email)
                     .query("INSERT INTO DNMembership.dbo.Accounts (AccountName, AccountLevelCode, CharacterCreateLimit, CharacterMaxCount, RegisterDate, PublisherCode, Passphrase, mail) VALUES (@id, 99, 4, 8, GETDATE(), 0, CONVERT(BINARY(20),HashBytes('MD5',@password),2), @email)")
 
-                res.render('login', {
-                    "message": "Register Success"
-                })
+                req.session.message = 'Registered succesfully'
+                res.redirect('/login')
             } catch (err) {
                 console.log(err)
             }
@@ -197,6 +196,8 @@ var resetDaily = schedule.scheduleJob('@daily', () => {
 
 router.post('/dashboard/api/ftg', urlencodedParser, (req, res) => {
     let user = req.session.user
+    console.log('test')
+    console.log(req.body)
     if (user) {
         (async function () {
             try {
