@@ -3,20 +3,22 @@ head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   title DN Miku
-  link(rel='stylesheet' href='/assets/css/styles.css')
+
+  link(rel='shortcut icon' href='/img/favicon.ico' type='image/x-icon')
+  link(rel='stylesheet' href='/css/tailwind.css')
   link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css')
-  link(rel='shortcut icon' href='/assets/image/favicon.ico' type='image/x-icon')
+
 nav.bg-black.px-8.pt-2.shadow-md
   .-mb-px.flex.justify-center
-    a.no-underline.text-red-300.border-b-2.border-red-300.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(href='index.html')  Home 
+    a.no-underline.text-red-300.border-b-2.border-red-300.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(href='/')  Home 
     a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/download')
       | Download
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='register.html')  Register 
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3(class='hover:text-red-300' href='login.html')
+    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/register')  Register 
+    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3(class='hover:text-red-300' href='/login')
       | Log in
 header
   .w-full.bg-cover.bg-center(style="height:32rem; background-image:\
-  url('/assets/image/redLotus.png');")
+  url('/img/redLotus.png');")
     .flex.items-center.justify-center.h-full.w-full.bg-gray-900.bg-opacity-50
       .text-center
         h1.text-white.text-2xl.font-semibold.uppercase(class='md:text-3xl')
@@ -31,18 +33,18 @@ header
             .px-3.pt-8.pb-10.text-center.relative.z-10
               i.fa.fa-user.mb-4.text-3xl
               h4.text-sm.text-black.uppercase.text-red-400.leading-tight Accounts
-              h3.text-3xl.text-black.font-semibold.leading-tight.my-3 3,682
+              h3.text-3xl.text-black.font-semibold.leading-tight.my-3 #{nowTotalAccount}
       .w-full.px-2(class='md:w-1/3')
         .rounded-lg.shadow-sm.mb-4
           .rounded-lg.bg-white.shadow-lg.relative.overflow-hidden(class='md:shadow-xl')
             .px-3.pt-8.pb-10.text-center.relative.z-10
               i.fa.fa-users.mb-4.text-3xl
               h4.text-sm.uppercase.text-red-400.text-black.leading-tight Characters
-              h3.text-3xl.text-gray-700.font-semibold.leading-tight.my-3 11,427
+              h3.text-3xl.text-gray-700.font-semibold.leading-tight.my-3 #{nowTotalCharacter}
       .w-full.px-2(class='md:w-1/3')
         .rounded-lg.shadow-sm.mb-4
           .rounded-lg.bg-white.shadow-lg.relative.overflow-hidden(class='md:shadow-xl')
             .px-3.pt-8.pb-10.text-center.relative.z-10
               i.fa.fa-globe.mb-4.text-3xl
               h4.text-sm.uppercase.text-red-400.text-black.leading-tight Online
-              h3.text-3xl.text-gray-700.font-semibold.leading-tight.my-3 8,028
+              h3.text-3xl.text-gray-700.font-semibold.leading-tight.my-3 #{nowOnline}
