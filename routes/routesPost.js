@@ -8,7 +8,9 @@ const {
     check,
     validationResult
 } = require('express-validator');
-const urlencodedParser = bodyParser.urlencoded();
+const urlencodedParser = bodyParser.urlencoded({
+    extended: true
+});
 
 const router = express.Router();
 
