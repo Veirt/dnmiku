@@ -2,22 +2,30 @@
 const express = require('express');
 const app = express();
 
-// Express Session
-const session = require('express-session')
-app.use(session({
-    secret: "eXl00g33Xxlog33l1Tt7t7t7teE3X3X3xlo99",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 30 * 24 * 60 * 60 * 1000
-    }
-}));
-
 // .env
 const dotenv = require('dotenv');
 dotenv.config({
     path: './.env'
 });
+
+// Express Session
+const session = require('express-session')
+app.use(session({
+    secret: process.env.SECRET_SESSION,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: true,
+        domain: 'dnmiku.com',
+        maxAge: 30 * 24 * 60 * 60 * 1000
+    }
+}));
+
+
+// Helmet
+const helmet = require('helmet');
+app.use(helmet());
 
 // Views
 const path = require('path');
