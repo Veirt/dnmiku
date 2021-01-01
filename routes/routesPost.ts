@@ -76,7 +76,7 @@ router.post('/register', urlencodedParser, [
                     .input("id", sql.NVarChar(50), req.body.id)
                     .input("password", sql.VarChar(12), req.body.password)
                     .input("email", sql.VarChar(50), req.body.email)
-                    .query("INSERT INTO DNMembership.dbo.Accounts (AccountName, AccountLevelCode, CharacterCreateLimit, CharacterMaxCount, RegisterDate, PublisherCode, Passphrase, mail) VALUES (@id, 99, 4, 8, GETDATE(), 0, CONVERT(BINARY(20),HashBytes('MD5',@password),2), @email)")
+                    .query("INSERT INTO DNMembership.dbo.Accounts (AccountName, AccountLevelCode, CharacterCreateLimit, CharacterMaxCount, RegisterDate, PublisherCode, Passphrase, Email) VALUES (@id, 99, 4, 8, GETDATE(), 0, CONVERT(BINARY(20),HashBytes('MD5',@password),2), @email)")
 
                 req.session.message = 'Registered succesfully'
                 res.redirect('/login')
