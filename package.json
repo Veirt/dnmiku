@@ -6,7 +6,7 @@
   "scripts": {
     "test": "ts-mocha app.ts",
     "dev": "ts-node-dev --respawn app.ts",
-    "start": "ts-node app.js",
+    "start": "ts-node app.ts",
     "build:css": "tailwind build ./dist/assets/css/tailwind.css -o ./assets/css/tailwind.css",
     "dev:css": "tailwind build ./dist/assets/css/tailwind.css -o ./dist/assets/css/style.css"
   },
