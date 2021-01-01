@@ -18,8 +18,6 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: true,
-        domain: 'dnmiku.com',
         maxAge: 30 * 24 * 60 * 60 * 1000
     }
 }));
