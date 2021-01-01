@@ -1,8 +1,23 @@
-const express = require('express');
+import express from 'express' 
+
 const router = express.Router();
 // Database
 const db = require('../core/db')
 const sql = require('mssql');
+
+declare module "express-session" {
+  interface Session {
+    user: {
+      AccountID: number,
+      AccountName: string,
+      cash: number,
+      claimDaily: 0 | 1
+    }
+    opp: number,
+    message: string | null,
+    cash: number | null
+  }
+}
 
 router.get('/', (req, res) => {
   (async () => {

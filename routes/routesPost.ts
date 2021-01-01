@@ -1,13 +1,10 @@
-const express = require('express');
+import express from 'express'
+import {check, validationResult} from 'express-validator'
+import bodyParser from 'body-parser'
 // Database
 const db = require('../core/db');
 const sql = require('mssql');
 // Body parser and validator
-const bodyParser = require('body-parser');
-const {
-    check,
-    validationResult
-} = require('express-validator');
 const urlencodedParser = bodyParser.urlencoded({
     extended: true
 });
@@ -24,7 +21,7 @@ router.post('/register', urlencodedParser, [
     }).withMessage("Username must be 6-12 chars")
     .isAlphanumeric().withMessage("Username must not contain special chars")
     .not().isEmpty().withMessage("Username cannot be empty")
-    .custom(async mentionName => {
+    .custom(async (mentionName: string) => {
         const value = await isMentionNameInUse(mentionName);
         if (value) {
             throw new Error('Username already exists');
@@ -34,7 +31,7 @@ router.post('/register', urlencodedParser, [
     check('email')
     .isEmail().withMessage("Email is not valid")
     .not().isEmpty().withMessage("Email cannot be empty")
-    .custom(async mentionEmail => {
+    .custom(async (mentionEmail: string) => {
         const value = await isMentionEmailInUse(mentionEmail);
         if (value) {
             throw new Error('Email already exists');
@@ -50,12 +47,12 @@ router.post('/register', urlencodedParser, [
         req
     }) => value === req.body.repeatPassword).withMessage("Passwords do not match")
     .not().isEmpty().withMessage("Password cannot be empty"),
-], (req, res) => {
+], (req: any, res: any) => {
     const errors = validationResult(req)
     // If Error IS NOT Empty
     if (!errors.isEmpty()) {
         const alert = errors.array()
-        for (i in alert) {
+        for (let i in alert) {
             if (alert[i].param === "id") {
                 var idError = alert[i].msg
             } else if (alert[i].param === "password") {
@@ -96,12 +93,12 @@ router.post('/login', urlencodedParser, [
     check('id')
     .isAlphanumeric().withMessage("Username must not contain special chars")
     .not().isEmpty().withMessage("Username cannot be empty")
-], (req, res) => {
+], (req: any, res: any) => {
     const errors = validationResult(req)
     // If Error IS NOT Empty
     if (!errors.isEmpty()) {
         const alert = errors.array()
-        for (i in alert) {
+        for (let i in alert) {
             if (alert[i].param === "id") {
                 var idError = alert[i].msg
             }
@@ -181,6 +178,7 @@ router.post('/dashboard/api/cash', (req, res) => {
         })()
     }
 })
+
 // Daily
 const schedule = require('node-schedule');
 var resetDaily = schedule.scheduleJob('@daily', () => {
@@ -223,12 +221,12 @@ router.post('/dashboard/api/ftg', urlencodedParser, (req, res) => {
     }
 })
 
-function isMentionNameInUse(mentionName) {
+function isMentionNameInUse(mentionName: String) {
     return new Promise((resolve, reject) => {
-        sql.connect(db.config, err => {
+        sql.connect(db.config, (err: Error) => {
             new sql.Request()
                 .input('id', sql.NVarChar(50), mentionName)
-                .query('SELECT COUNT(AccountName) AS ExistedAccountName FROM DNMembership.dbo.Accounts WHERE AccountName = @id', (err, result) => {
+                .query('SELECT COUNT(AccountName) AS ExistedAccountName FROM DNMembership.dbo.Accounts WHERE AccountName = @id', (err:Error, result: {recordset: any}) => {
                     if (err) {
                         return reject
                     } else {
@@ -239,12 +237,15 @@ function isMentionNameInUse(mentionName) {
     });
 }
 
-function isMentionEmailInUse(mentionEmail) {
+function isMentionEmailInUse(mentionEmail: String) {
     return new Promise((resolve, reject) => {
-        sql.connect(db.config, err => {
+        sql.connect(db.config, (err: Error) => {
+            if(err)(
+                console.log(err)
+            )
             new sql.Request()
                 .input('email', sql.VarChar(50), mentionEmail)
-                .query('SELECT COUNT(mail) AS ExistedEmail FROM DNMembership.dbo.Accounts WHERE mail = @email', (err, result) => {
+                .query('SELECT COUNT(Email) AS ExistedEmail FROM DNMembership.dbo.Accounts WHERE Email = @email', (err: Error, result: {recordset: any}) => {
                     if (err) {
                         return reject
                     } else {

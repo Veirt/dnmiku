@@ -1,17 +1,19 @@
+import express from 'express'
+import dotenv from 'dotenv'
+import helmet from 'helmet'
+import path from 'path'
+import session from 'express-session'
 // Express Server
-const express = require('express');
 const app = express();
 
 // .env
-const dotenv = require('dotenv');
 dotenv.config({
     path: './.env'
 });
 
 // Express Session
-const session = require('express-session')
 app.use(session({
-    secret: process.env.SECRET_SESSION,
+    secret: process.env.SECRET_SESSION ?? '',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -22,13 +24,10 @@ app.use(session({
     }
 }));
 
-
 // Helmet
-const helmet = require('helmet');
 app.use(helmet());
 
 // Views
-const path = require('path');
 const assetsDirectory = path.join(__dirname, './assets');
 app.use(express.static(assetsDirectory));
 app.set('view engine', 'pug');
@@ -38,6 +37,4 @@ app.use('/', require('./routes/routesGet'));
 app.use('/', require('./routes/routesPost'));
 
 // Start server 
-app.listen(1111, () => {
-    console.log("http://localhost:1111")
-});
+app.listen(1111, () => console.log("http://localhost:1111"));
