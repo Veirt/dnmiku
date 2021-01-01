@@ -1,0 +1,16 @@
+{
+    "apps": [{
+        "name": "dnmiku-node",
+        "exec_mode": "cluster",
+        "instances": "max",
+        "script": "app.ts",
+        "interpreter": "ts-node",
+        "env": {
+            "ENV": "prod",
+            "DB_USER": "DragonNest",
+            "DB_PASSWORD": "skQmsgozj!*sha",
+            "DB_HOST": "localhost",
+            "SECRET_SESSION": "970kXytUcaUmt9rko8tEMF0tMZxDlA"
+        }
+    }]
+}
