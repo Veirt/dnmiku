@@ -1,10 +1,17 @@
 import express from 'express' 
+import cors from 'cors'
 
 const router = express.Router();
 // Database
+const sql = require('mssql')
 const db = require('../core/db')
-const sql = require('mssql');
 
+const moment = require('moment')
+
+// Cors
+router.use(cors())
+
+// Types declaration
 declare module "express-session" {
   interface Session {
     user: {
@@ -34,86 +41,56 @@ router.get('/', (req, res) => {
       // Check if the session is exist
       let user = req.session.user
       if (user) {
-        res.render('index_dash', {
-          opp: req.session.opp,
-          "nowOnline": nowOnline,
-          "nowTotalAccount": nowTotalAccount,
-          "nowTotalCharacter": nowTotalCharacter
-        });
-        return;
-      }
-      res.render('index', {
+        res.status(200).render('index_dash', {
+        opp: req.session.opp,
         "nowOnline": nowOnline,
         "nowTotalAccount": nowTotalAccount,
         "nowTotalCharacter": nowTotalCharacter
       });
-    } catch (err) {
-      console.log(err)
+      return;
     }
-  })()
+    res.status(200).render('index', {
+      "nowOnline": nowOnline,
+      "nowTotalAccount": nowTotalAccount,
+      "nowTotalCharacter": nowTotalCharacter,
+      "datetime": moment().format('h:mm:ss A')
+    });
+  } catch (err) {
+    console.log(err)
+  }
+})()
 })
 
 router.get('/register', (req, res) => {
-  let user = req.session.user
-  if (user) {
-    res.redirect('/dashboard')
-  } else {
-    res.render('register');
-  }
+let user = req.session.user
+if (user) {
+  res.status(200).redirect('/dashboard')
+} else {
+  res.status(200).render('register');
+}
 })
 
 router.get('/login', (req, res) => {
-  let user = req.session.user
-  if (user) {
-    res.redirect('/dashboard')
-  } else {
-    let message = req.session.message;
-    req.session.message = null;
-    res.render('login', {
-      message
-    });
-  }
+let user = req.session.user
+if (user) {
+  res.status(200).redirect('/dashboard')
+} else {
+  let message = req.session.message;
+  req.session.message = null;
+  res.status(200).render('login', {
+    message
+  });
+}
+})
+
+router.get('/download', (req, res) => {
+res.status(200).render('download')
 })
 
 router.get('/launcher', (req, res) => {
-  res.render('launcher');
+  res.status(200).render('launcher');
 })
-router.get('/dashboard', (req, res) => {
-  let user = req.session.user;
-  if (user) {
-    // Refresh session when reload
-    (async function () {
-      try {
-        let pool = await sql.connect(db.config)
-        let login = await pool.request()
-          .input('id', sql.NVarChar(50), user.AccountName)
-          .query('SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id ')
 
-        let getCharList = await pool.request()
-          .input('AccountID', sql.Int, user.AccountID)
-          .query(`
-          SELECT DNMembership.dbo.Characters.CharacterID, DNMembership.dbo.Characters.CharacterName, DNWorld.dbo.Points.Point, DNMembership.dbo.Characters.AccountID, DNWorld.dbo.CharacterStatus.Fatigue FROM DNMembership.dbo.Characters LEFT JOIN DNWorld.dbo.Points ON DNMembership.dbo.Characters.CharacterID = DNWorld.dbo.Points.CharacterID AND DNWorld.dbo.Points.PointCode = 19 LEFT JOIN DNWorld.dbo.CharacterStatus ON DNMembership.dbo.Characters.CharacterID = DNWorld.dbo.CharacterStatus.CharacterID WHERE DNMembership.dbo.Characters.AccountID = @AccountID
-          `)
-        let chars = getCharList.recordset
-
-        req.session.user = login.recordset[0]
-        user = req.session.user
-        let gotCash = req.session.cash;
-        req.session.cash = null;
-        res.render('dashboard', {
-          opp: req.session.opp,
-          user,
-          chars,
-          gotCash
-        });
-      } catch (err) {
-        console.log(err)
-      }
-    })()
-  } else {
-    res.redirect('/');
-  }
-})
 router.get('/logout', (req, res) => {
   // Check if the session is exist
   if (req.session.user) {
