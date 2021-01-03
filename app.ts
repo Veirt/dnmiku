@@ -1,9 +1,10 @@
-import express, { Router } from 'express'
+import express from 'express'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
 import path from 'path'
 import session from 'express-session'
 import cors from 'cors'
+
 // Express Server
 const app = express();
 
@@ -30,13 +31,23 @@ app.use(helmet());
 app.use(cors());
 
 // Views
-const assetsDirectory = path.join(__dirname, './assets');
-app.use(express.static(assetsDirectory));
+const publicDirectory = path.join(__dirname, 'public');
+app.use(express.static(publicDirectory));
 app.set('view engine', 'pug');
 
 // Routes
 app.use('/', require('./routes/routesGet'));
 app.use('/', require('./routes/routesPost'));
+app.use('/', require('./routes/routesDashboard'));
 
+// Not found routes
+app.use((req,res) => {
+    res.status(404).render('error404');
+});
+
+// Forbidden routes
+app.use((req,res) => {
+    res.status(403).render('error403');
+});
 // Start server 
 app.listen(1111, () => console.log("http://localhost:1111"));

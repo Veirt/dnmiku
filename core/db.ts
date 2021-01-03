@@ -19,6 +19,4 @@ const poolPromise = new sql.ConnectionPool(config, (err) => {
     }
 })
 
-module.exports = {
-    config
-}
+module.exports = { config }
