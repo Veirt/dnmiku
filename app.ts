@@ -1,8 +1,9 @@
-import express from 'express'
+import express, { Router } from 'express'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
 import path from 'path'
 import session from 'express-session'
+import cors from 'cors'
 // Express Server
 const app = express();
 
@@ -24,6 +25,9 @@ app.use(session({
 
 // Helmet
 app.use(helmet());
+
+// Cors
+app.use(cors());
 
 // Views
 const assetsDirectory = path.join(__dirname, './assets');
