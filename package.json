@@ -7,7 +7,7 @@
 		"dev": "ts-node-dev --respawn app.ts",
 		"start": "ts-node app.ts",
 		"test": "tsc",
-		"build:css": "tailwind build ./dist/assets/css/tailwind.css -o ./assets/css/tailwind.css",
+		"build:css": "tailwind build ./dist/assets/css/tailwind.css -o ./public/css/tailwind.css",
 		"dev:css": "tailwind build ./dist/assets/css/tailwind.css -o ./dist/assets/css/style.css"
 	},
 	"repository": {
