@@ -1,1 +1,0 @@
-sp_rename 'Accounts.mail', 'Email', 'COLUMN';
