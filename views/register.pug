@@ -5,19 +5,13 @@ head
   title DN Miku | Register
   link(rel='shortcut icon' href='/img/favicon.ico' type='image/x-icon')
   link(rel='stylesheet' href='/css/tailwind.css')
-nav.bg-black.px-8.pt-2.shadow-md
-  .-mb-px.flex.justify-center
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/')  Home 
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/download')
-      | Download
-    a.no-underline.text-red-300.border-b-2.border-red-300.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(href='/register')  Register 
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3(class='hover:text-red-300' href='/login')
-      | Log in
+
+- register = true
+include navbar
 .mx-auto.max-w-6xl.p-12
   .flex.flex-col.justify-center(class='md:flex-row')
     .max-w-md.flex.flex-col.justify-center(class='md:w-1/2')
       .text-xl.font-black.uppercase(class='md:text-4xl') Welcome to DN Miku
-      .text-xl.mt-4.mb-6 A classic Dragon Nest Private Server
     .flex.justify-start.mt-5.w-full(class='md:w-1/2 md:justify-end md:w-1/2')
       .shadow-md.bg-white.flex-auto.max-w-sm.p-10.pb-20
         form(action='/register' method='post')
