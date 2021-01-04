@@ -30,7 +30,7 @@
 		"postcss": "^8.2.2",
 		"pug": "^3.0.0",
 		"tailwindcss": "^2.0.2",
-		"tslib": "^1.14.1",
+		"tslib": "^2.0.3",
 		"uglify-js": "^3.12.4"
 	},
 	"devDependencies": {
