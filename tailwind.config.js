@@ -1,14 +1,14 @@
 module.exports = {
 	purge: {
 		enabled: true,
-		content: [ './views/*.pug' ]
+		content: ["./views/*.pug", "./views/include/*.pug"],
 	},
-	darkMode: false, // or 'media' or 'class'
+	darkMode: false,
 	theme: {
-		extend: {}
+		extend: {},
 	},
 	variants: {
-		extend: {}
+		extend: {},
 	},
-	plugins: []
+	plugins: [],
 };

@@ -1,8 +1,8 @@
 import express from "express";
+import session from "express-session";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import path from "path";
-import session from "express-session";
 import cors from "cors";
 import fs from "fs";
 import http from "http";
@@ -17,25 +17,24 @@ const app = express();
 
 // .env
 dotenv.config({
-  path: "./.env",
+	path: "./.env",
 });
 
 // Express Session
 app.use(
-  session({
-    proxy: process.env.NODE_ENV === "PROD" ? true : false,
-    secret: process.env.SECRET_SESSION ?? "",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: true,
-      httpOnly: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-    },
-  })
+	session({
+		proxy: process.env.NODE_ENV === "PROD" ? true : false,
+		secret: process.env.SECRET_SESSION ?? "",
+		resave: false,
+		saveUninitialized: false,
+		cookie: {
+			secure: process.env.NODE_ENV === "PROD" ? true : false,
+			httpOnly: true,
+			maxAge: 30 * 24 * 60 * 60 * 1000,
+		},
+	})
 );
 
-console.log(process.env.NODE_ENV === "DEV" ? false : true);
 // Helmet and cors
 app.use(helmet());
 app.use(cors());
@@ -53,9 +52,11 @@ app.use((req, res) => res.status(404).render("error404"));
 app.use((req, res) => res.status(403).render("error403"));
 
 // Start server
-
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
+console.log(
+	`Production environment : ${process.env.NODE_ENV === "DEV" ? false : true}`
+);
 httpServer.listen(1111, () => console.log("HTTP Server listen on port 1111"));
 httpsServer.listen(2222, () => console.log("HTTP Server listen on port 2222"));

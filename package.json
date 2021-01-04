@@ -4,11 +4,10 @@
 	"description": "",
 	"main": "app.ts",
 	"scripts": {
-		"dev": "ts-node-dev --respawn app.ts",
-		"start": "ts-node app.ts",
+		"start": "ts-node --files app.ts",
+		"dev": "ts-node-dev --files --respawn app.ts",
 		"test": "tsc",
-		"build:css": "tailwind build ./dist/assets/css/tailwind.css -o ./public/css/tailwind.css",
-		"dev:css": "tailwind build ./dist/assets/css/tailwind.css -o ./dist/assets/css/style.css"
+		"build:css": "tailwind build ./public/css/buildTailwind.css -o ./public/css/tailwind.css"
 	},
 	"repository": {
 		"type": "git",
@@ -32,7 +31,8 @@
 		"postcss": "^8.2.2",
 		"pug": "^3.0.0",
 		"tailwindcss": "^2.0.2",
-		"tslib": "^1.14.1"
+		"tslib": "^1.14.1",
+		"uglify-js": "^3.12.4"
 	},
 	"devDependencies": {
 		"@types/body-parser": "^1.19.0",
@@ -45,7 +45,6 @@
 		"nodemon": "^2.0.6",
 		"ts-node": "^9.1.1",
 		"ts-node-dev": "^1.1.1",
-		"tslint": "^6.1.3",
 		"typescript": "^4.1.3"
 	}
 }
