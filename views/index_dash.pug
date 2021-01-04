@@ -1,19 +1,9 @@
-doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title DN Miku
-  link(rel='shortcut icon' href='/img/favicon.ico' type='image/x-icon')
-  link(rel='stylesheet' href='/css/tailwind.css')
-  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css')
+- title = 'Home'
+include include/head
+- loggedIn = true
+- home = true
+include include/navbar
 
-nav.bg-black.px-8.pt-2.shadow-md
-  .-mb-px.flex.justify-center
-    a.no-underline.text-red-300.border-b-2.border-red-300.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/')  Home 
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(href='/dashboard')
-      | Dashboard
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3(class='hover:text-red-300' href='/logout')
-      | Log out
 header
   .w-full.bg-cover.bg-center(style="height:32rem; background-image:\
   url('/img/redLotus.jpg');")

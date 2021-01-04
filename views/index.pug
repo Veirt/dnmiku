@@ -1,15 +1,8 @@
-doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title DN Miku
-  link(rel='shortcut icon' href='/img/favicon.ico' type='image/x-icon')
-  link(rel='stylesheet' href='/css/tailwind.css')
-  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css')
-  link(rel='manifest' href='/manifest.json')
-
+- title = 'Home'
+include include/head
 - home = true
-include navbar
+include include/navbar
+
 header
   .w-full.bg-cover.bg-center(style="height:32rem; background-image:\
   url('/img/redLotus.jpg');")

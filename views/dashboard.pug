@@ -1,18 +1,9 @@
-doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport', content='width=device-width, initial-scale=1.0')
-  title DN Miku
-  link(rel='stylesheet', href='/css/tailwind.css')
-  link(rel='shortcut icon', href='/img/favicon.ico', type='image/x-icon')
-  script(src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js', defer='')
-nav.bg-black.px-8.pt-2.shadow-md
-  .-mb-px.flex.justify-center
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300', href='/')  Home 
-    a.no-underline.text-red-300.border-b-2.border-red-300.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(href='/dashboard')
-      | Dashboard
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3(class='hover:text-red-300', href='/logout')
-      | Log out
+- title = 'Dashboard'
+include include/head
+- loggedIn = true
+- dashboard = true
+include include/navbar
+
 .mx-auto.px-8.pt-10
   h1.text-black.font-bold.text-xl Characters
 .flex.flex-col.w-full.flex-wrap

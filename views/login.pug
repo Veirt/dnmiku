@@ -1,19 +1,8 @@
-doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  title DN Miku | Login
+- title = 'Login'
+include include/head
+- login = true
+include include/navbar
 
-  link(rel='shortcut icon' href='/img/favicon.ico' type='image/x-icon')
-  link(rel='stylesheet' href='/css/tailwind.css')
-nav.bg-black.px-8.pt-2.shadow-md
-  .-mb-px.flex.justify-center
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/')  Home 
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/download')
-      | Download
-    a.no-underline.text-white.border-b-2.border-transparent.uppercase.tracking-wide.font-bold.text-xs.py-3.mr-8(class='hover:text-red-300' href='/register')  Register 
-    a.no-underline.text-red-300.border-b-2.border-red-300.uppercase.tracking-wide.font-bold.text-xs.py-3(class='hover:text-red-300' href='/login')
-      | Log in
 .mx-auto.max-w-6xl.p-12
   .flex.flex-col.justify-center(class='md:flex-row')
     .shadow-md.bg-white.flex-auto.max-w-sm.p-10.pb-20
