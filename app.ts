@@ -1,14 +1,26 @@
 import express from "express";
 import session from "express-session";
 import dotenv from "dotenv";
-import helmet from "helmet";
 import path from "path";
+
+import helmet from "helmet";
 import cors from "cors";
+
 import fs from "fs";
 import http from "http";
 import https from "https";
 
-// https
+import redis from "redis";
+import connectRedis from "connect-redis";
+
+// Redis
+const RedisStore = connectRedis(session);
+const redisClient = redis.createClient({
+	port: 6379,
+	host: "localhost",
+});
+
+// HTTPS
 const privateKey = fs.readFileSync("ssl/dnmiku.key", "utf8");
 const certificate = fs.readFileSync("ssl/dnmiku.crt", "utf8");
 const credentials = { key: privateKey, cert: certificate };
@@ -23,6 +35,7 @@ dotenv.config({
 // Express Session
 app.use(
 	session({
+		store: new RedisStore({ client: redisClient }),
 		proxy: process.env.NODE_ENV === "PROD" ? true : false,
 		secret: process.env.SECRET_SESSION ?? "",
 		resave: false,
@@ -34,6 +47,11 @@ app.use(
 		},
 	})
 );
+
+if (process.env.NODE_ENV === "PROD") {
+	app.set("trust proxy", 1);
+	console.log("Setup nginx trust proxy");
+}
 
 // Helmet and cors
 app.use(helmet());
@@ -58,5 +76,9 @@ const httpsServer = https.createServer(credentials, app);
 console.log(
 	`Production environment : ${process.env.NODE_ENV === "DEV" ? false : true}`
 );
-httpServer.listen(1111, () => console.log("HTTP Server listen on port 1111"));
-httpsServer.listen(2222, () => console.log("HTTP Server listen on port 2222"));
+httpServer.listen(1111, () =>
+	console.log("HTTP Server listen on port 1111. http://localhost:1111")
+);
+httpsServer.listen(2222, () =>
+	console.log("HTTPS Server listen on port 2222. https://localhost:2222")
+);

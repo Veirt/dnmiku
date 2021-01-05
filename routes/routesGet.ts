@@ -11,6 +11,21 @@ const moment = require("moment");
 // Cors
 router.use(cors());
 
+// Type Declaration
+declare module "express-session" {
+	interface SessionData {
+		user: {
+			AccountID: number;
+			AccountName: string;
+			cash: number;
+			claimDaily: 0 | 1;
+		};
+		opp: number;
+		message: string | null;
+		cash: number | null;
+	}
+}
+
 router.get("/", async (req, res) => {
 	try {
 		let pool = await sql.connect(db.config);
