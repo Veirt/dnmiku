@@ -1,8 +1,5 @@
-# Modules
-node_modules
-# Idea settings
-.idea
-# Local .env
+node_modules/
+dist/
+.vscode/
+.idea/
 .env
-# Distribution
-dist

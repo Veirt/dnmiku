@@ -1,15 +1,15 @@
 import express from "express";
-import cors from "cors";
 import bodyParser from "body-parser";
+
 import schedule from "node-schedule";
+
 const router = express.Router();
+
 // Database
 const sql = require("mssql");
 const db = require("../core/db");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
-
-router.use(cors());
 
 // Daily
 const resetDaily = schedule.scheduleJob("@daily", async () => {
@@ -20,7 +20,7 @@ const resetDaily = schedule.scheduleJob("@daily", async () => {
 			.query("UPDATE DNMembership.dbo.Accounts SET claimDaily = 0");
 		console.log("Daily has been resetted");
 	} catch (err) {
-		console.log(err);
+		console.log(`Unexpected error : ${err}`);
 	}
 });
 
@@ -55,7 +55,7 @@ router.get("/dashboard", async (req, res) => {
 				gotCash,
 			});
 		} catch (err) {
-			console.log(err);
+			console.log(`Unexpected error : ${err}`);
 		}
 	} else {
 		res.status(403).render("error403");
@@ -92,7 +92,7 @@ router.post("/dashboard/api/cash", async (req, res) => {
 				req.session.cash = randomAmountCash;
 				res.redirect("/dashboard");
 			} catch (err) {
-				console.log(err);
+				console.log(`Unexpected error : ${err}`);
 			}
 		}
 	} else {
@@ -122,10 +122,10 @@ router.post("/dashboard/api/ftg", urlencodedParser, async (req, res) => {
 
 			res.redirect("/dashboard");
 		} catch (err) {
-			res.redirect("/dashboard");
+			console.log(`Unexpected error : ${err}`);
 		}
 	} else {
-		res.redirect("/");
+		res.status(403).render("error403");
 	}
 });
 

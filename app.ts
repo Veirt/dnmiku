@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import path from "path";
 
 import helmet from "helmet";
-import cors from "cors";
 
 import fs from "fs";
 import http from "http";
@@ -17,7 +16,7 @@ import connectRedis from "connect-redis";
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient({
 	port: 6379,
-	host: "localhost",
+	host: process.env.REDIS_HOST || "localhost",
 });
 
 // HTTPS
@@ -53,9 +52,8 @@ if (process.env.NODE_ENV === "PROD") {
 	console.log("Setup nginx trust proxy");
 }
 
-// Helmet and cors
+// Helmet
 app.use(helmet());
-app.use(cors());
 
 // Views
 const publicDirectory = path.join(__dirname, "public");
@@ -76,7 +74,7 @@ const httpsServer = https.createServer(credentials, app);
 console.log(
 	`Production environment : ${process.env.NODE_ENV === "DEV" ? false : true}`
 );
-httpServer.listen(1111, () =>
+httpServer.listen(3333, () =>
 	console.log("HTTP Server listen on port 1111. http://localhost:1111")
 );
 httpsServer.listen(2222, () =>

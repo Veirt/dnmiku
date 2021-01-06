@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 
 const router = express.Router();
 // Database
@@ -9,7 +8,6 @@ const db = require("../core/db");
 const moment = require("moment");
 
 // Cors
-router.use(cors());
 
 // Type Declaration
 declare module "express-session" {
@@ -44,6 +42,7 @@ router.get("/", async (req, res) => {
 			.query(
 				"SELECT COUNT(CharacterID) AS TotalCharacter FROM DNMembership.dbo.Characters"
 			);
+
 		let nowOnline = getOnlinePlayer.recordset[0].OnlinePlayer;
 		let nowTotalAccount = getTotalAccount.recordset[0].TotalAccount;
 		let nowTotalCharacter = getTotalCharacter.recordset[0].TotalCharacter;
@@ -59,6 +58,7 @@ router.get("/", async (req, res) => {
 			});
 			return;
 		}
+
 		res.status(200).render("index", {
 			nowOnline: nowOnline,
 			nowTotalAccount: nowTotalAccount,
@@ -66,7 +66,7 @@ router.get("/", async (req, res) => {
 			datetime: moment().format("h:mm:ss A"),
 		});
 	} catch (err) {
-		console.log(err);
+		console.log(`Unexpected error : ${err}`);
 	}
 });
 
@@ -103,11 +103,11 @@ router.get("/launcher", (req, res) => {
 router.get("/logout", (req, res) => {
 	// Check if the session is exist
 	if (req.session.user) {
-		// destroy the session and redirect the user to the index page.
 		req.session.destroy(() => {
 			res.redirect("/");
 		});
 	} else {
+		// If session doesn't exist
 		res.redirect("/");
 	}
 });
