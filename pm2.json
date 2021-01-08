@@ -4,8 +4,8 @@
 			"name": "dnmiku-node",
 			"exec_mode": "cluster",
 			"instances": "max",
-			"script": "app.ts",
-			"interpreter": "ts-node"
+			"script": "app.js",
+			"interpreter": "node"
 		}
 	]
 }
