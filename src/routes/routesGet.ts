@@ -1,43 +1,23 @@
 import express from "express";
 
 const router = express.Router();
+
 // Database
-const sql = require("mssql");
 const db = require("../core/db");
-
-const moment = require("moment");
-
-// Cors
-
-// Type Declaration
-declare module "express-session" {
-	interface SessionData {
-		user: {
-			AccountID: number;
-			AccountName: string;
-			cash: number;
-			claimDaily: 0 | 1;
-		};
-		opp: number;
-		message: string | null;
-		cash: number | null;
-	}
-}
 
 router.get("/", async (req, res) => {
 	try {
-		let pool = await sql.connect(db.config);
-		let getOnlinePlayer = await pool
+		let getOnlinePlayer = await db.poolPromise
 			.request()
 			.query(
 				"SELECT COUNT(CertifyingStep) AS OnlinePlayer FROM DNMembership.dbo.DNAuth WHERE CertifyingStep = 2"
 			);
-		let getTotalAccount = await pool
+		let getTotalAccount = await db.poolPromise
 			.request()
 			.query(
 				"SELECT COUNT(AccountID) AS TotalAccount FROM DNMembership.dbo.Accounts"
 			);
-		let getTotalCharacter = await pool
+		let getTotalCharacter = await db.poolPromise
 			.request()
 			.query(
 				"SELECT COUNT(CharacterID) AS TotalCharacter FROM DNMembership.dbo.Characters"
@@ -63,33 +43,10 @@ router.get("/", async (req, res) => {
 			nowOnline: nowOnline,
 			nowTotalAccount: nowTotalAccount,
 			nowTotalCharacter: nowTotalCharacter,
-			datetime: moment().format("h:mm:ss A"),
 		});
 	} catch (err) {
 		console.log(`Unexpected error : ${err}`);
 	}
-});
-
-router.get("/register", (req, res) => {
-	let user = req.session.user;
-	if (user) {
-		res.status(200).redirect("/dashboard");
-		return;
-	}
-	res.status(200).render("register");
-});
-
-router.get("/login", (req, res) => {
-	let user = req.session.user;
-	if (user) {
-		res.status(200).redirect("/dashboard");
-		return;
-	}
-	let message = req.session.message;
-	req.session.message = null;
-	res.status(200).render("login", {
-		message,
-	});
 });
 
 router.get("/download", (req, res) => {
