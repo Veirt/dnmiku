@@ -1,4 +1,6 @@
 -- DNMembership
+USE [DNMembership]
+GO
 CREATE PROCEDURE [dbo].[AddCash]
 @IntCashAmount nvarchar (10)
 AS

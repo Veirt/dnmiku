@@ -1,4 +1,6 @@
 -- DNMembership
+USE [DNMembership]
+GO
 CREATE PROCEDURE [dbo].[EncryptPassword] (
     @vchPassphrase varchar(12)
 ) 
