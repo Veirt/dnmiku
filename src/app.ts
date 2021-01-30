@@ -66,6 +66,7 @@ app.use("/", require("./routes/routesRegister"));
 app.use("/", require("./routes/routesLogin"));
 app.use("/", require("./routes/routesDashboard"));
 app.use("/", require("./routes/api/status"));
+app.use("/", require("./routes/api/players"));
 app.use((_, res) => res.status(404).render("error404"));
 app.use((_, res) => res.status(403).render("error403"));
 
