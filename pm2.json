@@ -4,7 +4,7 @@
 			"name": "dnmiku-node",
 			"exec_mode": "cluster",
 			"instances": "max",
-			"script": "app.js",
+			"script": "dist/app.js",
 			"interpreter": "node"
 		}
 	]
