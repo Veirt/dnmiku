@@ -13,7 +13,7 @@ const config = {
 const poolPromise = new sql.ConnectionPool(config, (err: Error) => {
 	if (err) {
 		console.log(`Unexpected error : ${err}`);
-		console.log("Cannot connect to MSSQL database");
+		throw new Error("Cannot connect to MSSQL database");
 	} else {
 		console.log("Connected to MSSQL Database");
 		console.log(`Username : ${config.user}, Server : ${config.server}`);
