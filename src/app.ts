@@ -65,8 +65,12 @@ app.use("/", require("./routes/routesGet"));
 app.use("/", require("./routes/routesRegister"));
 app.use("/", require("./routes/routesLogin"));
 app.use("/", require("./routes/routesDashboard"));
+
+// API
 app.use("/", require("./routes/api/status"));
 app.use("/", require("./routes/api/players"));
+
+// Custom Error Page
 app.use((_, res) => res.status(404).render("error404"));
 app.use((_, res) => res.status(403).render("error403"));
 
@@ -78,10 +82,10 @@ console.log(
 	`Production environment : ${process.env.NODE_ENV === "DEV" ? false : true}`
 );
 
-httpServer.listen(3333, () =>
-	console.log("\nHTTP Server listen on port 3333. http://localhost:3333")
+httpServer.listen(8080, () =>
+	console.log("\nHTTP Server listen on port 8080. http://localhost:8080")
 );
 
-httpsServer.listen(2222, () =>
-	console.log("\nHTTPS Server listen on port 2222. https://localhost:2222")
+httpsServer.listen(8081, () =>
+	console.log("\nHTTPS Server listen on port 8081. https://localhost:8081")
 );
