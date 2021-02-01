@@ -63,7 +63,7 @@ router.post(
 		}
 		try {
 			// Validate special chars once again
-			if (!req.body.id.match(/^[0-9a-z]+$/)) {
+			if (!req.body.id.match(/^[0-9a-zA-Z]+$/)) {
 				let idError = "Username must not contain special chars";
 				req.session.error = { idError };
 				req.session.loginId = req.body.id;
@@ -95,7 +95,10 @@ router.post(
 			}
 
 			if (
-				Buffer.compare(EncryptedPassword, login.recordset[0].Passphrase) === 0
+				Buffer.compare(
+					EncryptedPassword,
+					login.recordset[0].Passphrase
+				) === 0
 			) {
 				// Store the user data in a session.
 				req.session.user = login.recordset[0];
