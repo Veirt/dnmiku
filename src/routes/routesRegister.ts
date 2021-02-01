@@ -35,7 +35,7 @@ router.post(
 			.isEmpty()
 			.withMessage("Username cannot be empty")
 			.custom(async (mentionName: string) => {
-				if (!mentionName.match(/^[0-9a-z]+$/)) {
+				if (!mentionName.match(/^[0-9a-zA-Z]+$/)) {
 					throw new Error("Username must not contain special chars");
 				}
 				const value = await isMentionNameInUse(mentionName);
@@ -122,7 +122,9 @@ function isMentionNameInUse(mentionName: String) {
 							if (err) {
 								return reject;
 							} else {
-								return resolve(result.recordset[0].ExistedAccountName > 0);
+								return resolve(
+									result.recordset[0].ExistedAccountName > 0
+								);
 							}
 						}
 					);
@@ -146,7 +148,9 @@ function isMentionEmailInUse(mentionEmail: String) {
 							if (err) {
 								return reject;
 							} else {
-								return resolve(result.recordset[0].ExistedEmail > 0);
+								return resolve(
+									result.recordset[0].ExistedEmail > 0
+								);
 							}
 						}
 					);
