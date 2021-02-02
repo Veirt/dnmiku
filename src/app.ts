@@ -67,6 +67,7 @@ app.use("/", require("./routes/routesLogin"));
 app.use("/", require("./routes/routesDashboard"));
 
 // API
+app.use("/", require("./routes/api"));
 app.use("/", require("./routes/api/status"));
 app.use("/", require("./routes/api/players"));
 
