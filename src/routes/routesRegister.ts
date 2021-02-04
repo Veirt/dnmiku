@@ -71,12 +71,15 @@ router.post(
     if (!errors.isEmpty()) {
       const alert = errors.array();
       for (let i in alert) {
-        if (alert[i].param === "id") {
-          var idError = alert[i].msg;
-        } else if (alert[i].param === "password") {
-          var passwordError = alert[i].msg;
-        } else if (alert[i].param === "email") {
-          var emailError = alert[i].msg;
+        switch (alert[i].param) {
+          case "id":
+            var idError = alert[i].msg;
+            break;
+          case "password":
+            var passwordError = alert[i].msg;
+            break;
+          case "email":
+            var emailError = alert[i].msg;
         }
       }
       res.status(400).render("register", {
