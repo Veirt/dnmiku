@@ -15,8 +15,8 @@ import connectRedis from "connect-redis";
 // Redis
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient({
-	port: 6379,
-	host: process.env.REDIS_HOST || "localhost",
+  port: 6379,
+  host: process.env.REDIS_HOST || "localhost",
 });
 
 // HTTPS
@@ -28,28 +28,28 @@ const app = express();
 
 // .env
 dotenv.config({
-	path: "./.env",
+  path: "./.env",
 });
 
 // Express Session
 app.use(
-	session({
-		store: new RedisStore({ client: redisClient }),
-		proxy: process.env.NODE_ENV === "PROD" ? true : false,
-		secret: process.env.SECRET_SESSION ?? "",
-		resave: false,
-		saveUninitialized: false,
-		cookie: {
-			secure: process.env.NODE_ENV === "PROD" ? true : false,
-			httpOnly: true,
-			maxAge: 30 * 24 * 60 * 60 * 1000,
-		},
-	})
+  session({
+    store: new RedisStore({ client: redisClient }),
+    proxy: process.env.NODE_ENV === "PROD" ? true : false,
+    secret: process.env.SECRET_SESSION ?? "",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "PROD" ? true : false,
+      httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    },
+  })
 );
 
 if (process.env.NODE_ENV === "PROD") {
-	app.set("trust proxy", 1);
-	console.log("Setup nginx trust proxy");
+  app.set("trust proxy", 1);
+  console.log("Setup nginx trust proxy");
 }
 
 // Helmet
@@ -65,6 +65,7 @@ app.use("/", require("./routes/routesGet"));
 app.use("/", require("./routes/routesRegister"));
 app.use("/", require("./routes/routesLogin"));
 app.use("/", require("./routes/routesDashboard"));
+app.use("/", require("./routes/routesSetting"));
 
 // API
 app.use("/", require("./routes/api"));
@@ -80,13 +81,13 @@ const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
 console.log(
-	`Production environment : ${process.env.NODE_ENV === "DEV" ? false : true}`
+  `Production environment : ${process.env.NODE_ENV === "DEV" ? false : true}`
 );
 
 httpServer.listen(8080, () =>
-	console.log("\nHTTP Server listen on port 8080. http://localhost:8080")
+  console.log("\nHTTP Server listen on port 8080. http://localhost:8080")
 );
 
 httpsServer.listen(8081, () =>
-	console.log("\nHTTPS Server listen on port 8081. https://localhost:8081")
+  console.log("\nHTTPS Server listen on port 8081. https://localhost:8081")
 );

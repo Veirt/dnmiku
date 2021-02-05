@@ -3,7 +3,7 @@ import express from "express";
 const db = require("../../core/db");
 const router = express.Router();
 
-router.get("/api/players", async (req, res) => {
+router.get("/api/players", async (_, res) => {
   try {
     let getOnlinePlayer = await db.poolPromise
       .request()
