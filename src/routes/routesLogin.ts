@@ -44,6 +44,8 @@ router.post(
       .not()
       .isEmpty()
       .withMessage("Username cannot be empty"),
+
+    check("password").not().isEmpty().withMessage("Password cannot be empty"),
   ],
   async (req: any, res: any) => {
     const errors = validationResult(req);
@@ -51,11 +53,16 @@ router.post(
     if (!errors.isEmpty()) {
       const alert = errors.array();
       for (let i in alert) {
-        if (alert[i].param === "id") {
-          var idError = alert[i].msg;
+        switch (alert[i].param) {
+          case "id":
+            var idError = alert[i].msg;
+            break;
+          case "password":
+            var passwordError = alert[i].msg;
+            break;
         }
       }
-      req.session.error = { idError };
+      req.session.error = { idError, passwordError };
       req.session.loginId = req.body.id;
       res.status(400).redirect("/login");
       return;

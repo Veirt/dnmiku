@@ -97,8 +97,7 @@ router.post("/dashboard/api/cash", async (req, res) => {
 });
 
 router.post("/dashboard/api/ftg", urlencodedParser, async (req, res) => {
-  let user = req.session.user;
-  if (user) {
+  if (req.session.user) {
     try {
       await db.poolPromise
         .request()

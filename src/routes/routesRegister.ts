@@ -10,8 +10,7 @@ const db = require("../core/db");
 const urlencodedParser = express.urlencoded({ extended: true });
 
 router.get("/register", (req, res) => {
-  let user = req.session.user;
-  if (user) {
+  if (req.session.user) {
     res.status(200).redirect("/dashboard");
     return;
   }
