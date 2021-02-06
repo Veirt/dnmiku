@@ -2,9 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-// Database
-
-router.get("/", async (req, res) => {
+router.get("/", (req, res) => {
   // Check if the session is exist
   let user = req.session.user;
   if (user) {
@@ -18,12 +16,8 @@ router.get("/", async (req, res) => {
   res.status(200).render("index");
 });
 
-router.get("/download", (req, res) => {
+router.get("/download", (_, res) => {
   res.status(200).render("download");
-});
-
-router.get("/launcher", (req, res) => {
-  res.status(200).render("launcher");
 });
 
 router.get("/logout", (req, res) => {

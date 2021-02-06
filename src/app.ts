@@ -61,11 +61,12 @@ app.use(express.static(publicDirectory));
 app.set("view engine", "pug");
 
 // Routes
-app.use("/", require("./routes/routesGet"));
-app.use("/", require("./routes/routesRegister"));
-app.use("/", require("./routes/routesLogin"));
-app.use("/", require("./routes/routesDashboard"));
-app.use("/", require("./routes/routesSetting"));
+app.use("/", require("./routes/index"));
+app.use("/", require("./routes/register"));
+app.use("/", require("./routes/login"));
+app.use("/", require("./routes/launcher"));
+app.use("/", require("./routes/dashboard"));
+app.use("/", require("./routes/setting"));
 
 // API
 app.use("/", require("./routes/api"));
