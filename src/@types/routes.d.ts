@@ -1,6 +1,3 @@
-import express from "express";
-const router = express.Router();
-
 declare module "express-session" {
   interface SessionData {
     user: {
@@ -24,4 +21,4 @@ declare module "express-session" {
   }
 }
 
-module.exports = router;
+export {};
