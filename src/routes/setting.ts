@@ -66,7 +66,7 @@ router.post(
         let getPreviousEncryptedPassword = await db.poolPromise
           .request()
           .input("vchPassphrase", sql.VarChar(12), req.body.previousPassword)
-          .execute("DNMembership.dbo.EncryptPassword");
+          .execute("DNMembership.dbo.__Encrypt_Password");
 
         let getPassword = await db.poolPromise
           .request()

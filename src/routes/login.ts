@@ -81,13 +81,13 @@ router.post(
         .request()
         .input("id", sql.NVarChar(50), req.body.id)
         .query(
-          "SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id "
+          "SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id"
         );
 
       let getEncryptedPassword = await db.poolPromise
         .request()
         .input("vchPassphrase", sql.VarChar(12), req.body.password)
-        .execute("DNMembership.dbo.EncryptPassword");
+        .execute("DNMembership.dbo.__Encrypt_Password");
 
       const EncryptedPassword =
         getEncryptedPassword.recordset[0].EncryptedPassword;

@@ -1,7 +1,7 @@
 -- DNMembership
 USE [DNMembership]
 GO
-CREATE PROCEDURE [dbo].[EncryptPassword] (
+CREATE PROCEDURE [dbo].[__Encrypt_Password] (
     @vchPassphrase varchar(12)
 ) 
 AS
@@ -9,4 +9,4 @@ BEGIN
     SELECT
         CONVERT(BINARY(20),HashBytes('MD5', @vchPassphrase),2)
         AS EncryptedPassword
-END;
+END

@@ -30,14 +30,12 @@ router.get("/dashboard", async (req, res) => {
       let login = await db.poolPromise
         .request()
         .input("id", sql.NVarChar(50), user.AccountName)
-        .query(
-          "SELECT AccountID, AccountName, LastLoginDate, LastLogoutDate, RegisterDate, mail, cash, claimDaily FROM DNMembership.dbo.Accounts WHERE AccountName = @id "
-        );
+        .execute("DNMembership.dbo.__LoginProcedure");
 
       let getCharList = await db.poolPromise
         .request()
         .input("intAccountID", sql.Int, user.AccountID)
-        .execute("DNMembership.dbo.checkCashPoint");
+        .execute("DNMembership.dbo.__Check_CashPoint");
       let chars = getCharList.recordset;
 
       req.session.user = login.recordset[0];
@@ -79,9 +77,7 @@ router.post("/dashboard/api/cash", async (req, res) => {
         let login = await db.poolPromise
           .request()
           .input("id", sql.NVarChar(50), user.AccountName)
-          .query(
-            "SELECT AccountID, AccountName, LastLoginDate, LastLogoutDate, RegisterDate, mail, cash, claimDaily FROM DNMembership.dbo.Accounts WHERE AccountName = @id "
-          );
+          .execute("DNMembership.dbo.__LoginProcedure");
 
         req.session.user = login.recordset[0];
         user = req.session.user;
