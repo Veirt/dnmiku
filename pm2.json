@@ -1,11 +1,12 @@
 {
-	"apps": [
-		{
-			"name": "dnmiku-node",
-			"exec_mode": "cluster",
-			"instances": "max",
-			"script": "dist/app.js",
-			"interpreter": "node"
-		}
-	]
+  "apps": [
+    {
+      "name": "dnmiku-node",
+      "exec_mode": "cluster",
+      "instances": "max",
+      "script": "npm",
+      "cwd": "./dist",
+      "args": "start"
+    }
+  ]
 }
