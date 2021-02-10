@@ -1,10 +1,9 @@
-import * as db from "../core/db";
 import express, { urlencoded } from "express";
 import { check, validationResult } from "express-validator";
+import sql from "mssql";
+import * as db from "../core/db";
 
 const router = express.Router();
-
-const sql = require("mssql");
 
 const urlEncodedParser = urlencoded({ extended: true });
 
@@ -89,7 +88,7 @@ router.post(
             .request()
             .input(
               "previousPassword",
-              sql.Binary(20),
+              sql.VarBinary(20),
               previousEncryptedPassword
             )
             .input("id", sql.NVarChar(50), user.AccountName)
