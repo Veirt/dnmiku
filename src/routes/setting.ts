@@ -1,9 +1,10 @@
+import * as db from "../core/db";
 import express, { urlencoded } from "express";
 import { check, validationResult } from "express-validator";
+
 const router = express.Router();
 
 const sql = require("mssql");
-const db = require("../core/db");
 
 const urlEncodedParser = urlencoded({ extended: true });
 

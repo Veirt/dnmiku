@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Database
 const sql = require("mssql");
-const db = require("../core/db");
+import * as db from "../core/db";
 
 const urlencodedParser = express.urlencoded({ extended: true });
 

@@ -1,6 +1,6 @@
 import express from "express";
+import * as db from "../../core/db";
 
-const db = require("../../core/db");
 const router = express.Router();
 
 router.get("/api/players", async (_, res) => {

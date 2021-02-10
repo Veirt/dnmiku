@@ -1,8 +1,7 @@
 import express from "express";
-import { check, validationResult } from "express-validator";
-
 import sql from "mssql";
-const db = require("../core/db");
+import * as db from "../core/db";
+import { check, validationResult } from "express-validator";
 
 const urlencodedParser = express.urlencoded({ extended: true });
 const router = express.Router();

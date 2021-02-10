@@ -1,12 +1,11 @@
 import express from "express";
-
 import sql from "mssql";
 import schedule from "node-schedule";
 
 const router = express.Router();
 
 // Database
-const db = require("../core/db");
+import * as db from "../core/db";
 
 const urlencodedParser = express.urlencoded({ extended: true });
 
