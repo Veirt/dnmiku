@@ -107,50 +107,36 @@ router.post(
 );
 
 function isMentionNameInUse(mentionName: String) {
-  return new Promise((resolve, reject) => {
-    sql.connect(db.config, (err: Error) => {
-      if (err) {
-        console.log(`Unexpected error : ${err}`);
-        return reject;
-      } else {
-        new sql.Request()
-          .input("id", sql.NVarChar(50), mentionName)
-          .query(
-            "SELECT COUNT(AccountName) AS ExistedAccountName FROM DNMembership.dbo.Accounts WHERE AccountName = @id",
-            (err: Error, result: { recordset: any }) => {
-              if (err) {
-                return reject;
-              } else {
-                return resolve(result.recordset[0].ExistedAccountName > 0);
-              }
-            }
-          );
-      }
-    });
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.poolPromise
+        .request()
+        .input("id", sql.NVarChar(50), mentionName)
+        .query(
+          "SELECT COUNT(AccountName) AS ExistedAccountName FROM DNMembership.dbo.Accounts WHERE AccountName = @id"
+        );
+      return resolve(result.recordset[0].ExistedAccountName > 0);
+    } catch (err) {
+      console.log(`Unexpected error : ${err}`);
+      return reject;
+    }
   });
 }
 
 function isMentionEmailInUse(mentionEmail: string) {
-  return new Promise((resolve, reject) => {
-    sql.connect(db.config, (err: Error) => {
-      if (err) {
-        console.log(`Unexpected error : ${err}`);
-        return reject;
-      } else {
-        new sql.Request()
-          .input("email", sql.VarChar(50), mentionEmail)
-          .query(
-            "SELECT COUNT(mail) AS ExistedEmail FROM DNMembership.dbo.Accounts WHERE mail = @email",
-            (err: Error, result: { recordset: any }) => {
-              if (err) {
-                return reject;
-              } else {
-                return resolve(result.recordset[0].ExistedEmail > 0);
-              }
-            }
-          );
-      }
-    });
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await db.poolPromise
+        .request()
+        .input("email", sql.VarChar(50), mentionEmail)
+        .query(
+          "SELECT COUNT(mail) AS ExistedEmail FROM DNMembership.dbo.Accounts WHERE mail = @email"
+        );
+      return resolve(result.recordset[0].ExistedEmail > 0);
+    } catch (err) {
+      console.log(`Unexpected error : ${err}`);
+      return reject;
+    }
   });
 }
 
