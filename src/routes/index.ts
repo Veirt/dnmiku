@@ -7,7 +7,6 @@ router.get("/", (req, res) => {
   let user = req.session.user;
   if (user) {
     res.status(200).render("index", {
-      opp: req.session.opp,
       loggedInStatus: true,
     });
     return;

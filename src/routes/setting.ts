@@ -26,35 +26,38 @@ router.get("/setting", (req, res) => {
   }
 });
 
+const ValidationRules = [
+  check("previousPassword")
+    .not()
+    .isEmpty()
+    .withMessage("Previous Password cannot be empty"),
+  check("newPassword")
+    .not()
+    .isEmpty()
+    .withMessage("New Password cannot be empty")
+    .isLength({ min: 6, max: 14 })
+    .withMessage("Password must be 6-14 chars"),
+];
+
 router.post(
   "/setting",
   urlEncodedParser,
-  [
-    check("previousPassword")
-      .not()
-      .isEmpty()
-      .withMessage("Previous Password cannot be empty"),
-    check("newPassword")
-      .not()
-      .isEmpty()
-      .withMessage("New Password cannot be empty")
-      .isLength({ min: 6, max: 14 })
-      .withMessage("Password must be 6-14 chars"),
-  ],
+  ValidationRules,
   async (req: any, res: any) => {
     let user = req.session.user;
     if (user) {
       const errors = validationResult(req);
       // If Error IS NOT Empty
+      let previousPasswordError, newPasswordError;
       if (!errors.isEmpty()) {
         const alert = errors.array();
         for (let i in alert) {
           switch (alert[i].param) {
             case "previousPassword":
-              var previousPasswordError = alert[i].msg;
+              previousPasswordError = alert[i].msg;
               break;
             case "newPassword":
-              var newPasswordError = alert[i].msg;
+              newPasswordError = alert[i].msg;
               break;
           }
         }

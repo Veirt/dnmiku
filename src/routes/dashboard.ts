@@ -1,12 +1,9 @@
 import express from "express";
 import sql from "mssql";
 import schedule from "node-schedule";
-
-const router = express.Router();
-
-// Database
 import * as db from "../core/db";
 
+const router = express.Router();
 const urlencodedParser = express.urlencoded({ extended: true });
 
 // Daily
@@ -43,7 +40,6 @@ router.get("/dashboard", async (req, res) => {
       req.session.cash = null;
 
       res.status(200).render("dashboard", {
-        opp: req.session.opp,
         user,
         chars,
         gotCash,

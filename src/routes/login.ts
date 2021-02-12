@@ -6,7 +6,6 @@ import * as db from "../core/db";
 const urlencodedParser = express.urlencoded({ extended: true });
 const router = express.Router();
 
-// Get //
 router.get("/login", (req, res) => {
   let user = req.session.user;
   if (user) {
@@ -31,33 +30,34 @@ router.get("/login", (req, res) => {
   });
 });
 
-// Post //
+const ValidationRules = [
+  check("id")
+    .isAlphanumeric()
+    .withMessage("Username must not contain special chars")
+    .not()
+    .isEmpty()
+    .withMessage("Username cannot be empty"),
+
+  check("password").not().isEmpty().withMessage("Password cannot be empty"),
+];
 
 router.post(
   "/login",
   urlencodedParser,
-  [
-    check("id")
-      .isAlphanumeric()
-      .withMessage("Username must not contain special chars")
-      .not()
-      .isEmpty()
-      .withMessage("Username cannot be empty"),
-
-    check("password").not().isEmpty().withMessage("Password cannot be empty"),
-  ],
+  ValidationRules,
   async (req: any, res: any) => {
     const errors = validationResult(req);
     // If Error IS NOT Empty
     if (!errors.isEmpty()) {
       const alert = errors.array();
+      let idError, passwordError;
       for (let i in alert) {
         switch (alert[i].param) {
           case "id":
-            var idError = alert[i].msg;
+            idError = alert[i].msg;
             break;
           case "password":
-            var passwordError = alert[i].msg;
+            passwordError = alert[i].msg;
             break;
         }
       }
@@ -104,7 +104,6 @@ router.post(
       ) {
         // Store the user data in a session.
         req.session.user = login.recordset[0];
-        req.session.opp = 1;
         res.status(200).redirect("/dashboard");
         return;
       }
