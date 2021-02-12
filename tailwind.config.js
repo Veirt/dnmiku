@@ -3,7 +3,7 @@ module.exports = {
     enabled: true,
     mode: "all",
     preserveHtmlElements: false,
-    content: ["./views/*.pug", "./views/include/*.pug"],
+    content: ["./**/*.pug"],
   },
   darkMode: false,
   theme: {

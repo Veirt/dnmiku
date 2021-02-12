@@ -8,7 +8,7 @@
     "dev": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon dist/app.js\"",
     "test": "tsc",
     "build": "tsc",
-    "build:css": "tailwind build ./public/css/buildTailwind.css -o ./public/css/tailwind.css"
+    "build:css": "tailwind build ./public/css/build.css -o ./public/css/tailwind.css"
   },
   "repository": {
     "type": "git",
