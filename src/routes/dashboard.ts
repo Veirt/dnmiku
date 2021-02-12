@@ -31,7 +31,9 @@ router.get("/dashboard", async (req, res) => {
       let getCharList = await db.poolPromise
         .request()
         .input("intAccountID", sql.Int, user.AccountID)
-        .execute("DNMembership.dbo.__Check_CashPoint");
+        .query(
+          "SELECT * FROM DNMembership.dbo.__V_CashPoint WHERE AccountID = @intAccountID"
+        );
       let chars = getCharList.recordset;
 
       req.session.user = login.recordset[0];
