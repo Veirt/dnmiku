@@ -67,14 +67,8 @@ app.use((_, res) => res.status(403).render("error403"));
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
-console.log(
-  `Production environment : ${process.env.NODE_ENV === "PROD" ? true : false}`
-);
+console.log(`Production environment : ${process.env.NODE_ENV === "PROD" ? true : false}`);
 
-httpServer.listen(8080, () =>
-  console.log("\nHTTP Server listen on port 8080. http://localhost:8080")
-);
+httpServer.listen(8080, () => console.log("\nHTTP Server listen on port 8080. http://localhost:8080"));
 
-httpsServer.listen(8081, () =>
-  console.log("\nHTTPS Server listen on port 8081. https://localhost:8081")
-);
+httpsServer.listen(8081, () => console.log("\nHTTPS Server listen on port 8081. https://localhost:8081"));

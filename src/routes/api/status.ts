@@ -2,7 +2,6 @@ import express from "express";
 import detect from "detect-port-alt";
 
 const router = express.Router();
-// const detect = require("detect-port-alt");
 
 router.get("/api/status", async (_, res) => {
   const VillageStatus = await check_port(14400);
@@ -17,11 +16,10 @@ router.get("/api/status", async (_, res) => {
 async function check_port(port: number) {
   return detect(port)
     .then((_port: number) => {
-      if (port == _port) {
+      if (port === _port) {
         return "Offline";
-      } else {
-        return "Online";
       }
+      return "Online";
     })
     .catch((err: Error) => {
       console.log(`Unexpected error : ${err}`);

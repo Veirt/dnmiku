@@ -7,19 +7,13 @@ router.get("/api/players", async (_, res) => {
   try {
     let getOnlinePlayer = await db.poolPromise
       .request()
-      .query(
-        "SELECT COUNT(CertifyingStep) AS OnlinePlayer FROM DNMembership.dbo.DNAuth WHERE CertifyingStep = 2"
-      );
+      .query("SELECT COUNT(CertifyingStep) AS OnlinePlayer FROM DNMembership.dbo.DNAuth WHERE CertifyingStep = 2");
     let getTotalAccount = await db.poolPromise
       .request()
-      .query(
-        "SELECT COUNT(AccountID) AS TotalAccount FROM DNMembership.dbo.Accounts"
-      );
+      .query("SELECT COUNT(AccountID) AS TotalAccount FROM DNMembership.dbo.Accounts");
     let getTotalCharacter = await db.poolPromise
       .request()
-      .query(
-        "SELECT COUNT(CharacterID) AS TotalCharacter FROM DNMembership.dbo.Characters"
-      );
+      .query("SELECT COUNT(CharacterID) AS TotalCharacter FROM DNMembership.dbo.Characters");
 
     const players = {
       nowOnline: getOnlinePlayer.recordset[0].OnlinePlayer,

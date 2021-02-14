@@ -58,52 +58,47 @@ const ValidationRules = [
 ];
 
 // Register Validation
-router.post(
-  "/register",
-  urlencodedParser,
-  ValidationRules,
-  async (req: any, res: any) => {
-    const errors = validationResult(req);
-    // If Error IS NOT Empty
-    if (!errors.isEmpty()) {
-      const alert = errors.array();
-      let idError, passwordError, emailError;
-      for (let i in alert) {
-        switch (alert[i].param) {
-          case "id":
-            idError = alert[i].msg;
-            break;
-          case "password":
-            passwordError = alert[i].msg;
-            break;
-          case "email":
-            emailError = alert[i].msg;
-        }
+router.post("/register", urlencodedParser, ValidationRules, async (req: any, res: any) => {
+  const errors = validationResult(req);
+  // If Error IS NOT Empty
+  if (!errors.isEmpty()) {
+    const alert = errors.array();
+    let idError, passwordError, emailError;
+    for (let i in alert) {
+      switch (alert[i].param) {
+        case "id":
+          idError = alert[i].msg;
+          break;
+        case "password":
+          passwordError = alert[i].msg;
+          break;
+        case "email":
+          emailError = alert[i].msg;
       }
-      res.status(400).render("register", {
-        idError,
-        emailError,
-        passwordError,
-        id: req.body.id,
-        email: req.body.email,
-      });
-      return;
     }
-    try {
-      await db.poolPromise
-        .request()
-        .input("id", sql.NVarChar(50), req.body.id)
-        .input("password", sql.VarChar(12), req.body.password)
-        .input("email", sql.VarChar(50), req.body.email)
-        .execute("DNMembership.dbo.__RegisterProcedure");
-
-      req.session.message = "Registered succesfully";
-      res.redirect("/login");
-    } catch (err) {
-      console.log(`Unexpected error : ${err}`);
-    }
+    res.status(400).render("register", {
+      idError,
+      emailError,
+      passwordError,
+      id: req.body.id,
+      email: req.body.email,
+    });
+    return;
   }
-);
+  try {
+    await db.poolPromise
+      .request()
+      .input("id", sql.NVarChar(50), req.body.id)
+      .input("password", sql.VarChar(12), req.body.password)
+      .input("email", sql.VarChar(50), req.body.email)
+      .execute("DNMembership.dbo.__RegisterProcedure");
+
+    req.session.message = "Registered succesfully";
+    res.redirect("/login");
+  } catch (err) {
+    console.log(`Unexpected error : ${err}`);
+  }
+});
 
 function isMentionNameInUse(mentionName: String) {
   return new Promise(async (resolve, reject) => {
@@ -128,9 +123,7 @@ function isMentionEmailInUse(mentionEmail: string) {
       const result = await db.poolPromise
         .request()
         .input("email", sql.VarChar(50), mentionEmail)
-        .query(
-          "SELECT COUNT(mail) AS ExistedEmail FROM DNMembership.dbo.Accounts WHERE mail = @email"
-        );
+        .query("SELECT COUNT(mail) AS ExistedEmail FROM DNMembership.dbo.Accounts WHERE mail = @email");
       return resolve(result.recordset[0].ExistedEmail > 0);
     } catch (err) {
       console.log(`Unexpected error : ${err}`);

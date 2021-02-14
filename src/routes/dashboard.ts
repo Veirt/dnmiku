@@ -9,9 +9,7 @@ const urlencodedParser = express.urlencoded({ extended: true });
 // Daily
 schedule.scheduleJob("@daily", async () => {
   try {
-    await db.poolPromise
-      .request()
-      .query("UPDATE DNMembership.dbo.Accounts SET claimDaily = 0");
+    await db.poolPromise.request().query("UPDATE DNMembership.dbo.Accounts SET claimDaily = 0");
     console.log("Daily has been resetted");
   } catch (err) {
     console.log(`Unexpected error : ${err}`);
@@ -31,9 +29,7 @@ router.get("/dashboard", async (req, res) => {
       let getCharList = await db.poolPromise
         .request()
         .input("intAccountID", sql.Int, user.AccountID)
-        .query(
-          "SELECT * FROM DNMembership.dbo.__V_CashPoint WHERE AccountID = @intAccountID"
-        );
+        .query("SELECT * FROM DNMembership.dbo.__V_CashPoint WHERE AccountID = @intAccountID");
       let chars = getCharList.recordset;
 
       req.session.user = login.recordset[0];
@@ -95,16 +91,12 @@ router.post("/dashboard/api/ftg", urlencodedParser, async (req, res) => {
       await db.poolPromise
         .request()
         .input("CharacterID", sql.BigInt, parseInt(req.body.CharacterID))
-        .query(
-          "UPDATE DNWorld.dbo.CharacterStatus SET Fatigue = Fatigue+5000 WHERE CharacterID = @CharacterID"
-        );
+        .query("UPDATE DNWorld.dbo.CharacterStatus SET Fatigue = Fatigue+5000 WHERE CharacterID = @CharacterID");
 
       await db.poolPromise
         .request()
         .input("CharacterID", sql.BigInt, parseInt(req.body.CharacterID))
-        .query(
-          "UPDATE DNWorld.dbo.Points SET Point = Point-1000 WHERE CharacterID = @CharacterID AND PointCode = 19"
-        );
+        .query("UPDATE DNWorld.dbo.Points SET Point = Point-1000 WHERE CharacterID = @CharacterID AND PointCode = 19");
 
       res.redirect("/dashboard");
     } catch (err) {

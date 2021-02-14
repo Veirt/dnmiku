@@ -41,82 +41,72 @@ const ValidationRules = [
   check("password").not().isEmpty().withMessage("Password cannot be empty"),
 ];
 
-router.post(
-  "/login",
-  urlencodedParser,
-  ValidationRules,
-  async (req: any, res: any) => {
-    const errors = validationResult(req);
-    // If Error IS NOT Empty
-    if (!errors.isEmpty()) {
-      const alert = errors.array();
-      let idError, passwordError;
-      for (let i in alert) {
-        switch (alert[i].param) {
-          case "id":
-            idError = alert[i].msg;
-            break;
-          case "password":
-            passwordError = alert[i].msg;
-            break;
-        }
+router.post("/login", urlencodedParser, ValidationRules, async (req: any, res: any) => {
+  const errors = validationResult(req);
+  // If Error IS NOT Empty
+  if (!errors.isEmpty()) {
+    const alert = errors.array();
+    let idError, passwordError;
+    for (let i in alert) {
+      switch (alert[i].param) {
+        case "id":
+          idError = alert[i].msg;
+          break;
+        case "password":
+          passwordError = alert[i].msg;
+          break;
       }
-      req.session.error = { idError, passwordError };
-      req.session.loginId = req.body.id;
-      res.status(400).redirect("/login");
-      return;
     }
-    try {
-      // Validate special chars once again
-      if (!req.body.id.match(/^[0-9a-zA-Z]+$/)) {
-        let idError = "Username must not contain special chars";
-        req.session.error = { idError };
-        req.session.loginId = req.body.id;
-        res.status(400).redirect("/login");
-        return;
-      }
-
-      let login = await db.poolPromise
-        .request()
-        .input("id", sql.NVarChar(50), req.body.id)
-        .query(
-          "SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id"
-        );
-
-      let getEncryptedPassword = await db.poolPromise
-        .request()
-        .input("vchPassphrase", sql.VarChar(12), req.body.password)
-        .execute("DNMembership.dbo.__Encrypt_Password");
-
-      const EncryptedPassword =
-        getEncryptedPassword.recordset[0].EncryptedPassword;
-
-      if (login.rowsAffected[0] < 1) {
-        let idError = "Username doesn't exist";
-        req.session.error = { idError };
-        req.session.loginId = req.body.id;
-        res.status(400).redirect("/login");
-        return;
-      }
-
-      if (
-        Buffer.compare(EncryptedPassword, login.recordset[0].Passphrase) === 0
-      ) {
-        // Store the user data in a session.
-        req.session.user = login.recordset[0];
-        res.status(200).redirect("/dashboard");
-        return;
-      }
-
-      let passwordError = "Password is incorrect";
-      req.session.error = { passwordError };
-      req.session.loginId = req.body.id;
-      res.status(400).redirect("/login");
-      return;
-    } catch (err) {
-      console.log(`Unexpected error : ${err}`);
-    }
+    req.session.error = { idError, passwordError };
+    req.session.loginId = req.body.id;
+    res.status(400).redirect("/login");
+    return;
   }
-);
+  try {
+    // Validate special chars once again
+    if (!req.body.id.match(/^[0-9a-zA-Z]+$/)) {
+      let idError = "Username must not contain special chars";
+      req.session.error = { idError };
+      req.session.loginId = req.body.id;
+      res.status(400).redirect("/login");
+      return;
+    }
+
+    let login = await db.poolPromise
+      .request()
+      .input("id", sql.NVarChar(50), req.body.id)
+      .query("SELECT * FROM DNMembership.dbo.Accounts WHERE AccountName = @id");
+
+    let getEncryptedPassword = await db.poolPromise
+      .request()
+      .input("vchPassphrase", sql.VarChar(12), req.body.password)
+      .execute("DNMembership.dbo.__Encrypt_Password");
+
+    const EncryptedPassword = getEncryptedPassword.recordset[0].EncryptedPassword;
+
+    if (login.rowsAffected[0] < 1) {
+      let idError = "Username doesn't exist";
+      req.session.error = { idError };
+      req.session.loginId = req.body.id;
+      res.status(400).redirect("/login");
+      return;
+    }
+
+    if (Buffer.compare(EncryptedPassword, login.recordset[0].Passphrase) === 0) {
+      // Store the user data in a session.
+      req.session.user = login.recordset[0];
+      res.status(200).redirect("/dashboard");
+      return;
+    }
+
+    let passwordError = "Password is incorrect";
+    req.session.error = { passwordError };
+    req.session.loginId = req.body.id;
+    res.status(400).redirect("/login");
+    return;
+  } catch (err) {
+    console.log(`Unexpected error : ${err}`);
+  }
+});
 
 module.exports = router;
