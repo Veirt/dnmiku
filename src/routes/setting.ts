@@ -80,7 +80,7 @@ router.post("/setting", urlEncodedParser, ValidationRules, async (req: any, res:
           .query(
             "UPDATE DNMembership.dbo.Accounts SET Passphrase = CONVERT(BINARY(20),HashBytes('MD5', @newPassword),2) WHERE AccountName = @id AND Passphrase = @previousPassword"
           );
-        req.session.message = "Succesfully changed password";
+        req.session.message = "Successfully changed password";
         res.status(200).redirect("/setting");
         return;
       }

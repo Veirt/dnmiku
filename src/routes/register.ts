@@ -93,7 +93,7 @@ router.post("/register", urlencodedParser, ValidationRules, async (req: any, res
       .input("email", sql.VarChar(50), req.body.email)
       .execute("DNMembership.dbo.__RegisterProcedure");
 
-    req.session.message = "Registered succesfully";
+    req.session.message = "Registered successfully";
     res.redirect("/login");
   } catch (err) {
     console.log(`Unexpected error : ${err}`);

@@ -10,7 +10,7 @@ const urlencodedParser = express.urlencoded({ extended: true });
 schedule.scheduleJob("@daily", async () => {
   try {
     await db.poolPromise.request().query("UPDATE DNMembership.dbo.Accounts SET claimDaily = 0");
-    console.log("Daily has been resetted");
+    console.log("Daily has been reset");
   } catch (err) {
     console.log(`Unexpected error : ${err}`);
   }
@@ -73,7 +73,6 @@ router.post("/dashboard/api/cash", async (req, res) => {
           .execute("DNMembership.dbo.__LoginProcedure");
 
         req.session.user = login.recordset[0];
-        user = req.session.user;
         req.session.cash = randomAmountCash;
         res.redirect("/dashboard");
       } catch (err) {
