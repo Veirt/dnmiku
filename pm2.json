@@ -5,7 +5,7 @@
       "exec_mode": "cluster",
       "instances": "max",
       "script": "dist/app.js",
-      "intrepeter": "node",
+      "interpreter": "node",
       "env": {
         "NODE_ENV": "PROD"
       }
