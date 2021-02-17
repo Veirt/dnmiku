@@ -1,5 +1,5 @@
-import express from "express";
 import detect from "detect-port-alt";
+import express from "express";
 
 const router = express.Router();
 

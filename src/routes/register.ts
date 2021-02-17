@@ -1,8 +1,8 @@
+import { RegisterValidationRules } from "../core/validation";
 import * as db from "../core/db";
 import express from "express";
-import sql from "mssql";
-import { RegisterValidationRules } from "../core/validation";
 import { validationResult } from "express-validator";
+import sql from "mssql";
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
+import * as db from "../core/db";
+import schedule from "node-schedule";
 import express from "express";
 import sql from "mssql";
-import schedule from "node-schedule";
-import * as db from "../core/db";
 
 const router = express.Router();
 const urlencodedParser = express.urlencoded({ extended: true });

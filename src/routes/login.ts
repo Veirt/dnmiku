@@ -1,8 +1,8 @@
+import { LoginValidationRules } from "../core/validation";
 import * as db from "../core/db";
+import { validationResult } from "express-validator";
 import sql from "mssql";
 import express from "express";
-import { LoginValidationRules } from "../core/validation";
-import { validationResult } from "express-validator";
 
 const urlencodedParser = express.urlencoded({ extended: true });
 const router = express.Router();
