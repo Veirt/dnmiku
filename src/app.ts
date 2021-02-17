@@ -20,6 +20,7 @@ dotenv.config({
 // Express Session
 app.use(
   session({
+    name: "sessionId",
     store: new RedisStore({ client: redisClient }),
     proxy: process.env.NODE_ENV === "PROD",
     secret: process.env.SECRET_SESSION ?? "",
@@ -67,7 +68,7 @@ app.use((_, res) => res.status(403).render("error403"));
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
-console.log(`Production environment : ${(process.env.NODE_ENV === "PROD")}`);
+console.log(`Production environment : ${process.env.NODE_ENV === "PROD"}`);
 
 httpServer.listen(8080, () => console.log("\nHTTP Server listen on port 8080. http://localhost:8080"));
 
