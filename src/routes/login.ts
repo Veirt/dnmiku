@@ -1,7 +1,8 @@
-import express from "express";
-import { check, validationResult } from "express-validator";
-import sql from "mssql";
 import * as db from "../core/db";
+import sql from "mssql";
+import express from "express";
+import { LoginValidationRules } from "../core/validation";
+import { validationResult } from "express-validator";
 
 const urlencodedParser = express.urlencoded({ extended: true });
 const router = express.Router();
@@ -30,18 +31,7 @@ router.get("/login", (req, res) => {
   });
 });
 
-const ValidationRules = [
-  check("id")
-    .isAlphanumeric()
-    .withMessage("Username must not contain special chars")
-    .not()
-    .isEmpty()
-    .withMessage("Username cannot be empty"),
-
-  check("password").not().isEmpty().withMessage("Password cannot be empty"),
-];
-
-router.post("/login", urlencodedParser, ValidationRules, async (req: any, res: any) => {
+router.post("/login", urlencodedParser, LoginValidationRules, async (req: any, res: any) => {
   const errors = validationResult(req);
   // If Error IS NOT Empty
   if (!errors.isEmpty()) {
