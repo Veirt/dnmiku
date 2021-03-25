@@ -4,25 +4,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    component: () => import("../views/Home.vue"),
   },
   {
     path: "/download",
     name: "Download",
-    component: () =>
-      import(/* webpackChunkName: "download" */ "../views/Download.vue"),
+    component: () => import("../views/Download.vue"),
   },
   {
     path: "/login",
     name: "Login",
-    component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+    component: () => import("../views/Login.vue"),
   },
   {
     path: "/register",
     name: "Register",
-    component: () =>
-      import(/* webpackChunkName: "register" */ "../views/Register.vue"),
+    component: () => import("../views/Register.vue"),
   },
 ];
 

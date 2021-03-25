@@ -19,7 +19,7 @@
                 <input
                   class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
                   placeholder="Username"
-                  required=""
+                  :required="true"
                 />
               </div>
               <p class="text-xs text-right text-red-500"></p>
@@ -34,7 +34,7 @@
                 <input
                   class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
                   placeholder="Email"
-                  required=""
+                  :required="true"
                 />
               </div>
               <p class="text-xs text-right text-red-500"></p>
@@ -50,7 +50,7 @@
                   class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
                   placeholder="Password"
                   type="password"
-                  required=""
+                  :required="true"
                   autocomplete="off"
                 />
               </div>
@@ -67,7 +67,7 @@
                   class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
                   placeholder="Repeat your password"
                   type="password"
-                  required=""
+                  :required="true"
                   autocomplete="off"
                 />
               </div>

@@ -2,8 +2,7 @@
   <header>
     <div
       class="w-full bg-center bg-cover"
-      style="height: 32rem"
-      :style="{ backgroundImage: `url('${banner}')` }"
+      :style="{ height: 32 + 'rem', backgroundImage: `url('${banner}')` }"
       title="Dragon Nest Red Lotus"
     >
       <div
