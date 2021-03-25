@@ -12,7 +12,7 @@
           <div class="flex h-full">
             <img
               class="items-center justify-center object-scale-down"
-              src="~@/assets/images/dnmiku.png"
+              :src="logo"
               alt="Dragon Nest Miku Logo"
             />
           </div>
@@ -83,9 +83,15 @@
 
 <script>
 import { defineComponent } from "vue";
+import logo from "../assets/images/dnmiku.png";
 
 export default defineComponent({
   name: "LoginForm",
+  data() {
+    return {
+      logo,
+    };
+  },
 });
 </script>
 

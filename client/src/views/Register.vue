@@ -4,7 +4,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import RegisterForm from "@/components/RegisterForm.vue";
+import RegisterForm from "../components/RegisterForm.vue";
 
 export default defineComponent({
   name: "Register",
