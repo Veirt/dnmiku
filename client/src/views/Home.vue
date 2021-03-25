@@ -8,11 +8,7 @@
       <div
         class="flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50"
       >
-        <div class="text-center">
-          <h1 class="text-2xl font-semibold text-white uppercase md:text-3xl">
-            DN <span class="text-red-300">Miku</span>
-          </h1>
-        </div>
+        <img class="w-1/2" :src="logo" alt="Dragon Nest Miku Logo" />
       </div>
     </div>
   </header>
@@ -123,14 +119,18 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import banner from "../assets/images/RedLotus.jpg";
+import logo from "../assets/images/dnmiku-white.png";
 
 export default defineComponent({
   name: "Home",
   data() {
     return {
       banner,
+      logo,
     };
   },
   components: {},
 });
 </script>
+
+<style src="../assets/css/all.css" scoped></style>
