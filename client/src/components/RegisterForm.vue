@@ -13,7 +13,12 @@
           :required="true"
         />
       </div>
-      <p class="text-xs text-right text-red-500"></p>
+      <p
+        v-if="error.AccountName.length"
+        class="text-xs text-right text-red-500"
+      >
+        {{ error.AccountName[0] }}
+      </p>
     </div>
 
     <div class="w-full">
@@ -29,7 +34,9 @@
           :required="true"
         />
       </div>
-      <p class="text-xs text-right text-red-500"></p>
+      <p v-if="error.Email.length" class="text-xs text-right text-red-500">
+        {{ error.Email[0] }}
+      </p>
     </div>
 
     <div class="w-full">
@@ -46,7 +53,9 @@
           autocomplete="off"
         />
       </div>
-      <p class="text-xs text-right text-red-500"></p>
+      <p v-if="error.Password.length" class="text-xs text-right text-red-500">
+        {{ error.Password[0] }}
+      </p>
     </div>
 
     <div class="w-full">
@@ -89,12 +98,18 @@ export default defineComponent({
         Email: "",
         Password: "",
       },
+      error: {
+        AccountName: new Array<string>(),
+        Email: new Array<string>(),
+        Password: new Array<string>(),
+      },
       ConfirmPassword: "",
     };
   },
 
   methods: {
     async createAccount() {
+      this.resetErrors();
       try {
         await axios({
           method: "POST",
@@ -105,8 +120,30 @@ export default defineComponent({
 
         console.log("success");
       } catch (err) {
-        console.error(err);
+        if (err.response.status === 400) {
+          err.response.data.forEach(
+            (error: { field: string; message: string }) => {
+              switch (error.field) {
+                case "AccountName":
+                  this.error.AccountName.push(error.message);
+                  break;
+                case "Email":
+                  this.error.Email.push(error.message);
+                  break;
+                case "Password":
+                  this.error.Password.push(error.message);
+                  break;
+              }
+            }
+          );
+        }
       }
+    },
+
+    resetErrors() {
+      this.error.AccountName = new Array<string>();
+      this.error.Email = new Array<string>();
+      this.error.Password = new Array<string>();
     },
   },
 });

@@ -8,5 +8,5 @@ export const validateCreateAccount = (
 ) => {
   const validationResult = CreateAccountValidation(req.body);
   if (validationResult === true) return next();
-  else res.status(400).json({ validationResult });
+  else res.status(400).json(validationResult);
 };
