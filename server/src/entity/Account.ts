@@ -5,7 +5,6 @@ import {
   Column,
   BeforeInsert,
   Binary,
-  CreateDateColumn,
 } from "typeorm";
 import sql from "mssql";
 
