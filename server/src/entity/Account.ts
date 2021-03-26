@@ -58,7 +58,7 @@ export class Account {
   @Column({ type: "date", nullable: true })
   BirthDate: Date;
 
-  @Column({ type: "varchar", length: 32, nullable: true })
+  @Column({ type: "varchar", length: 32 })
   Passphrase: string;
 
   @Column({ type: "binary", length: 80, nullable: true })
@@ -127,6 +127,7 @@ export class Account {
   @BeforeInsert()
   async encryptPassword() {
     this.RLKTPassword = await encryptPassword(this.RLKTPassword);
+    this.Passphrase = this.RLKTPassword;
   }
 }
 

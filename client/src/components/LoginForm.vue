@@ -52,6 +52,11 @@
         </button>
       </div>
     </div>
+    <div class="flex -mx-3">
+      <div class="w-full px-3 mb-5">
+        <router-link :to="{ name: 'Login' }">Forgot password ?</router-link>
+      </div>
+    </div>
   </form>
 </template>
 

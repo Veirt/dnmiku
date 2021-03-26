@@ -8,13 +8,8 @@
     >
       <div class="w-full md:flex">
         <div class="hidden w-1/2 px-10 py-10 bg-red-300 md:block">
-          <!-- Image -->
           <div class="flex h-full">
-            <img
-              class="items-center justify-center object-scale-down"
-              :src="logo"
-              alt="Dragon Nest Miku Logo"
-            />
+            <!-- Image -->
           </div>
         </div>
         <div class="w-full px-5 py-10 md:w-1/2 md:px-10">
