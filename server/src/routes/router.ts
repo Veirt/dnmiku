@@ -34,7 +34,7 @@ router.post("/api/v1/accounts", validateCreateAccount, async (req, res) => {
   account.RegisterDate = new Date();
 
   await accountRepository.save(account);
-  res.json({ message: "Successfully created account" });
+  res.status(201).json({ code: 201, message: "Successfully created account" });
 });
 
 module.exports = router;
