@@ -4,6 +4,9 @@
   "username": "sa",
   "password": "skQmsgozj!*sha",
   "database": "DNMembership",
+  "options": {
+    "enableArithAbort": true
+  },
   "synchronize": false,
   "logging": false,
   "entities": ["dist/**/*.js", "src/migration/**/*.ts"],
