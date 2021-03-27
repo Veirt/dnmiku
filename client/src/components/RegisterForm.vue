@@ -2,13 +2,14 @@
   <form @submit.prevent="createAccount">
     <div class="w-full">
       <div class="h-6 mt-3 text-xs font-bold leading-8 text-gray-600 uppercase">
-        <span class="mr-1 text-red-400">*</span>Username
+        <label for="AccountName" class="mr-1 text-red-400">*</label>Username
       </div>
       <div class="flex p-1 my-2 bg-white border-b-2 border-red-300">
         <input
           v-model="account.AccountName"
-          class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
           type="text"
+          id="AccountName"
+          class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
           placeholder="Username"
           :required="true"
         />
@@ -23,12 +24,13 @@
 
     <div class="w-full">
       <div class="h-6 mt-3 text-xs font-bold leading-8 text-gray-600 uppercase">
-        <span class="mr-1 text-red-400">*</span> Email
+        <label for="Email" class="mr-1 text-red-400">*</label> Email
       </div>
       <div class="flex p-1 my-2 bg-white border-b-2 border-red-300">
         <input
           v-model="account.Email"
           type="text"
+          id="Email"
           class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
           placeholder="Email"
           :required="true"
@@ -41,15 +43,16 @@
 
     <div class="w-full">
       <div class="h-6 mt-3 text-xs font-bold leading-8 text-gray-600 uppercase">
-        <span class="mr-1 text-red-400">*</span>Password
+        <label for="Password" class="mr-1 text-red-400">*</label>Password
       </div>
       <div class="flex p-1 my-2 bg-white border-b-2 border-red-300">
         <input
           v-model="account.Password"
+          :required="true"
           type="password"
+          id="Password"
           placeholder="Password"
           class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
-          :required="true"
           autocomplete="off"
         />
       </div>
@@ -60,13 +63,15 @@
 
     <div class="w-full">
       <div class="h-6 mt-3 text-xs font-bold leading-8 text-gray-600 uppercase">
-        <span class="mr-1 text-red-400">*</span> Repeat Password
+        <label for="ConfirmPassword" class="mr-1 text-red-400">*</label> Repeat
+        Password
       </div>
       <div class="flex p-1 my-2 bg-white border-b-2 border-red-300">
         <input
           v-model="ConfirmPassword"
           type="password"
           placeholder="Repeat your password"
+          id="ConfirmPassword"
           class="w-full p-1 px-2 text-gray-800 outline-none appearance-none"
           :required="true"
           autocomplete="off"
