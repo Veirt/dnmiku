@@ -113,7 +113,7 @@ export default defineComponent({
       try {
         await axios({
           method: "POST",
-          baseURL: import.meta.env.VITE_APP_API_ENDPOINT,
+          baseURL: import.meta.env.VITE_APP_API_ENDPOINT as string,
           url: "/api/v1/accounts",
           data: this.account,
         });

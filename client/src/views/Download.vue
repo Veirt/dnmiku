@@ -3,5 +3,12 @@
 </template>
 
 <script lang="ts">
-export default {};
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "Download",
+  created() {
+    document.title = this.$route.meta.title as string;
+  },
+});
 </script>

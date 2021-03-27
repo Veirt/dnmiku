@@ -28,5 +28,8 @@ export default defineComponent({
       logo,
     };
   },
+  created() {
+    document.title = this.$route.meta.title as string;
+  },
 });
 </script>
