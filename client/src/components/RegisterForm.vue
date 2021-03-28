@@ -15,10 +15,10 @@
         />
       </div>
       <p
-        v-if="error.AccountName.length"
+        v-if="errors.AccountName.length"
         class="text-xs text-right text-red-500"
       >
-        {{ error.AccountName[0] }}
+        {{ errors.AccountName[0] }}
       </p>
     </div>
 
@@ -36,8 +36,8 @@
           :required="true"
         />
       </div>
-      <p v-if="error.Email.length" class="text-xs text-right text-red-500">
-        {{ error.Email[0] }}
+      <p v-if="errors.Email.length" class="text-xs text-right text-red-500">
+        {{ errors.Email[0] }}
       </p>
     </div>
 
@@ -56,8 +56,8 @@
           autocomplete="off"
         />
       </div>
-      <p v-if="error.Password.length" class="text-xs text-right text-red-500">
-        {{ error.Password[0] }}
+      <p v-if="errors.Password.length" class="text-xs text-right text-red-500">
+        {{ errors.Password[0] }}
       </p>
     </div>
 
@@ -68,7 +68,7 @@
       </div>
       <div class="flex p-1 my-2 bg-white border-b-2 border-red-300">
         <input
-          v-model="ConfirmPassword"
+          v-model="account.ConfirmPassword"
           type="password"
           placeholder="Repeat your password"
           id="ConfirmPassword"
@@ -91,65 +91,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { reactive, defineComponent } from "vue";
 import axios from "axios";
 
 export default defineComponent({
   name: "RegisterForm",
-  data() {
-    return {
-      account: {
-        AccountName: "",
-        Email: "",
-        Password: "",
-      },
-      error: {
-        AccountName: new Array<string>(),
-        Email: new Array<string>(),
-        Password: new Array<string>(),
-      },
+  setup() {
+    const account = reactive({
+      AccountName: "",
+      Email: "",
+      Password: "",
       ConfirmPassword: "",
-    };
-  },
+    });
+    const errors = reactive({
+      AccountName: new Array<string>(),
+      Email: new Array<string>(),
+      Password: new Array<string>(),
+    });
 
-  methods: {
-    async createAccount() {
-      this.resetErrors();
+    const createAccount = async () => {
       try {
         await axios({
           method: "POST",
           baseURL: import.meta.env.VITE_APP_API_ENDPOINT as string,
           url: "/api/v1/accounts",
-          data: this.account,
+          data: account,
         });
-
-        console.log("success");
       } catch (err) {
         if (err.response.status === 400) {
           err.response.data.forEach(
             (error: { field: string; message: string }) => {
               switch (error.field) {
                 case "AccountName":
-                  this.error.AccountName.push(error.message);
+                  errors.AccountName.push(error.message);
                   break;
                 case "Email":
-                  this.error.Email.push(error.message);
+                  errors.Email.push(error.message);
                   break;
                 case "Password":
-                  this.error.Password.push(error.message);
+                  errors.Password.push(error.message);
                   break;
               }
             }
           );
         }
       }
-    },
+    };
 
-    resetErrors() {
-      this.error.AccountName = new Array<string>();
-      this.error.Email = new Array<string>();
-      this.error.Password = new Array<string>();
-    },
+    return { account, errors, createAccount };
   },
 });
 </script>
