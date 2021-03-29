@@ -1,0 +1,32 @@
+{
+  "name": "dnmiku-server",
+  "version": "0.1.0",
+  "main": "dist/app.js",
+  "repository": "https://github.com/ExLog/dnmiku",
+  "author": "ExLog",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon dist/app.js\"",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fastest-validator": "^1.10.1",
+    "mssql": "^6.3.1",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.31"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.11",
+    "@types/mssql": "^6.0.7",
+    "@types/node": "^14.14.35",
+    "nodemon": "^2.0.7",
+    "tsc-watch": "^4.2.9",
+    "typescript": "4.2.3"
+  }
+}
