@@ -129,6 +129,34 @@ export class Account {
     this.RLKTPassword = await encryptPassword(this.RLKTPassword);
     this.Passphrase = this.RLKTPassword;
   }
+
+  constructor(
+    AccountName: string,
+    Email: string,
+    AccountLevelCode: number,
+    RLKTPassword: string,
+    LastLoginDate: Date,
+    SecondAuthFailCount: number,
+    SecondAuthCode: number,
+    SecondAuthLockFlag: boolean,
+    CharacterCreateLimit: number,
+    CharacterMaxCount: number,
+    PublisherCode: number,
+    RegisterDate: Date
+  ) {
+    this.AccountName = AccountName;
+    this.Email = Email;
+    this.AccountLevelCode = AccountLevelCode;
+    this.RLKTPassword = RLKTPassword;
+    this.LastLoginDate = LastLoginDate;
+    this.SecondAuthFailCount = SecondAuthFailCount;
+    this.SecondAuthCode = SecondAuthCode;
+    this.SecondAuthLockFlag = SecondAuthLockFlag;
+    this.CharacterCreateLimit = CharacterCreateLimit;
+    this.CharacterMaxCount = CharacterMaxCount;
+    this.PublisherCode = PublisherCode;
+    this.RegisterDate = RegisterDate;
+  }
 }
 
 const encryptPassword = (password: string): Promise<any> => {
