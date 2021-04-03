@@ -841,7 +841,7 @@ uniq@^1.0.1:
   resolved "https://registry.yarnpkg.com/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"
   integrity sha1-sxxa6CVIRKOoKBVBzisEuGWnNP8=
 
-unzipper@latest:
+unzipper@0.10.11:
   version "0.10.11"
   resolved "https://registry.yarnpkg.com/unzipper/-/unzipper-0.10.11.tgz#0b4991446472cbdb92ee7403909f26c2419c782e"
   integrity sha512-+BrAq2oFqWod5IESRjL3S8baohbevGcVA+teAIOYWM3pDVdseogqbzhhvvmiyQrUNKFUnDMtELW3X8ykbyDCJw==
@@ -889,12 +889,12 @@ vue-router@4:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.5.tgz#dd0a4134bc950c37aef64b973e9ee1008428d8fa"
   integrity sha512-AQq+pllb6FCc7rS6vh4PPcce3XA1jgK3hKNkQ4hXHwoVN7jOeAOMKCnX7XAX3etV9rmN7iNW8iIwgPk95ckBjw==
 
-vue-tsc@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-0.0.8.tgz#2b2912d0c11e0d7bfd8d4ea89883c5acd722ac39"
-  integrity sha512-LY3SqDGAvB+x2iLqxZSGCw5tdR0tFQ7QhJ/J0+HQ7FZ5pED9tr4wxBMNeUPliLgIDbi5yFLM86Q+I93DYA0Y6g==
+vue-tsc@^0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/vue-tsc/-/vue-tsc-0.0.18.tgz#8844ae115ce9889812601e3d6c3aa8d2add17729"
+  integrity sha512-l612nrg+K53c9FA+/tlY2SHbzX87aMYIQHaXpmKy1AexoSOIkVxHenwbf63h0yplLPkObHwPGNFQPkdhzCiltQ==
   dependencies:
-    unzipper latest
+    unzipper "0.10.11"
 
 vue@^3.0.5:
   version "3.0.7"
