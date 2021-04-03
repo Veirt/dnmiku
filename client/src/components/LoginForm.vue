@@ -1,11 +1,11 @@
 <template>
-  <form>
+  <form @submit.prevent="login">
     <div class="flex -mx-3">
       <div class="w-full px-3 mb-5">
         <div
           class="h-6 mt-3 text-xs font-bold leading-8 text-gray-600 uppercase"
         >
-          <span class="mr-1 text-red-400">*</span>Username
+          <label for="AccountName" class="mr-1 text-red-400">*</label>Username
         </div>
         <div class="flex">
           <div
@@ -14,7 +14,9 @@
             <i class="text-lg text-gray-400 mdi mdi-email-outline"></i>
           </div>
           <input
+            v-model="account.AccountName"
             type="text"
+            id="AccountName"
             class="w-full py-2 pl-10 pr-3 -ml-10 bg-gray-100 border-b-2 border-red-300 outline-none"
             placeholder="Username"
           />
@@ -26,7 +28,7 @@
         <div
           class="h-6 mt-3 text-xs font-bold leading-8 text-gray-600 uppercase"
         >
-          <span class="mr-1 text-red-400">*</span>Password
+          <label for="Password" class="mr-1 text-red-400">*</label>Password
         </div>
         <div class="flex">
           <div
@@ -35,7 +37,9 @@
             <i class="text-lg text-gray-400 mdi mdi-lock-outline"></i>
           </div>
           <input
+            v-model="account.Password"
             type="password"
+            id="Password"
             class="w-full py-2 pl-10 pr-3 -ml-10 bg-gray-100 border-b-2 border-red-300 outline-none"
             placeholder="Password"
           />
@@ -61,10 +65,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "LoginForm",
+  setup() {
+    const account = reactive({
+      AccountName: "",
+      Password: "",
+    });
+
+    const login = async () => {
+      try {
+        await axios({
+          method: "POST",
+          baseURL: import.meta.env.VITE_APP_API_ENDPOINT as string,
+          url: "/api/v1/auth",
+          withCredentials: true,
+          data: account,
+        });
+        alert("success");
+      } catch (err) {
+        alert(err);
+      }
+    };
+
+    return { account, login };
+  },
 });
 </script>
 

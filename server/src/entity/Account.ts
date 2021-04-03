@@ -159,7 +159,7 @@ export class Account {
   }
 }
 
-const encryptPassword = (password: string): Promise<any> => {
+export const encryptPassword = (password: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await pool
