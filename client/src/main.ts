@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import store from "./store";
 import router from "./router";
-import 'virtual:windi.css'
+import "virtual:windi.css";
 
-createApp(App).use(router).mount("#app");
+createApp(App).use(store).use(router).mount("#app");
