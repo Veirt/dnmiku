@@ -1,10 +1,10 @@
+require("dotenv").config();
+import dbConfig from "./config/typeorm.config";
 import express from "express";
-import dotenv from "dotenv";
 import { createConnection } from "typeorm";
 
 const app = express();
-createConnection();
-dotenv.config();
+createConnection(dbConfig);
 
 app.use("/", require("./routes"));
 

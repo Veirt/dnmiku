@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon dist/app.js\"",
+    "start": "cross-env NODE_ENV=production node dist/app.js",
+    "dev": "nodemon",
     "build": "tsc"
   },
   "dependencies": {
@@ -29,7 +29,9 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/mssql": "^6.0.7",
     "@types/node": "^14.14.35",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
     "tsc-watch": "^4.2.9",
     "typescript": "4.2.3"
   }

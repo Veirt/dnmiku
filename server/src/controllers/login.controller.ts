@@ -3,10 +3,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { getConnection } from "typeorm";
 
-export const loginAccount = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+export const loginAccount = async (req: Request, res: Response) => {
   const accountRepository = getConnection().getRepository(Account);
 
   const account = await accountRepository.findOne({
@@ -24,10 +21,12 @@ export const loginAccount = async (
   }
 
   const payload = {
-    name: account.AccountName,
+    id: account.AccountId,
+    mail: account.Email,
+    role: account.AccountLevelCode,
   };
 
-  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+  const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
     audience: "mikudn",
     issuer: "exlog",
     expiresIn: "30 days",
@@ -35,6 +34,6 @@ export const loginAccount = async (
   });
 
   return res
-    .cookie("token", token, { maxAge: 1000 * 60 * 60 * 24 * 1 * 7 * 30 })
-    .json({ code: 200, token, account: payload });
+    .cookie("token", authToken, { maxAge: 1000 * 60 * 60 * 24 * 1 * 7 * 30 })
+    .json({ code: 200, authToken, account: payload });
 };

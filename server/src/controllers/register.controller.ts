@@ -2,10 +2,7 @@ import { Account } from "../entity/Account";
 import { Request, Response } from "express";
 import { getConnection } from "typeorm";
 
-export const createAccount = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+export const createAccount = async (req: Request, res: Response) => {
   const accountRepository = getConnection().getRepository(Account);
   try {
     const account = new Account(
