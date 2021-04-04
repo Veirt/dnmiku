@@ -7,5 +7,9 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {},
-  getters: {},
+  getters: {
+    apiUrl(state) {
+      return state.apiUrl;
+    },
+  },
 });

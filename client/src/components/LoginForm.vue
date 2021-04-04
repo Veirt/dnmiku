@@ -67,10 +67,13 @@
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 import axios from "axios";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "LoginForm",
   setup() {
+    const store = useStore();
+
     const account = reactive({
       AccountName: "",
       Password: "",
@@ -80,7 +83,7 @@ export default defineComponent({
       try {
         await axios({
           method: "POST",
-          baseURL: import.meta.env.VITE_APP_API_ENDPOINT as string,
+          baseURL: store.getters.apiUrl,
           url: "/api/v1/auth",
           withCredentials: true,
           data: account,

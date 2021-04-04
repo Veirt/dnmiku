@@ -91,12 +91,15 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent } from "vue";
+import { reactive, defineComponent, computed } from "vue";
+import { useStore } from "vuex";
 import axios from "axios";
 
 export default defineComponent({
   name: "RegisterForm",
   setup() {
+    const store = useStore();
+
     const account = reactive({
       AccountName: "",
       Email: "",
@@ -113,7 +116,7 @@ export default defineComponent({
       try {
         await axios({
           method: "POST",
-          baseURL: import.meta.env.VITE_APP_API_ENDPOINT as string,
+          baseURL: store.getters.apiUrl,
           url: "/api/v1/accounts",
           data: account,
         });
