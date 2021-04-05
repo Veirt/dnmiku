@@ -20,7 +20,7 @@
     "jsonwebtoken": "^8.5.1",
     "mssql": "^6.3.1",
     "reflect-metadata": "^0.1.10",
-    "typeorm": "0.2.31"
+    "typeorm": "0.2.32"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
