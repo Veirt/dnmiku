@@ -144,10 +144,10 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
 
-"@windicss/plugin-utils@0.12.5":
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.12.5.tgz#d03517d1ae7a48b5b459e3d670e873d38b63e4a1"
-  integrity sha512-4ux2o4s6D/gRTD68os41oxs/0NFk/eSJxHhZL9nN2wy4RGt+pPMQJyOHV56l7zDh9B0ywU5+ZRxDjdw2cl5Yvg==
+"@windicss/plugin-utils@0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.13.1.tgz#e0e172855ebcf0b8a5f0f358befdcaf44bae5cf1"
+  integrity sha512-Vr7f7yWxmB5AWwe+iDPV3JbhTlZHbDvM89IfJ0hyP6PqYmZNTtUfMXMbHXZJHVAbQ54dWBMG23WmeC9X327ETA==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -155,7 +155,7 @@
     micromatch "^4.0.2"
     pirates "^4.0.1"
     sucrase "^3.17.1"
-    windicss "^2.5.11"
+    windicss "^2.5.12"
 
 ansi-styles@^4.1.0:
   version "4.3.0"
@@ -876,15 +876,15 @@ util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-vite-plugin-windicss@^0.12.5:
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.12.5.tgz#74a5043db3615fe432855f6ecff13be36f7a6843"
-  integrity sha512-M/eEA+x94kxZNpEEkJLdY7M6Lp3WFhN0Kb/a2zhdPxBviMwaHSA5A7fUqN1xTYMxlQe4xM7D7naxL7EpnSNlmg==
+vite-plugin-windicss@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.13.1.tgz#82a488f3395be710ae2166b83b0612a5eaec7738"
+  integrity sha512-WmFfTLTMSY5gRC3MWX9o72Yni2HRdrtJ2im+cCyZ2W/p4WE6T702zFCScO8Tnz/E08GDx4OH6oFCZWeZYwgxzg==
   dependencies:
-    "@windicss/plugin-utils" "0.12.5"
+    "@windicss/plugin-utils" "0.13.1"
     chalk "^4.1.0"
     debug "^4.3.2"
-    windicss "^2.5.11"
+    windicss "^2.5.12"
 
 vite@^2.1.5:
   version "2.1.5"
@@ -924,10 +924,10 @@ vuex@~4.0:
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-4.0.0.tgz#ac877aa76a9c45368c979471e461b520d38e6cf5"
   integrity sha512-56VPujlHscP5q/e7Jlpqc40sja4vOhC4uJD1llBCWolVI8ND4+VzisDVkUMl+z5y0MpIImW6HjhNc+ZvuizgOw==
 
-windicss@^2.5.11:
-  version "2.5.11"
-  resolved "https://registry.yarnpkg.com/windicss/-/windicss-2.5.11.tgz#dd4027c724c7b12a37746d1474b96a52239157d1"
-  integrity sha512-u7b4rOPb8MwO1glkf0gdDygZ+lIzXb/PYLNjqni5Fe2684DCEt6dWTKdk3iMxXgbKoqRNncKu7xt3pFwXHdSAw==
+windicss@^2.5.12:
+  version "2.5.12"
+  resolved "https://registry.yarnpkg.com/windicss/-/windicss-2.5.12.tgz#7bc469b05d7a8fa3905d49d6521a1ff9107d0ea4"
+  integrity sha512-BZ0Ps1C0RlCHBVOPcw/DAReeR9o/mKaoFgkBsVphQ23M5nsvVfVXgGlNJZssjAQsXnlDpj97pnIhtDn1ENBjXw==
 
 wrappy@1:
   version "1.0.2"
