@@ -144,18 +144,18 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
 
-"@windicss/plugin-utils@0.12.5":
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.12.5.tgz#d03517d1ae7a48b5b459e3d670e873d38b63e4a1"
-  integrity sha512-4ux2o4s6D/gRTD68os41oxs/0NFk/eSJxHhZL9nN2wy4RGt+pPMQJyOHV56l7zDh9B0ywU5+ZRxDjdw2cl5Yvg==
+"@windicss/plugin-utils@0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.14.0.tgz#ca5459e81d38fbe3c1eac0574ffdc8dba06961a4"
+  integrity sha512-PnXKrCX7dl3tQPkfc2RGOQCqzS+3ApTLelGhr0c1kbHgz+EjaS+pK9vhhQm/8xgzyJLyreYUuQEEAvvPtBRBEQ==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
     magic-string "^0.25.7"
-    micromatch "^4.0.2"
+    micromatch "^4.0.4"
     pirates "^4.0.1"
     sucrase "^3.17.1"
-    windicss "^2.5.11"
+    windicss "^2.5.14"
 
 ansi-styles@^4.1.0:
   version "4.3.0"
@@ -558,6 +558,14 @@ micromatch@^4.0.2:
     braces "^3.0.1"
     picomatch "^2.0.5"
 
+micromatch@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.4.tgz#896d519dfe9db25fce94ceb7a500919bf881ebf9"
+  integrity sha512-pRmzw/XUcwXGpD9aI9q/0XOwLNygjETJ8y0ao0wdqprrzDa4YnxLcz7fQRZr8voh8V10kGhABbNcHVk5wHgWwg==
+  dependencies:
+    braces "^3.0.1"
+    picomatch "^2.2.3"
+
 minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
@@ -627,6 +635,11 @@ picomatch@^2.0.5, picomatch@^2.2.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
   integrity sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==
+
+picomatch@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.3.tgz#465547f359ccc206d3c48e46a1bcb89bf7ee619d"
+  integrity sha512-KpELjfwcCDUb9PeigTs2mBJzXUPzAuP2oPcA989He8Rte0+YUAjw1JVedDhuTKPkHjSYzMN3npC9luThGYEKdg==
 
 pirates@^4.0.1:
   version "4.0.1"
@@ -876,15 +889,15 @@ util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-vite-plugin-windicss@^0.12.5:
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.12.5.tgz#74a5043db3615fe432855f6ecff13be36f7a6843"
-  integrity sha512-M/eEA+x94kxZNpEEkJLdY7M6Lp3WFhN0Kb/a2zhdPxBviMwaHSA5A7fUqN1xTYMxlQe4xM7D7naxL7EpnSNlmg==
+vite-plugin-windicss@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.14.0.tgz#e2e1c2a14eff7a5a3c417c388e5d865fa6157967"
+  integrity sha512-f4Dgvpgq1i2rvqJ3He4gZ+BYrgz6OiQwHOLMOMU4RbyWY1Vr7gdNs71E/AbN2DWdkm+L/fj/4BNhvlp35I8+fw==
   dependencies:
-    "@windicss/plugin-utils" "0.12.5"
+    "@windicss/plugin-utils" "0.14.0"
     chalk "^4.1.0"
     debug "^4.3.2"
-    windicss "^2.5.11"
+    windicss "^2.5.14"
 
 vite@^2.1.5:
   version "2.1.5"
@@ -924,10 +937,10 @@ vuex@~4.0:
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-4.0.0.tgz#ac877aa76a9c45368c979471e461b520d38e6cf5"
   integrity sha512-56VPujlHscP5q/e7Jlpqc40sja4vOhC4uJD1llBCWolVI8ND4+VzisDVkUMl+z5y0MpIImW6HjhNc+ZvuizgOw==
 
-windicss@^2.5.11:
-  version "2.5.11"
-  resolved "https://registry.yarnpkg.com/windicss/-/windicss-2.5.11.tgz#dd4027c724c7b12a37746d1474b96a52239157d1"
-  integrity sha512-u7b4rOPb8MwO1glkf0gdDygZ+lIzXb/PYLNjqni5Fe2684DCEt6dWTKdk3iMxXgbKoqRNncKu7xt3pFwXHdSAw==
+windicss@^2.5.14:
+  version "2.5.14"
+  resolved "https://registry.yarnpkg.com/windicss/-/windicss-2.5.14.tgz#41236ccc2517c0947e1adb69e0d5e8aa9bed9c1e"
+  integrity sha512-8Lm7U1M5AzJPbiaVSVz7qWdETRzlkv//5LBMICBBAojos1jo09lUGhNZ5rBzHeldB9JmqYMDOGgrrXHExu0EAg==
 
 wrappy@1:
   version "1.0.2"
