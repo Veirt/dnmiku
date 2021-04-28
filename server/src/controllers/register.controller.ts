@@ -4,21 +4,25 @@ import { getConnection } from "typeorm";
 
 export const createAccount = async (req: Request, res: Response) => {
   const accountRepository = getConnection().getRepository(Account);
+
+  const { AccountName, Email, Password } = req.body;
   try {
-    const account = new Account(
-      req.body.AccountName,
-      req.body.Email,
-      0,
-      req.body.Password,
-      null,
-      0,
-      1,
-      false,
-      4,
-      8,
-      0,
-      new Date()
-    );
+    const account = accountRepository.create({
+      AccountName,
+      Email,
+      AccountLevelCode: 0,
+      RLKTPassword: Password,
+      LastLoginDate: null,
+      SecondAuthFailCount: 0,
+      SecondAuthCode: 1,
+      SecondAuthLockFlag: false,
+      CharacterCreateLimit: 4,
+      CharacterMaxCount: 8,
+      PublisherCode: 0,
+      RegisterDate: new Date(),
+      cash: 0,
+    });
+
     await accountRepository.save(account);
 
     return res

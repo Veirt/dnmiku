@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, ref } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
 
@@ -74,7 +74,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const account = reactive({
+    const account = ref({
       AccountName: "",
       Password: "",
     });
@@ -86,7 +86,7 @@ export default defineComponent({
           baseURL: store.getters.apiUrl,
           url: "/api/v1/auth",
           withCredentials: true,
-          data: account,
+          data: account.value,
         });
         alert("success");
       } catch (err) {

@@ -1,6 +1,6 @@
 import { Account } from "../entity/Account";
 import { Request, Response } from "express";
-import { getConnection, getRepository } from "typeorm";
+import { getConnection } from "typeorm";
 import jwt from "jsonwebtoken";
 import { getAuthToken } from "../middlewares/auth.middleware";
 

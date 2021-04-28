@@ -118,7 +118,7 @@ export class Account {
   @Column({ type: "varchar", length: 32 })
   RLKTPassword: string;
 
-  @Column({ type: "int", nullable: true })
+  @Column({ type: "int", nullable: false })
   cash: number;
 
   @Column({ type: "varchar", length: 50, unique: true })
@@ -142,7 +142,8 @@ export class Account {
     CharacterCreateLimit: number,
     CharacterMaxCount: number,
     PublisherCode: number,
-    RegisterDate: Date
+    RegisterDate: Date,
+    cash: number
   ) {
     this.AccountName = AccountName;
     this.Email = Email;

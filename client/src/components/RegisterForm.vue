@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, defineComponent, computed } from "vue";
+import { ref, defineComponent } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
 
@@ -100,13 +100,14 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const account = reactive({
+    const account = ref({
       AccountName: "",
       Email: "",
       Password: "",
       ConfirmPassword: "",
     });
-    const errors = reactive({
+
+    const errors = ref({
       AccountName: new Array<string>(),
       Email: new Array<string>(),
       Password: new Array<string>(),
@@ -118,21 +119,27 @@ export default defineComponent({
           method: "POST",
           baseURL: store.getters.apiUrl,
           url: "/api/v1/accounts",
-          data: account,
+          data: account.value,
         });
+
+        errors.value = {
+          AccountName: new Array<string>(),
+          Email: new Array<string>(),
+          Password: new Array<string>(),
+        };
       } catch (err) {
         if (err.response.status === 400) {
           err.response.data.forEach(
             (error: { field: string; message: string }) => {
               switch (error.field) {
                 case "AccountName":
-                  errors.AccountName.push(error.message);
+                  errors.value.AccountName.push(error.message);
                   break;
                 case "Email":
-                  errors.Email.push(error.message);
+                  errors.value.Email.push(error.message);
                   break;
                 case "Password":
-                  errors.Password.push(error.message);
+                  errors.value.Password.push(error.message);
                   break;
               }
             }
