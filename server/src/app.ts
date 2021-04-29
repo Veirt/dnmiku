@@ -1,4 +1,5 @@
 require("dotenv").config();
+import "reflect-metadata";
 import dbConfig from "./config/typeorm.config";
 import express from "express";
 import { createConnection } from "typeorm";
