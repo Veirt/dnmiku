@@ -1,4 +1,3 @@
-import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 
@@ -12,7 +11,6 @@ const routerConfig = (router: express.Router) => {
       credentials: true,
     })
   );
-  router.use(cookieParser());
   router.use(express.json());
   router.use(express.urlencoded({ extended: true }));
 };
