@@ -113,10 +113,10 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
 
-"@types/mssql@^6.0.7":
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/@types/mssql/-/mssql-6.0.7.tgz#47202e4d782a7414f4b51c8de22f0dc7a76d2469"
-  integrity sha512-OWu9DNlRrbSz/cCn5RbYxm9S/Y+tiFHNEQXfSnZzyJKGeEo4edA1JDgVvu90RKPc+d703RsbllyXkZ8MNjNOSA==
+"@types/mssql@^6.0.8":
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/@types/mssql/-/mssql-6.0.8.tgz#f2831267c4c577022d1584943b371af87e8a147d"
+  integrity sha512-N3dr3o1c6EXhHhhNRaKpLTdAoXT/s6qDEJET5FID2gFCj58vIV9q/7RtkvYdE6ntpkJF5F9hpURhxT/oC62yLw==
   dependencies:
     "@types/node" "*"
     "@types/tedious" "*"
