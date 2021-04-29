@@ -33,6 +33,14 @@ const routes: Array<RouteRecordRaw> = [
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Register`,
     },
   },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: () => import("../views/Admin.vue"),
+    meta: {
+      title: `${import.meta.env.VITE_APP_BASE_TITLE} | Admin`,
+    },
+  },
 ];
 
 const router = createRouter({

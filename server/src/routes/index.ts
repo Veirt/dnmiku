@@ -1,8 +1,8 @@
 import routerConfig from "../config/router.config";
-import { isAuthenticated } from "../middlewares/auth.middleware";
+import { isAdmin, isAuthenticated } from "../middlewares/auth.middleware";
 import { validateCreateAccount } from "../middlewares/validation.middleware";
 import { loginAccount, createAccount } from "../controllers/auth.controller";
-import { getAccountData } from "../controllers/account.controller";
+import { getAccountData, getAccounts } from "../controllers/account.controller";
 import express from "express";
 
 const router = express.Router();
@@ -14,6 +14,7 @@ router.post("/api/v1/accounts", validateCreateAccount, createAccount);
 
 router.post("/api/v1/auth", loginAccount);
 
+router.get("/api/v1/accounts/", isAuthenticated, isAdmin, getAccounts);
 router.get("/api/v1/accounts/@me", isAuthenticated, getAccountData);
 
 module.exports = router;

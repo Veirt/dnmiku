@@ -58,7 +58,7 @@ export class Account {
   @Column({ type: "date", nullable: true })
   BirthDate: Date;
 
-  @Column({ type: "varchar", length: 32 })
+  @Column({ type: "varchar", length: 32, select: false })
   Passphrase: string;
 
   @Column({ type: "binary", length: 80, nullable: true })
@@ -115,7 +115,7 @@ export class Account {
   @Column({ type: "bit", nullable: true })
   LockFlag: boolean;
 
-  @Column({ type: "varchar", length: 32 })
+  @Column({ type: "varchar", length: 32, select: false })
   RLKTPassword: string;
 
   @Column({ type: "int", nullable: false })

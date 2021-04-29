@@ -40,9 +40,20 @@ export const createAccount = async (req: Request, res: Response) => {
 export const loginAccount = async (req: Request, res: Response) => {
   const accountRepository = getConnection().getRepository(Account);
 
-  const account = await accountRepository.findOne({
-    AccountName: req.body.AccountName,
-  });
+  const account = await accountRepository.findOne(
+    {
+      AccountName: req.body.AccountName,
+    },
+    {
+      select: [
+        "Passphrase",
+        "AccountId",
+        "AccountName",
+        "Email",
+        "AccountLevelCode",
+      ],
+    }
+  );
 
   if (!account) {
     return res

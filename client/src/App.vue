@@ -36,6 +36,9 @@ export default defineComponent({
 
         if (res.data.accessToken) {
           store.commit("setAccessToken", res.data.accessToken);
+          if (res.data.AccountLevelCode === 99) {
+            store.commit("setAdmin", true);
+          }
         } else {
           throw new Error("There is no token");
         }
