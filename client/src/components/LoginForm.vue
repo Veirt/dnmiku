@@ -81,13 +81,16 @@ export default defineComponent({
 
     const login = async () => {
       try {
-        await axios({
+        const res = await axios({
           method: "POST",
           baseURL: store.getters.apiUrl,
           url: "/api/v1/auth",
           withCredentials: true,
           data: account.value,
         });
+
+        store.commit("setAccessToken", res.data.accessToken);
+        if (res.data.account.role === 99) store.commit("setAdmin");
         alert("success");
       } catch (err) {
         alert(err);

@@ -71,7 +71,7 @@ export const loginAccount = async (req: Request, res: Response) => {
     role: account.AccountLevelCode,
   };
 
-  const authToken = jwt.sign(payload, process.env.JWT_SECRET, {
+  const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
     audience: "mikudn",
     issuer: "exlog",
     expiresIn: "30 days",
@@ -79,6 +79,6 @@ export const loginAccount = async (req: Request, res: Response) => {
   });
 
   return res
-    .cookie("token", authToken, { maxAge: 1000 * 60 * 60 * 24 * 1 * 7 * 30 })
-    .json({ code: 200, authToken, account: payload });
+    .cookie("token", accessToken, { maxAge: 1000 * 60 * 60 * 24 * 1 * 7 * 30 })
+    .json({ code: 200, accessToken, account: payload });
 };
