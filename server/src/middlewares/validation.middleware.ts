@@ -1,5 +1,5 @@
 import { Account } from "../entity/Account";
-import { CreateAccountValidation } from "../schema/validation";
+import { CreateAccountValidation } from "../helpers/validation.helper";
 import { Request, Response, NextFunction } from "express";
 import { getConnection } from "typeorm";
 
