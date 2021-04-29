@@ -1,8 +1,7 @@
 import routerConfig from "../config/router.config";
 import { isAuthenticated } from "../middlewares/auth.middleware";
 import { validateCreateAccount } from "../middlewares/validation.middleware";
-import { createAccount } from "../controllers/register.controller";
-import { loginAccount } from "../controllers/login.controller";
+import { loginAccount, createAccount } from "../controllers/auth.controller";
 import { getAccountData } from "../controllers/account.controller";
 import express from "express";
 
