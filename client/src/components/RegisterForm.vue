@@ -127,6 +127,7 @@ export default defineComponent({
           Email: new Array<string>(),
           Password: new Array<string>(),
         };
+        alert("Success");
       } catch (err) {
         if (err.response.status === 400) {
           err.response.data.forEach(
