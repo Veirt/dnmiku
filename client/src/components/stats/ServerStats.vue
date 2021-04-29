@@ -1,8 +1,8 @@
 <template>
   <div class="flex items-center justify-center px-5 py-5 min-w-screen">
     <div class="w-full max-w-3xl">
-      <div class="-mx-2 md:flex">
-        <div class="w-full px-2 md:w-1/2">
+      <div class="flex flex-row -mx-2 md:flex">
+        <div class="w-1/2 px-2 md:w-1/2">
           <div class="mb-4 rounded-lg shadow-sm">
             <div
               class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
@@ -17,7 +17,7 @@
             </div>
           </div>
         </div>
-        <div class="w-full px-2 md:w-1/2">
+        <div class="w-1/2 px-2 md:w-1/2">
           <div class="mb-4 rounded-lg shadow-sm">
             <div
               class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
