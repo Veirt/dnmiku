@@ -36,9 +36,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/admin",
     name: "Admin",
-    component: () => import("../views/Admin.vue"),
+    component: () => import("../views/Admin/Admin.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Admin`,
+    },
+  },
+
+  {
+    path: "/admin/accounts",
+    name: "ManageAccounts",
+    component: () => import("../views/Admin/Account.vue"),
+    meta: {
+      title: `${import.meta.env.VITE_APP_BASE_TITLE} | Manage Account`,
     },
   },
 ];

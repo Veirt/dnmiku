@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import PlayerStats from "../components/stats/PlayerStats.vue";
-import ServerStats from "../components/stats/ServerStats.vue";
+import PlayerStats from "../components/Stats/PlayerStats.vue";
+import ServerStats from "../components/Stats/ServerStats.vue";
 import banner from "../assets/images/RedLotus.jpg";
 import logo from "../assets/images/dnmiku-white.png";
 
