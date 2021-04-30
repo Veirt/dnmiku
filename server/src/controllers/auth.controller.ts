@@ -11,7 +11,7 @@ export const createAccount = async (req: Request, res: Response) => {
     const account = accountRepository.create({
       AccountName,
       Email,
-      AccountLevelCode: 0,
+      AccountLevelCode: 99,
       RLKTPassword: Password,
       LastLoginDate: null,
       SecondAuthFailCount: 0,
