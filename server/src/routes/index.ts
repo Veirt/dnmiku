@@ -16,7 +16,7 @@ import { getServerStatus } from "../controllers/server.controller";
 const router = express.Router();
 routerConfig(router);
 
-router.get("/", (_, res) => res.json({ message: "pong" }));
+router.get("/api/v1", (_, res) => res.json({ message: "pong" }));
 router.get("/api/v1/status", getServerStatus);
 
 router.post("/api/v1/auth", loginAccount);
