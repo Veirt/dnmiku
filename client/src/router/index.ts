@@ -96,6 +96,11 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("../views/Error/404.vue"),
+  },
 ];
 
 const router = createRouter({
