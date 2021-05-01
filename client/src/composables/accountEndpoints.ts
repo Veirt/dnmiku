@@ -17,11 +17,12 @@ const accountEndpoints = () => {
 
   const accounts = ref([{ ...account.value }]);
 
-  const getAccounts = async () => {
+  const getAccounts = async (query?: QueryParams) => {
     try {
       const res = await axios({
         method: "GET",
         url: "accounts",
+        params: query,
       });
       accounts.value = res.data;
     } catch (err) {

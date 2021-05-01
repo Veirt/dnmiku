@@ -1,7 +1,7 @@
 import { getAccessToken } from "../helpers/jwt.helper";
 import { Account } from "../entity/Account";
 import { Request, Response } from "express";
-import { getConnection } from "typeorm";
+import { getConnection, ILike } from "typeorm";
 import jwt from "jsonwebtoken";
 
 export const getAccountData = async (req: Request, res: Response) => {
@@ -27,8 +27,17 @@ export const getAccountData = async (req: Request, res: Response) => {
 
 export const getAccounts = async (req: Request, res: Response) => {
   const accountRepository = getConnection().getRepository(Account);
+
+  const take = parseInt(req.query.take as string) || 0;
+  const skip = parseInt(req.query.skip as string) || 0;
+  const keyword = req.query.keyword || "";
+
   try {
-    const accounts = await accountRepository.find();
+    const accounts = await accountRepository.find({
+      take,
+      skip,
+      where: { AccountName: ILike(`%${keyword}%`) },
+    });
     return res.status(200).json(accounts);
   } catch (err) {
     console.error(`Error when getting accounts: ${err}`);

@@ -7,6 +7,7 @@
       <div class="flex flex-row mb-1 sm:mb-0">
         <div class="relative">
           <select
+            v-model="query.take"
             class="block w-full h-full px-4 py-2 pr-8 leading-tight text-white bg-black rounded-l appearance-none focus:outline-none focus:bg-black"
           >
             <option :value="10">10</option>
@@ -58,6 +59,7 @@
           </svg>
         </span>
         <input
+          v-model="query.keyword"
           placeholder="Search"
           class="block w-full py-2 pl-8 pr-6 text-sm text-gray-300 placeholder-gray-400 bg-black border border-b border-black rounded appearance-none sm:rounded-l-none focus:text-white focus:placeholder-gray-300 focus:outline-none"
         />
@@ -121,7 +123,7 @@
                 class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
               >
                 <p class="text-gray-900 whitespace-no-wrap">
-                  {{ account.RegisterDate }}
+                  {{ store.getters.dayjs(account.RegisterDate).fromNow() }}
                 </p>
               </td>
 
@@ -129,7 +131,11 @@
                 class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
               >
                 <p class="text-gray-900 whitespace-no-wrap">
-                  {{ account.LastLoginDate ?? "Never logged in" }}
+                  {{
+                    account.LastLoginDate
+                      ? store.getters.dayjs(account.LastLoginDate).fromNow()
+                      : "Never logged in"
+                  }}
                 </p>
               </td>
 
@@ -170,14 +176,18 @@
           <span class="text-xs text-gray-900 xs:text-sm">
             {{ accounts.length }} Entries
           </span>
-          <div class="inline-flex mt-2 xs:mt-0">
+          <div v-show="query.take !== 0" class="inline-flex mt-2 xs:mt-0">
             <button
+              @click="query.skip -= query.take"
+              :disabled="query.skip - query.take < 0"
               class="px-4 py-2 text-sm font-semibold text-white transition delay-100 bg-black rounded-l disabled:cursor-not-allowed enabled:hover:text-red-300"
             >
               Prev
             </button>
             <button
-              class="px-4 py-2 text-sm font-semibold text-white transition delay-100 bg-black rounded-r enabled:hover:text-red-300"
+              @click="query.skip += query.take"
+              :disabled="query.skip + query.take > accounts.length"
+              class="px-4 py-2 text-sm font-semibold text-white transition delay-100 bg-black rounded-r enabled:hover:text-red-300 disabled:cursor-not-allowed"
             >
               Next
             </button>
@@ -191,6 +201,11 @@
 <script setup lang="ts">
 import TableLayout from "../Layout/TableLayout.vue";
 import account from "../../composables/accountEndpoints";
+import query from "../../composables/paginationQuery";
+import { watch } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 const { accounts, getAccounts, deleteAccount } = account();
 
@@ -206,4 +221,5 @@ const column = [
 ];
 
 getAccounts();
+watch(query.value, (_) => getAccounts(query.value));
 </script>
