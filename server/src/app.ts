@@ -4,9 +4,9 @@ import dbConfig from "./config/typeorm.config";
 import express from "express";
 import { createConnection } from "typeorm";
 
-const app = express();
-createConnection(dbConfig);
+createConnection(dbConfig).then(() => {
+  const app = express();
+  app.use("/", require("./routes"));
 
-app.use("/", require("./routes"));
-
-app.listen(8080, () => console.log("Listening on http://localhost:8080"));
+  app.listen(8080, () => console.log("Listening on http://localhost:8080"));
+});
