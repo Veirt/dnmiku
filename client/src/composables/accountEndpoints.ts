@@ -1,6 +1,6 @@
 import store from "../store";
+import axios from "../axios";
 import { ref } from "vue";
-import axios from "axios";
 
 const accountEndpoints = () => {
   const account = ref({
@@ -21,9 +21,7 @@ const accountEndpoints = () => {
     try {
       const res = await axios({
         method: "GET",
-        baseURL: store.getters.apiUrl,
-        url: "/api/v1/accounts",
-        headers: { authorization: `Bearer ${store.getters.accessToken}` },
+        url: "accounts",
       });
       accounts.value = res.data;
     } catch (err) {
@@ -35,9 +33,7 @@ const accountEndpoints = () => {
     try {
       const res = await axios({
         method: "GET",
-        baseURL: store.getters.apiUrl,
-        url: `/api/v1/accounts/${id}`,
-        headers: { authorization: `Bearer ${store.getters.accessToken}` },
+        url: `accounts/${id}`,
       });
       account.value = res.data;
     } catch (err) {
@@ -49,9 +45,7 @@ const accountEndpoints = () => {
     try {
       await axios({
         method: "POST",
-        baseURL: store.getters.apiUrl,
-        url: `/api/v1/accounts/admin`,
-        headers: { authorization: `Bearer ${store.getters.accessToken}` },
+        url: `accounts/admin`,
         data: account.value,
       });
     } catch (err) {
@@ -63,9 +57,7 @@ const accountEndpoints = () => {
     try {
       await axios({
         method: "PATCH",
-        baseURL: store.getters.apiUrl,
-        url: `/api/v1/accounts/${id}`,
-        headers: { authorization: `Bearer ${store.getters.accessToken}` },
+        url: `accounts/${id}`,
         data: account.value,
       });
     } catch (err) {
@@ -77,9 +69,7 @@ const accountEndpoints = () => {
     try {
       await axios({
         method: "DELETE",
-        baseURL: store.getters.apiUrl,
-        url: `/api/v1/accounts/${id}`,
-        headers: { authorization: `Bearer ${store.getters.accessToken}` },
+        url: `accounts/${id}`,
       });
       await getAccounts();
     } catch (err) {
