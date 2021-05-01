@@ -37,16 +37,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import axios from "../../axios";
+import { ref } from "vue";
 
-export default defineComponent({
-  name: "ServerStats",
-  data() {
-    return {
-      gameServer: "Loading",
-      villageServer: "Loading",
-    };
-  },
-});
+const gameServer = ref("Loading");
+const villageServer = ref("Loading");
+
+(async () => {
+  const res = await axios.get("status");
+  gameServer.value = res.data.gameServer;
+  villageServer.value = res.data.villageServer;
+})();
 </script>
