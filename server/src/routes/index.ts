@@ -16,23 +16,23 @@ import { getServerStatus } from "../controllers/server.controller";
 const router = express.Router();
 routerConfig(router);
 
-router.get("/api/v1", (_, res) => res.json({ message: "pong" }));
-router.get("/api/v1/status", getServerStatus);
+router.get("/", (_, res) => res.json({ message: "pong" }));
+router.get("/status", getServerStatus);
 
-router.post("/api/v1/auth", loginAccount);
+router.post("/auth", loginAccount);
 
-router.get("/api/v1/accounts", isAuthenticated, isAdmin, getAccounts);
-router.post("/api/v1/accounts", validateCreateAccount, createAccount);
+router.get("/accounts", isAuthenticated, isAdmin, getAccounts);
+router.post("/accounts", validateCreateAccount, createAccount);
 router.post(
-  "/api/v1/accounts/admin",
+  "/accounts/admin",
   validateCreateAccount,
   isAuthenticated,
   isAdmin,
   createAdminAccount
 );
-router.get("/api/v1/accounts/@me", isAuthenticated, getAccountData);
-router.get("/api/v1/accounts/:id", isAuthenticated, isAdmin, getAccountById);
-router.patch("/api/v1/accounts/:id", isAuthenticated, isAdmin, editAccount);
-router.delete("/api/v1/accounts/:id", isAuthenticated, isAdmin, deleteAccount);
+router.get("/accounts/@me", isAuthenticated, getAccountData);
+router.get("/accounts/:id", isAuthenticated, isAdmin, getAccountById);
+router.patch("/accounts/:id", isAuthenticated, isAdmin, editAccount);
+router.delete("/accounts/:id", isAuthenticated, isAdmin, deleteAccount);
 
 module.exports = router;

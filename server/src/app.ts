@@ -6,7 +6,7 @@ import { createConnection } from "typeorm";
 
 createConnection(dbConfig).then(() => {
   const app = express();
-  app.use("/", require("./routes"));
+  app.use("/api/v1", require("./routes"));
 
   app.listen(8080, () => console.log("Listening on http://localhost:8080"));
 });
