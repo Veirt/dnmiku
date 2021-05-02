@@ -9,13 +9,13 @@ const CreateAccountSchema = {
     type: "string",
     alphanum: true,
     empty: false,
-    min: 6,
+    min: 5,
     max: 12,
     messages: {
       stringAlphanum: "Username cannot contain special chars",
       stringEmpty: "Username cannot be empty",
-      stringMin: "Username must be 6-12 chars",
-      stringMax: "Username must be 6-12 chars",
+      stringMin: "Username must be 5-12 chars",
+      stringMax: "Username must be 5-12 chars",
     },
   },
   Email: {
