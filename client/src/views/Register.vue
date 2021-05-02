@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-center md:flex-row">
       <div class="flex flex-col justify-center max-w-md md:w-1/2">
         <div class="text-xl font-black uppercase md:text-4xl">
-          <img v-bind:src="logo" alt="Dragon Nest Miku Logo" />
+          <img :src="logo" alt="Dragon Nest Miku Logo" />
         </div>
       </div>
       <div class="flex justify-start w-full mt-5 md:w-1/2 md:justify-end">
