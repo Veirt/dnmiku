@@ -77,10 +77,29 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/admin/accounts",
     name: "ManageAccounts",
-    component: () => import("../views/Admin/Account.vue"),
+    component: () => import("../components/PassThrough.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Manage Account`,
     },
+    children: [
+      {
+        path: "",
+        component: () => import("../views/Admin/Account.vue"),
+      },
+      {
+        path: "create",
+        component: () => import("../views/Admin/Form/AccountForm.vue"),
+      },
+      {
+        path: "edit/:id",
+        component: () => import("../views/Admin/Form/AccountForm.vue"),
+      },
+    ],
+  },
+
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("../views/Error/404.vue"),
   },
 ];
 

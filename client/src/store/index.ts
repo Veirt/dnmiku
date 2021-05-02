@@ -1,4 +1,9 @@
 import { createStore } from "vuex";
+import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "dayjs";
+import "dayjs/locale/en";
+dayjs.extend(relativeTime);
+dayjs.locale("id");
 
 export default createStore({
   state: {
@@ -25,6 +30,9 @@ export default createStore({
     },
     isAdmin(state) {
       return state.isAdmin;
+    },
+    dayjs() {
+      return dayjs;
     },
   },
 });
