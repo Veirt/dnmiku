@@ -56,10 +56,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@types/node@^14.14.39":
-  version "14.14.39"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.39.tgz#9ef394d4eb52953d2890e4839393c309aa25d2d1"
-  integrity sha512-Qipn7rfTxGEDqZiezH+wxqWYR8vcXq5LRpZrETD19Gs4o8LbklbmqotSUsMU+s5G3PJwMRDfNEYoxrcBwIxOuw==
+"@types/node@^15.0.1":
+  version "15.0.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.0.1.tgz#ef34dea0881028d11398be5bf4e856743e3dc35a"
+  integrity sha512-TMkXt0Ck1y0KKsGr9gJtWGjttxlZnnvDtphxUOSd0bfaR6Q1jle+sPvrzNR1urqYTWMinoKvjKfXUGsumaO1PA==
 
 "@vitejs/plugin-vue@^1.2.1":
   version "1.2.1"
@@ -144,10 +144,10 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.0.11.tgz#20d22dd0da7d358bb21c17f9bde8628152642c77"
   integrity sha512-b+zB8A2so8eCE0JsxjL24J7vdGl8rzPQ09hZNhystm+KqSbKcAej1A+Hbva1rCMmTTqA+hFnUSDc5kouEo0JzA==
 
-"@windicss/plugin-utils@0.15.7":
-  version "0.15.7"
-  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.15.7.tgz#3865e1a7b48806fac048865a3ab35912958f712d"
-  integrity sha512-++2POqhrvL589Xv8X6ZX7sCG2Jb9rzbbGQCvClhoOxhPFFkPuLnZtGB+KIa2l1QarPXUQCaSjQ+zxFiu6IgI/g==
+"@windicss/plugin-utils@0.15.9":
+  version "0.15.9"
+  resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-0.15.9.tgz#acd84c806550cf231089bb673db301be228dc3f1"
+  integrity sha512-Dlq7GpmnRjTXQ3Ip21g5gulxO1rFmjKP1n42lZLQP+3JrUQY0zzazQZxU/2fgMt/rJW16wRYj9u80+8mN4Cp/A==
   dependencies:
     debug "^4.3.2"
     fast-glob "^3.2.5"
@@ -297,6 +297,11 @@ csstype@^2.6.8:
   version "2.6.16"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.16.tgz#544d69f547013b85a40d15bff75db38f34fe9c39"
   integrity sha512-61FBWoDHp/gRtsoDkq/B1nWrCUG/ok1E3tUrcNbZjsE9Cxd9yzUirjS3+nAATB8U4cTtaQmAHbNndoFz5L6C9Q==
+
+dayjs@^1.10.4:
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.4.tgz#8e544a9b8683f61783f570980a8a80eaf54ab1e2"
+  integrity sha512-RI/Hh4kqRc1UKLOAf/T5zdMMX5DQIlDxwUe3wSyMMnEbGunnpENCdbUgM+dW7kXidZqCttBrmw7BhN4TMddkCw==
 
 debug@^4.3.2:
   version "4.3.2"
@@ -889,12 +894,12 @@ util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
 
-vite-plugin-windicss@^0.15.7:
-  version "0.15.7"
-  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.15.7.tgz#6999c7a971a3bde887c2f701e56adc56953435d9"
-  integrity sha512-RYASJYA6l2p3MgQ6M6GU44zP0iC5cBkuTJhhrmHaRREleL9fNpblBwdS0lbvcr5Q4LT6AGpmmTlF50iIwo3JkQ==
+vite-plugin-windicss@^0.15.9:
+  version "0.15.9"
+  resolved "https://registry.yarnpkg.com/vite-plugin-windicss/-/vite-plugin-windicss-0.15.9.tgz#5f40823288d8ba2d3bb576a83f62e2d219cc5b44"
+  integrity sha512-PvJF/xLxKBQcHV7WL9cyo2OT2ZuAiBl2HCBbrHKSA43hFEWng9WfjLDa5ZcNKBAHmoeI6JpDo8ts9P27zlkXxQ==
   dependencies:
-    "@windicss/plugin-utils" "0.15.7"
+    "@windicss/plugin-utils" "0.15.9"
     chalk "^4.1.0"
     debug "^4.3.2"
     windicss "^2.5.14"
