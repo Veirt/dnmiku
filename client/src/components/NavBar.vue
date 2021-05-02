@@ -12,12 +12,20 @@
         >Download</router-link
       >
       <router-link
+        :to="{ name: 'Admin' }"
+        v-if="store.getters.isAdmin"
+        class="py-3 mr-8 text-xs font-bold tracking-wide text-white no-underline uppercase transition duration-200 ease-in-out hover:text-red-300"
+        >Admin</router-link
+      >
+      <router-link
         :to="{ name: 'Register' }"
+        v-if="!store.getters.accessToken"
         class="py-3 mr-8 text-xs font-bold tracking-wide text-white no-underline uppercase transition duration-200 ease-in-out hover:text-red-300"
         >Register</router-link
       >
       <router-link
         :to="{ name: 'Login' }"
+        v-if="!store.getters.accessToken"
         class="py-3 mr-8 text-xs font-bold tracking-wide text-white no-underline uppercase transition duration-200 ease-in-out hover:text-red-300"
         >Login</router-link
       >
@@ -27,9 +35,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "NavBar",
+  setup() {
+    const store = useStore();
+
+    return { store };
+  },
 });
 </script>
 

@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, ref } from "vue";
 import axios from "axios";
 import { useStore } from "vuex";
 
@@ -74,20 +74,23 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const account = reactive({
+    const account = ref({
       AccountName: "",
       Password: "",
     });
 
     const login = async () => {
       try {
-        await axios({
+        const res = await axios({
           method: "POST",
           baseURL: store.getters.apiUrl,
           url: "/api/v1/auth",
           withCredentials: true,
-          data: account,
+          data: account.value,
         });
+
+        store.commit("setAccessToken", res.data.accessToken);
+        if (res.data.account.role === 99) store.commit("setAdmin");
         alert("success");
       } catch (err) {
         alert(err);

@@ -12,5 +12,6 @@ const config = {
 
 export const pool = new sql.ConnectionPool(config, (err: Error) => {
   if (err) throw new Error("Cannot connect to MSSQL database");
+  console.log("Connected to MSSQL Database");
   console.log(`Username : ${config.user}, Server : ${config.server}`);
 });
