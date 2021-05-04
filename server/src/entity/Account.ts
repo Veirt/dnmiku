@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BeforeInsert,
-  Binary,
+  OneToMany,
+  JoinColumn,
+  ManyToMany,
 } from "typeorm";
 import sql from "mssql";
+import { Character } from "./Character";
 
 @Entity({ name: "Accounts" })
 export class Account {
@@ -19,14 +22,8 @@ export class Account {
   @Column({ type: "tinyint" })
   AccountLevelCode: number;
 
-  @Column({ type: "binary", length: 20, nullable: true, select: false })
-  GameOption: Binary;
-
   @Column({ type: "tinyint", select: false })
   CharacterCreateLimit: number;
-
-  @Column({ type: "datetime2", nullable: true, select: false })
-  LastCharacterCreateDate: Date;
 
   @Column({ type: "tinyint", select: false })
   CharacterMaxCount: number;
@@ -34,38 +31,14 @@ export class Account {
   @Column({ type: "datetime2", nullable: true })
   LastLoginDate: Date;
 
-  @Column({ type: "datetime2", nullable: true })
-  LastLogoutDate: Date;
-
-  @Column({ type: "int", nullable: true, select: false })
-  LastLoginIP: number;
-
-  @Column({ type: "int", nullable: true, select: false })
-  LastSessionID: number;
-
-  @Column({ type: "int", nullable: true, select: false })
-  JoinIP: number;
-
   @Column({ type: "datetime2", default: () => "GETDATE()" })
   RegisterDate: Date;
 
   @Column({ type: "tinyint", select: false })
   PublisherCode: number;
 
-  @Column({ type: "tinyint", nullable: true, select: false })
-  GenderCode: number;
-
-  @Column({ type: "date", nullable: true, select: false })
-  BirthDate: Date;
-
   @Column({ type: "varchar", length: 32, select: false })
   Passphrase: string;
-
-  @Column({ type: "binary", length: 80, nullable: true, select: false })
-  KeySettingOption: Binary;
-
-  @Column({ type: "binary", length: 20, nullable: true, select: false })
-  SecondAuthPassphrase: Binary;
 
   @Column({ type: "tinyint", select: false })
   SecondAuthFailCount: number;
@@ -76,45 +49,6 @@ export class Account {
   @Column({ type: "bit", select: false })
   SecondAuthLockFlag: boolean;
 
-  @Column({ type: "date", nullable: true, select: false })
-  LastSecondAuthNotifyDate: Date;
-
-  @Column({ type: "binary", length: 201, nullable: true, select: false })
-  GamePadOption: Binary;
-
-  @Column({ type: "tinyint", nullable: true, select: false })
-  NationalityCode: number;
-
-  @Column({ type: "smalldatetime", nullable: true, select: false })
-  SecondAuthResetDate: Date;
-
-  @Column({ type: "tinyint", nullable: true, select: false })
-  ChannelPartnerCode: number;
-
-  @Column({ type: "int", nullable: true, select: false })
-  TotalDT: number;
-
-  @Column({ type: "bigint", nullable: true, select: false })
-  AccountKey: number;
-
-  @Column({ type: "tinyint", nullable: true, select: false })
-  CharacterSortCode: number;
-
-  @Column({ type: "bit", nullable: true, select: false })
-  ConnectNoticeFlag: boolean;
-
-  @Column({ type: "bit", nullable: true, select: false })
-  NewbieRewardFlag: boolean;
-
-  @Column({ type: "datetime2", nullable: true, select: false })
-  NewbieRewardDate: Date;
-
-  @Column({ type: "bit", nullable: true, select: false })
-  ReturnRewardFlag: boolean;
-
-  @Column({ type: "bit", nullable: true, select: false })
-  LockFlag: boolean;
-
   @Column({ type: "varchar", length: 32, select: false })
   RLKTPassword: string;
 
@@ -123,6 +57,9 @@ export class Account {
 
   @Column({ type: "varchar", length: 50, unique: true })
   Email: string;
+
+  @OneToMany((type) => Character, (character) => character.AccountID)
+  Characters: Character[];
 
   @BeforeInsert()
   async encryptPassword() {
@@ -157,6 +94,7 @@ export class Account {
     this.CharacterMaxCount = CharacterMaxCount;
     this.PublisherCode = PublisherCode;
     this.RegisterDate = RegisterDate;
+    this.cash = cash;
   }
 }
 

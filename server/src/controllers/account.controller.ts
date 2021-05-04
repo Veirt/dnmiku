@@ -13,13 +13,7 @@ export const getAccountData = async (req: Request, res: Response) => {
   const account = await accountRepository.findOne(
     { AccountId: decoded.id },
     {
-      select: [
-        "AccountId",
-        "AccountName",
-        "Email",
-        "AccountLevelCode",
-        "LastLoginDate",
-      ],
+      relations: ["Characters"],
     }
   );
   return res.status(200).json({ ...account, accessToken });
@@ -37,6 +31,8 @@ export const getAccounts = async (req: Request, res: Response) => {
       take,
       skip,
       where: { AccountName: ILike(`%${keyword}%`) },
+      cache: true,
+      relations: ["Characters"],
     });
     return res.status(200).json(accounts);
   } catch (err) {
