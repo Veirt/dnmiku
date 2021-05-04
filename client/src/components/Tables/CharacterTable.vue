@@ -174,14 +174,16 @@
 
 <script setup lang="ts">
 import TableLayout from "../Layout/TableLayout.vue";
-import characterEndpoints from "../../composables/characterEndpoints";
+import {
+  characters,
+  getCharacters,
+  deleteCharacter,
+} from "../../composables/characterEndpoints";
 import query from "../../composables/paginationQuery";
 import { watch } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-
-const { characters, getCharacters, deleteCharacter } = characterEndpoints();
 
 const column = [
   "Id",

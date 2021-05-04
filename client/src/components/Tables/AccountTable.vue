@@ -200,14 +200,16 @@
 
 <script setup lang="ts">
 import TableLayout from "../Layout/TableLayout.vue";
-import account from "../../composables/accountEndpoints";
+import {
+  accounts,
+  getAccounts,
+  deleteAccount,
+} from "../../composables/accountEndpoints";
 import query from "../../composables/paginationQuery";
 import { watch } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-
-const { accounts, getAccounts, deleteAccount } = account();
 
 const column = [
   "Id",

@@ -30,13 +30,15 @@
 </template>
 
 <script setup lang="ts">
-import characterEndpoints from "../../../composables/characterEndpoints";
+import {
+  character,
+  getCharacterById,
+  editCharacter,
+} from "../../../composables/characterEndpoints";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 const id = route.params.id as string;
-
-const { character, getCharacterById, editCharacter } = characterEndpoints();
 
 if (route.params.id) {
   getCharacterById(parseInt(id));

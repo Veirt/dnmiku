@@ -162,18 +162,16 @@
 </template>
 
 <script setup lang="ts">
-import accountEndpoints from "../../../composables/accountEndpoints";
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-const id = route.params.id as string;
-
-const {
+import {
   account,
   getAccountById,
   createAccount,
   editAccount,
-} = accountEndpoints();
+} from "../../../composables/accountEndpoints";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const id = route.params.id as string;
 
 if (route.params.id) {
   getAccountById(parseInt(id));
