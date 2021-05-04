@@ -1,10 +1,10 @@
-import { pool } from "../db/pool";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   BeforeInsert,
   OneToMany,
+  getConnection,
 } from "typeorm";
 import sql from "mssql";
 import { Character } from "./Character";
@@ -99,14 +99,12 @@ export class Account {
 export const encryptPassword = (password: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const query = await pool
-        .request()
-        .input("password", sql.VarChar(12), password)
-        .query(
-          "SELECT UPPER(SUBSTRING(sys.fn_VarBinToHexStr(HASHBYTES('MD5', @password)),3,32)) AS EncryptedPassword"
-        );
+      const query = await getConnection().query(
+        "SELECT [dbo].[__EncryptPassword](@0)",
+        [password]
+      );
 
-      resolve(query.recordset[0].EncryptedPassword);
+      resolve(query[0][""]);
     } catch (err) {
       reject(err);
     }

@@ -29,13 +29,7 @@ router.post("/auth", loginAccount);
 
 router.get("/accounts", isAuthenticated, isAdmin, getAccounts);
 router.post("/accounts", validateCreateAccount, createAccount);
-router.post(
-  "/accounts/admin",
-  validateCreateAccount,
-  isAuthenticated,
-  isAdmin,
-  createAdminAccount
-);
+router.post("/accounts/admin", isAuthenticated, isAdmin, createAdminAccount);
 router.get("/accounts/@me", isAuthenticated, getAccountData);
 router.get("/accounts/:id", isAuthenticated, isAdmin, getAccountById);
 router.patch("/accounts/:id", isAuthenticated, isAdmin, editAccount);
