@@ -4,7 +4,6 @@ import {
   Column,
   JoinColumn,
   ManyToOne,
-  ManyToMany,
 } from "typeorm";
 import { Account } from "./Account";
 
@@ -15,7 +14,7 @@ export class Character {
 
   @ManyToOne((type) => Account, (account) => account.AccountId)
   @JoinColumn({ name: "AccountID" })
-  AccountID: Account;
+  Account: Account;
 
   @Column({ type: "nvarchar", length: 30 })
   CharacterName: string;

@@ -5,8 +5,6 @@ import {
   Column,
   BeforeInsert,
   OneToMany,
-  JoinColumn,
-  ManyToMany,
 } from "typeorm";
 import sql from "mssql";
 import { Character } from "./Character";
@@ -58,7 +56,7 @@ export class Account {
   @Column({ type: "varchar", length: 50, unique: true })
   Email: string;
 
-  @OneToMany((type) => Character, (character) => character.AccountID)
+  @OneToMany((type) => Character, (character) => character.Account)
   Characters: Character[];
 
   @BeforeInsert()

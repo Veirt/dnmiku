@@ -98,6 +98,29 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   {
+    path: "/admin/characters",
+    name: "ManageCharacters",
+    component: () => import("../components/PassThrough.vue"),
+    meta: {
+      title: `${import.meta.env.VITE_APP_BASE_TITLE} | Manage Character`,
+    },
+    children: [
+      {
+        path: "",
+        component: () => import("../views/Admin/Character.vue"),
+      },
+      {
+        path: "create",
+        component: () => import("../views/Admin/Form/CharacterForm.vue"),
+      },
+      {
+        path: "edit/:id",
+        component: () => import("../views/Admin/Form/CharacterForm.vue"),
+      },
+    ],
+  },
+
+  {
     path: "/:pathMatch(.*)*",
     component: () => import("../views/Error/404.vue"),
   },
