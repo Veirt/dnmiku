@@ -6,7 +6,6 @@ import {
   OneToMany,
   getConnection,
 } from "typeorm";
-import sql from "mssql";
 import { Character } from "./Character";
 
 @Entity({ name: "Accounts" })
@@ -99,10 +98,9 @@ export class Account {
 export const encryptPassword = (password: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const query = await getConnection().query(
-        "SELECT [dbo].[__EncryptPassword](@0)",
-        [password]
-      );
+      const query = await getConnection(
+        "DNMembership"
+      ).query("SELECT [dbo].[__EncryptPassword](@0)", [password]);
 
       resolve(query[0][""]);
     } catch (err) {

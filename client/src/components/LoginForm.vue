@@ -90,7 +90,7 @@ export default defineComponent({
         });
 
         store.commit("setAccessToken", res.data.accessToken);
-        if (res.data.account.role === 99) store.commit("setAdmin");
+        if (res.data.account.role >= 99) store.commit("setAdmin");
         alert("success");
       } catch (err) {
         alert(err);

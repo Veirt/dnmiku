@@ -1,10 +1,10 @@
 require("dotenv").config();
 import "reflect-metadata";
-import dbConfig from "./config/typeorm.config";
+import { DNMembershipConfig, DNWorldConfig } from "./config/typeorm.config";
 import express from "express";
 import { createConnection } from "typeorm";
 
-createConnection(dbConfig).then(() => {
+createConnection(DNMembershipConfig).then(() => {
   const app = express();
   app.use("/api/v1", require("./routes"));
 

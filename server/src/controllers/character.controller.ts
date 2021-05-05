@@ -1,9 +1,11 @@
-import { Character } from "../entity/Character";
+import { Character } from "../entity/DNMembership/Character";
 import { Request, Response } from "express";
 import { getConnection, ILike } from "typeorm";
 
 export const getCharacters = async (req: Request, res: Response) => {
-  const characterRepository = getConnection().getRepository(Character);
+  const characterRepository = getConnection("DNMembership").getRepository(
+    Character
+  );
 
   const take = parseInt(req.query.take as string) || 0;
   const skip = parseInt(req.query.skip as string) || 0;
@@ -35,7 +37,9 @@ export const getCharacters = async (req: Request, res: Response) => {
 };
 
 export const getCharacterById = async (req: Request, res: Response) => {
-  const characterRepository = getConnection().getRepository(Character);
+  const characterRepository = getConnection("DNMembership").getRepository(
+    Character
+  );
 
   try {
     const character = await characterRepository.findOne(req.params.id);
@@ -53,7 +57,9 @@ export const getCharacterById = async (req: Request, res: Response) => {
 };
 
 export const editCharacter = async (req: Request, res: Response) => {
-  const characterRepository = getConnection().getRepository(Character);
+  const characterRepository = getConnection("DNMembership").getRepository(
+    Character
+  );
 
   const { CharacterName } = req.body;
 
@@ -73,7 +79,9 @@ export const editCharacter = async (req: Request, res: Response) => {
 };
 
 export const deleteCharacter = async (req: Request, res: Response) => {
-  const characterRepository = getConnection().getRepository(Character);
+  const characterRepository = getConnection("DNMembership").getRepository(
+    Character
+  );
 
   try {
     await characterRepository.delete(req.params.id);

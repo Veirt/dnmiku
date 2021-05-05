@@ -1,10 +1,12 @@
-import { Account, encryptPassword } from "../entity/Account";
+import { Account, encryptPassword } from "../entity/DNMembership/Account";
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import { getConnection } from "typeorm";
+import jwt from "jsonwebtoken";
 
 export const createAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
 
   const { AccountName, Email, Password } = req.body;
   try {
@@ -38,7 +40,9 @@ export const createAccount = async (req: Request, res: Response) => {
 };
 
 export const loginAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
 
   const account = await accountRepository.findOne(
     {

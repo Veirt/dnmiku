@@ -1,5 +1,5 @@
 import { getAccessToken } from "../helpers/jwt.helper";
-import { Account } from "../entity/Account";
+import { Account } from "../entity/DNMembership/Account";
 import { Request, Response } from "express";
 import { getConnection, ILike } from "typeorm";
 import jwt from "jsonwebtoken";
@@ -9,7 +9,9 @@ export const getAccountData = async (req: Request, res: Response) => {
   const decoded = jwt.decode(accessToken, {
     json: true,
   });
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
   const account = await accountRepository.findOne(
     { AccountId: decoded.id },
     {
@@ -20,7 +22,9 @@ export const getAccountData = async (req: Request, res: Response) => {
 };
 
 export const getAccounts = async (req: Request, res: Response) => {
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
 
   const take = parseInt(req.query.take as string) || 0;
   const skip = parseInt(req.query.skip as string) || 0;
@@ -48,7 +52,9 @@ export const getAccounts = async (req: Request, res: Response) => {
 };
 
 export const getAccountById = async (req: Request, res: Response) => {
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
 
   try {
     const account = await accountRepository.findOneOrFail(req.params.id);
@@ -66,7 +72,9 @@ export const getAccountById = async (req: Request, res: Response) => {
 };
 
 export const createAdminAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
 
   const { AccountName, AccountLevelCode, Email, Password, cash } = req.body;
   try {
@@ -100,7 +108,9 @@ export const createAdminAccount = async (req: Request, res: Response) => {
 };
 
 export const editAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
 
   const { AccountName, AccountLevelCode, Email, cash } = req.body;
 
@@ -127,7 +137,9 @@ export const editAccount = async (req: Request, res: Response) => {
 };
 
 export const deleteAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection().getRepository(Account);
+  const accountRepository = getConnection("DNMembership").getRepository(
+    Account
+  );
 
   try {
     await accountRepository.delete(req.params.id);

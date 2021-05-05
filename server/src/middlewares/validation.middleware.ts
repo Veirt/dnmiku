@@ -1,4 +1,4 @@
-import { Account } from "../entity/Account";
+import { Account } from "../entity/DNMembership/Account";
 import { CreateAccountValidation } from "../helpers/validation.helper";
 import { Request, Response, NextFunction } from "express";
 import { getConnection } from "typeorm";
@@ -9,7 +9,7 @@ export const validateCreateAccount = async (
   next: NextFunction
 ) => {
   let validationResult: any = CreateAccountValidation(req.body);
-  const repository = getConnection().getRepository(Account);
+  const repository = getConnection("DNMembership").getRepository(Account);
 
   try {
     await repository.findOneOrFail({
