@@ -5,17 +5,7 @@ export const character = ref({
   CharacterId: 0,
   CharacterName: "",
   CreateDate: undefined,
-  Account: {
-    AccountId: 0,
-    AccountName: "",
-    Email: "",
-    Password: "",
-    ConfirmPassword: "",
-    AccountLevelCode: 0,
-    cash: 0,
-    LastLoginDate: undefined,
-    RegisterDate: undefined,
-  },
+  AccountName: "",
 });
 
 export const characters = ref([{ ...character.value }]);

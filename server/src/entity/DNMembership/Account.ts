@@ -6,9 +6,8 @@ import {
   OneToMany,
   getConnection,
 } from "typeorm";
-import { Character } from "./Character";
 
-@Entity({ name: "Accounts" })
+@Entity({ name: "Accounts", database: "DNMembership" })
 export class Account {
   @PrimaryGeneratedColumn()
   AccountId: number;
@@ -54,9 +53,6 @@ export class Account {
 
   @Column({ type: "varchar", length: 50, unique: true })
   Email: string;
-
-  @OneToMany((type) => Character, (character) => character.Account)
-  Characters: Character[];
 
   @BeforeInsert()
   async encryptPassword() {
