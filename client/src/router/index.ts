@@ -23,7 +23,7 @@ const verifyToken = async () => {
 
     if (res.data.accessToken) {
       store.commit("setAccessToken", res.data.accessToken);
-      if (res.data.AccountLevelCode === 99) {
+      if (res.data.AccountLevelCode >= 99) {
         store.commit("setAdmin", true);
       }
     } else {
