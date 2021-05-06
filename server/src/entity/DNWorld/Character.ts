@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinTable,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+import { CharacterStatus } from "./CharacterStatus";
 
 @Entity({ name: "Characters", database: "DNWorld" })
 export class Character {
@@ -34,4 +42,8 @@ export class Character {
 
   @Column({ type: "datetime2" })
   CreateDate: Date;
+
+  @ManyToOne((type) => CharacterStatus)
+  @JoinColumn({ name: "CharacterId" })
+  CharacterStatus: CharacterStatus;
 }

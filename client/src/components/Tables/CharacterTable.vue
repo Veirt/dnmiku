@@ -64,13 +64,6 @@
           class="block w-full py-2 pl-8 pr-6 text-sm text-gray-300 placeholder-gray-400 bg-black border border-b border-black rounded appearance-none sm:rounded-l-none focus:text-white focus:placeholder-gray-300 focus:outline-none"
         />
       </div>
-      <router-link to="/admin/accounts/create" class="relative block sm:ml-1">
-        <button
-          class="h-full px-2 py-1 text-white uppercase transition delay-100 bg-black rounded hover:text-red-300"
-        >
-          Create
-        </button>
-      </router-link>
     </div>
     <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
       <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
@@ -107,6 +100,14 @@
                 class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
               >
                 <p class="text-gray-900 whitespace-no-wrap">
+                  {{ character.AccountName }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
                   {{ store.getters.dayjs(character.CreateDate).fromNow() }}
                 </p>
               </td>
@@ -115,7 +116,73 @@
                 class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
               >
                 <p class="text-gray-900 whitespace-no-wrap">
-                  {{ character.AccountName }}
+                  {{
+                    store.getters
+                      .dayjs(character.CharacterStatus.LastLoginDate)
+                      .fromNow()
+                  }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{ character.CharacterStatus.JobCode }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{ character.CharacterStatus.LastVillageMapID }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{ character.CharacterStatus.LikeCount.toLocaleString() }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{
+                    parseInt(character.CharacterStatus.Coin).toLocaleString()
+                  }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{
+                    parseInt(
+                      character.CharacterStatus.WarehouseCoin
+                    ).toLocaleString()
+                  }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{ character.CharacterStatus.Fatigue.toLocaleString() }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p class="text-gray-900 whitespace-no-wrap">
+                  {{ character.CharacterStatus.WeeklyFatigue.toLocaleString() }}
                 </p>
               </td>
 
@@ -188,8 +255,16 @@ const store = useStore();
 const column = [
   "Id",
   "Character Name",
-  "Created Date",
   "Account Owner",
+  "Created Date",
+  "Last Login",
+  "Job",
+  "Last Village",
+  "Like",
+  "Gold",
+  "Storage",
+  "Fatigue",
+  "Weekly Fatigue",
   "Actions",
 ];
 

@@ -6,6 +6,19 @@ export const character = ref({
   CharacterName: "",
   CreateDate: undefined,
   AccountName: "",
+  CharacterStatus: {
+    CharacterLevel: 0,
+    JobCode: 0,
+    LastMapId: 0,
+    LastVillageMapID: 0,
+    Coin: "",
+    WarehouseCoin: "",
+    SkillPoint: 0,
+    Fatigue: 0,
+    WeeklyFatigue: 0,
+    LastLoginDate: undefined,
+    LikeCount: 0,
+  },
 });
 
 export const characters = ref([{ ...character.value }]);

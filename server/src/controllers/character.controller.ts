@@ -17,6 +17,7 @@ export const getCharacters = async (req: Request, res: Response) => {
       where: {
         CharacterName: ILike(`%${keyword}%`),
       },
+      relations: ["CharacterStatus"],
     });
 
     return res.status(200).json(characters);
