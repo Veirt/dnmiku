@@ -11,7 +11,7 @@ import { CharacterStatus } from "./CharacterStatus";
 @Entity({ name: "Characters", database: "DNWorld" })
 export class Character {
   @PrimaryGeneratedColumn({ type: "bigint" })
-  CharacterId: number;
+  CharacterID: number;
 
   @Column({ type: "int", nullable: false, select: false })
   AccountID: number;

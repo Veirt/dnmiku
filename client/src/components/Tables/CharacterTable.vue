@@ -84,7 +84,7 @@
                 class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
               >
                 <p class="text-gray-900 whitespace-no-wrap">
-                  {{ character.CharacterId }}
+                  {{ character.CharacterID }}
                 </p>
               </td>
 
@@ -192,7 +192,7 @@
                 <router-link
                   class="w-1/2 m-1"
                   :to="{
-                    path: `/admin/characters/edit/${character.CharacterId}`,
+                    path: `/admin/characters/edit/${character.CharacterID}`,
                   }"
                 >
                   <button
@@ -202,7 +202,7 @@
                   </button>
                 </router-link>
                 <button
-                  @click="deleteCharacter(character.CharacterId)"
+                  @click="deleteCharacter(character.CharacterID)"
                   class="w-1/2 px-3 py-2 m-1 text-white transition delay-100 bg-black rounded hover:text-red-300"
                 >
                   Delete

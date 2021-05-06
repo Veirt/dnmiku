@@ -2,7 +2,7 @@ import axios from "../axios";
 import { ref } from "vue";
 
 export const character = ref({
-  CharacterId: 0,
+  CharacterID: 0,
   CharacterName: "",
   CreateDate: undefined,
   AccountName: "",

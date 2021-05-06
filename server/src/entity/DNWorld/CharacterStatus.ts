@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 @Entity({ name: "CharacterStatus", database: "DNWorld" })
 export class CharacterStatus {
   @PrimaryGeneratedColumn({ type: "bigint" })
-  CharacterId: number;
+  CharacterID: number;
 
   @Column({ type: "tinyint" })
   CharacterLevel: number;

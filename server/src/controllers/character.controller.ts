@@ -1,6 +1,7 @@
 import { Character } from "../entity/DNWorld/Character";
 import { Request, Response } from "express";
 import { getConnection, ILike } from "typeorm";
+import { CharacterStatus } from "../entity/DNWorld/CharacterStatus";
 
 export const getCharacters = async (req: Request, res: Response) => {
   const characterRepository = getConnection("DNWorld").getRepository(Character);
@@ -37,7 +38,10 @@ export const getCharacterById = async (req: Request, res: Response) => {
   const characterRepository = getConnection("DNWorld").getRepository(Character);
 
   try {
-    const character = await characterRepository.findOne(req.params.id);
+    const character = await characterRepository.findOne(req.params.id, {
+      cache: true,
+      relations: ["CharacterStatus"],
+    });
     if (!character) {
       return res.status(404).json({
         code: 404,
@@ -53,11 +57,38 @@ export const getCharacterById = async (req: Request, res: Response) => {
 
 export const editCharacter = async (req: Request, res: Response) => {
   const characterRepository = getConnection("DNWorld").getRepository(Character);
+  const characterStatusRepository = getConnection("DNWorld").getRepository(
+    CharacterStatus
+  );
 
   const { CharacterName } = req.body;
+  const {
+    CharacterLevel,
+    SkillPoint,
+    LastVillageMapID,
+    Coin,
+    WarehouseCoin,
+    Fatigue,
+    WeeklyFatigue,
+    LikeCount,
+  } = req.body.CharacterStatus;
 
   try {
-    await characterRepository.update(req.params.id, { CharacterName });
+    await characterRepository.update(req.params.id, {
+      CharacterName,
+    });
+
+    await characterStatusRepository.update(req.params.id, {
+      CharacterLevel,
+      SkillPoint,
+      LastVillageMapID,
+      Coin,
+      WarehouseCoin,
+      Fatigue,
+      WeeklyFatigue,
+      LikeCount,
+    });
+
     return res
       .status(204)
       .json({ code: 204, message: "Resource updated successfully" });
