@@ -18,7 +18,7 @@
     "express": "^4.17.1",
     "fastest-validator": "^1.10.1",
     "jsonwebtoken": "^8.5.1",
-    "mssql": "^6.3.1",
+    "mssql": "^7.0.0",
     "reflect-metadata": "^0.1.10",
     "typeorm": "0.2.32"
   },
