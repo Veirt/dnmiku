@@ -1,5 +1,5 @@
 <template>
-  <nav class="px-8 pt-2 bg-black shadow-md">
+  <nav v-show="store.getters.done" class="px-8 pt-2 bg-black shadow-md">
     <div class="flex justify-center -mb-px">
       <router-link
         :to="{ name: 'Home' }"

@@ -131,12 +131,10 @@ const router = createRouter({
   routes,
 });
 
-let done = false;
-
 router.beforeEach(async (_, __, next) => {
-  if (!done) {
-    done = true;
+  if (!store.getters.done) {
     await verifyToken();
+    store.commit("auth");
   }
   next();
 });

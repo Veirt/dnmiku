@@ -8,6 +8,7 @@ dayjs.locale("id");
 export default createStore({
   state: {
     apiUrl: import.meta.env.VITE_APP_API_ENDPOINT,
+    done: false,
     isAdmin: false,
     accessToken: "",
   },
@@ -17,6 +18,9 @@ export default createStore({
     },
     setAdmin(state) {
       state.isAdmin = true;
+    },
+    auth(state) {
+      state.done = true;
     },
   },
   actions: {},
@@ -33,6 +37,9 @@ export default createStore({
     },
     dayjs() {
       return dayjs;
+    },
+    done(state) {
+      return state.done;
     },
   },
 });
