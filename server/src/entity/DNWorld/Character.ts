@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  JoinTable,
   ManyToOne,
   JoinColumn,
 } from "typeorm";
@@ -44,6 +43,6 @@ export class Character {
   CreateDate: Date;
 
   @ManyToOne((type) => CharacterStatus)
-  @JoinColumn({ name: "CharacterId" })
+  @JoinColumn({ name: "CharacterID" })
   CharacterStatus: CharacterStatus;
 }
