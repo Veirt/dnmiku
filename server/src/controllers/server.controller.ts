@@ -1,17 +1,16 @@
+import { DNAuth } from "../entity/DNMembership/DNAuth";
 import { Account } from "../entity/DNMembership/Account";
 import { Character } from "../entity/DNWorld/Character";
 import checkServerPort from "../helpers/server.helper";
 import { Request, Response } from "express";
 import { getConnection } from "typeorm";
-import { DNAuth } from "../entity/DNMembership/DNAuth";
 
 export const getServerStatus = async (_: Request, res: Response) => {
-  const villageServer = await checkServerPort(14400);
-  const gameServer = await checkServerPort(14500);
-
-  return res
-    .status(200)
-    .json({ villageServer, gameServer, lastTime: new Date() });
+  return res.status(200).json({
+    lastTime: new Date(),
+    villageServer: await checkServerPort(14400),
+    gameServer: await checkServerPort(14500),
+  });
 };
 
 export const getPlayerStatus = async (_: Request, res: Response) => {
