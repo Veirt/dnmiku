@@ -2,7 +2,10 @@ import routerConfig from "../config/router.config";
 import * as accountControllers from "../controllers/account.controller";
 import * as characterControllers from "../controllers/character.controller";
 import { createAccount, loginAccount } from "../controllers/auth.controller";
-import { getServerStatus } from "../controllers/server.controller";
+import {
+  getServerStatus,
+  getPlayerStatus,
+} from "../controllers/server.controller";
 import { isAdmin, isAuthenticated } from "../middlewares/auth.middleware";
 import { validateCreateAccount } from "../middlewares/validation.middleware";
 import express from "express";
@@ -11,7 +14,8 @@ const router = express.Router();
 routerConfig(router);
 
 router.get("/", (_, res) => res.json({ message: "pong" }));
-router.get("/status", getServerStatus);
+router.get("/status/server", getServerStatus);
+router.get("/status/players", getPlayerStatus);
 
 router.post("/auth", loginAccount);
 

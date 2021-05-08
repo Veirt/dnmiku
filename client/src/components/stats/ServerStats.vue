@@ -57,7 +57,7 @@ const gameServer = ref("Loading");
 const villageServer = ref("Loading");
 
 (async () => {
-  const res = await axios.get("status");
+  const res = await axios.get("status/server");
   gameServer.value = res.data.gameServer;
   villageServer.value = res.data.villageServer;
 })();

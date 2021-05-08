@@ -14,7 +14,7 @@
                   class="my-3 text-3xl font-semibold leading-tight text-black"
                   id="accounts"
                 >
-                  {{ accounts }}
+                  {{ playerStats.accounts }}
                 </h3>
               </div>
             </div>
@@ -32,7 +32,7 @@
                   class="my-3 text-3xl font-semibold leading-tight text-gray-700"
                   id="characters"
                 >
-                  {{ characters }}
+                  {{ playerStats.characters }}
                 </h3>
               </div>
             </div>
@@ -50,7 +50,7 @@
                   class="my-3 text-3xl font-semibold leading-tight text-gray-700"
                   id="online"
                 >
-                  {{ online }}
+                  {{ playerStats.online }}
                 </h3>
               </div>
             </div>
@@ -63,8 +63,19 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import axios from "../../axios";
 
-const accounts = ref("Loading");
-const characters = ref("Loading");
-const online = ref("Loading");
+const playerStats = ref({
+  accounts: "Loading",
+  characters: "Loading",
+  online: "Loading",
+});
+
+(async () => {
+  const res = await axios({
+    method: "GET",
+    url: "status/players",
+  });
+  playerStats.value = res.data;
+})();
 </script>
