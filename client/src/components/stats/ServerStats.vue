@@ -12,12 +12,12 @@
                 <h4 class="text-sm text-red-400 uppercase">Game Server</h4>
                 <h3
                   :class="{
-                    'text-green-500': gameServer === 'Online',
-                    'text-red-500': gameServer === 'Offline',
+                    'text-green-500': server.game === 'Online',
+                    'text-red-500': server.game === 'Offline',
                   }"
                   class="my-3 text-3xl font-semibold leading-tight"
                 >
-                  {{ gameServer }}
+                  {{ server.game }}
                 </h3>
               </div>
             </div>
@@ -33,12 +33,12 @@
                 <h4 class="text-sm text-red-400 uppercase">Village Server</h4>
                 <h3
                   :class="{
-                    'text-green-500': villageServer === 'Online',
-                    'text-red-500': villageServer === 'Offline',
+                    'text-green-500': server.village === 'Online',
+                    'text-red-500': server.village === 'Offline',
                   }"
                   class="my-3 text-3xl font-semibold leading-tight"
                 >
-                  {{ villageServer }}
+                  {{ server.village }}
                 </h3>
               </div>
             </div>
@@ -53,12 +53,13 @@
 import axios from "../../axios";
 import { ref } from "vue";
 
-const gameServer = ref("Loading");
-const villageServer = ref("Loading");
+const server = ref({
+  game: "Loading",
+  village: "Loading",
+});
 
 (async () => {
   const res = await axios.get("status/server");
-  gameServer.value = res.data.gameServer;
-  villageServer.value = res.data.villageServer;
+  server.value = res.data.server;
 })();
 </script>

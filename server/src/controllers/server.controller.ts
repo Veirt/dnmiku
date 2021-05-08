@@ -8,8 +8,10 @@ import { getConnection } from "typeorm";
 export const getServerStatus = async (_: Request, res: Response) => {
   return res.status(200).json({
     lastTime: new Date(),
-    villageServer: await checkServerPort(14400),
-    gameServer: await checkServerPort(14500),
+    server: {
+      village: await checkServerPort(14400),
+      game: await checkServerPort(14500),
+    },
   });
 };
 
