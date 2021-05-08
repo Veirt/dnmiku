@@ -96,9 +96,12 @@ export const encryptPassword = (password: string): Promise<any> => {
     try {
       const query = await getConnection(
         "DNMembership"
-      ).query("SELECT [dbo].[__EncryptPassword](@0)", [password]);
+      ).query(
+        "SELECT UPPER(SUBSTRING(sys.fn_VarBinToHexStr(HASHBYTES('MD5', CAST(@0 AS VarChar(12)))),3,32)) AS EncryptedPassword",
+        [password]
+      );
 
-      resolve(query[0][""]);
+      resolve(query[0].EncryptedPassword);
     } catch (err) {
       reject(err);
     }
