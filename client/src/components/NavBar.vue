@@ -29,22 +29,25 @@
         class="py-3 mr-8 text-xs font-bold tracking-wide text-white no-underline uppercase transition duration-200 ease-in-out hover:text-red-300"
         >Login</router-link
       >
+      <a
+        @click="logOut"
+        v-if="store.getters.accessToken"
+        class="py-3 mr-8 text-xs font-bold tracking-wide text-white no-underline uppercase transition duration-200 ease-in-out cursor-pointer hover:text-red-300"
+        >Logout</a
+      >
     </div>
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import { useStore } from "vuex";
 
-export default defineComponent({
-  name: "NavBar",
-  setup() {
-    const store = useStore();
+const store = useStore();
 
-    return { store };
-  },
-});
+const logOut = () => {
+  document.cookie = `token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  store.commit("logOut");
+};
 </script>
 
 <style scoped>

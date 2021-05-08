@@ -22,6 +22,10 @@ export default createStore({
     auth(state) {
       state.done = true;
     },
+    logOut(state) {
+      state.accessToken = "";
+      state.isAdmin = false;
+    },
   },
   actions: {},
   modules: {},
