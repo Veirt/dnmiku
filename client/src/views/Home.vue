@@ -19,19 +19,19 @@
 
 <script setup lang="ts">
 import { defineAsyncComponent } from "vue";
-import banner from "../assets/images/RedLotus.jpg";
-import logo from "../assets/images/dnmiku-white.png";
+import banner from "@/assets/images/RedLotus.jpg";
+import logo from "@/assets/images/dnmiku-white.png";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 document.title = route.meta.title as string;
 
 const PlayerStats = defineAsyncComponent(
-  () => import("../components/Stats/PlayerStats.vue")
+  () => import("@/components/Stats/PlayerStats.vue")
 );
 const ServerStats = defineAsyncComponent(
-  () => import("../components/Stats/ServerStats.vue")
+  () => import("@/components/Stats/ServerStats.vue")
 );
 </script>
 
-<style src="../assets/css/all.css"></style>
+<style src="@/assets/css/all.css"></style>

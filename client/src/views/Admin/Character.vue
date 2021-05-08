@@ -2,12 +2,10 @@
   <CharacterTable />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import CharacterTable from "../../components/Tables/CharacterTable.vue";
+<script setup lang="ts">
+import CharacterTable from "@/components/Tables/CharacterTable.vue";
+import { useRoute } from "vue-router";
 
-export default defineComponent({
-  name: "ManageCharacters",
-  components: { CharacterTable },
-});
+const route = useRoute();
+document.title = route.meta.title as string;
 </script>

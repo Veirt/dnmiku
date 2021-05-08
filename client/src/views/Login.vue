@@ -23,21 +23,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import LoginForm from "../components/LoginForm.vue";
-import logo from "../assets/images/dnmiku-black.png";
+<script setup lang="ts">
+import LoginForm from "@/components/LoginForm.vue";
+import logo from "@/assets/images/dnmiku-black.png";
+import { useRoute } from "vue-router";
 
-export default defineComponent({
-  name: "Login",
-  components: { LoginForm },
-  data() {
-    return {
-      logo,
-    };
-  },
-  created() {
-    document.title = this.$route.meta.title as string;
-  },
-});
+const route = useRoute();
+document.title = route.meta.title as string;
 </script>

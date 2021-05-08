@@ -61,17 +61,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 
-export default defineComponent({
-  name: "PlayerStats",
-  data() {
-    return {
-      accounts: "Loading",
-      characters: "Loading",
-      online: "Loading",
-    };
-  },
-});
+const accounts = ref("Loading");
+const characters = ref("Loading");
+const online = ref("Loading");
 </script>

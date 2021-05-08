@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import RegisterForm from "../components/RegisterForm.vue";
-import logo from "../assets/images/dnmiku-black.png";
+import RegisterForm from "@/components/RegisterForm.vue";
+import logo from "@/assets/images/dnmiku-black.png";
 
 export default defineComponent({
   name: "Register",

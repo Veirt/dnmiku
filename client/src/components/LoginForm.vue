@@ -64,42 +64,34 @@
   </form>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
-import axios from "axios";
+<script setup lang="ts">
+import { ref } from "vue";
 import { useStore } from "vuex";
+import axios from "../axios";
 
-export default defineComponent({
-  name: "LoginForm",
-  setup() {
-    const store = useStore();
+const store = useStore();
 
-    const account = ref({
-      AccountName: "",
-      Password: "",
+const account = ref({
+  AccountName: "",
+  Password: "",
+});
+
+const login = async () => {
+  try {
+    const res = await axios({
+      method: "POST",
+      url: "auth",
+      withCredentials: true,
+      data: account.value,
     });
 
-    const login = async () => {
-      try {
-        const res = await axios({
-          method: "POST",
-          baseURL: store.getters.apiUrl,
-          url: "/api/v1/auth",
-          withCredentials: true,
-          data: account.value,
-        });
-
-        store.commit("setAccessToken", res.data.accessToken);
-        if (res.data.account.role >= 99) store.commit("setAdmin");
-        alert("success");
-      } catch (err) {
-        alert(err);
-      }
-    };
-
-    return { account, login };
-  },
-});
+    store.commit("setAccessToken", res.data.accessToken);
+    if (res.data.account.role >= 99) store.commit("setAdmin");
+    alert("success");
+  } catch (err) {
+    alert(err);
+  }
+};
 </script>
 
 <style scoped>
