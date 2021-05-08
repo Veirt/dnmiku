@@ -29,11 +29,12 @@
         </div>
         <div class="relative">
           <select
+            v-model="query.status"
             class="block w-full h-full px-4 py-2 pr-8 leading-tight text-white bg-black border border-black rounded-r appearance-none sm:rounded-r-none sm:border-r-0 focus:outline-none"
           >
-            <option :value="0">All</option>
-            <option :value="1">Online</option>
-            <option :value="2">Offline</option>
+            <option value="">All</option>
+            <option :value="2">Online</option>
+            <option :value="0">Offline</option>
           </select>
           <div
             class="absolute inset-y-0 right-0 flex items-center px-2 text-red-300 pointer-events-none"
@@ -100,6 +101,22 @@
               >
                 <p class="text-gray-900 whitespace-no-wrap">
                   {{ account.AccountName }}
+                </p>
+              </td>
+
+              <td
+                class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
+              >
+                <p
+                  class="whitespace-nowrap"
+                  :class="{
+                    'text-green-500': account.DNAuth?.CertifyingStep === 2,
+                    'text-red-500': account.DNAuth?.CertifyingStep !== 2,
+                  }"
+                >
+                  {{
+                    account.DNAuth?.CertifyingStep === 2 ? "Online" : "Offline"
+                  }}
                 </p>
               </td>
 
@@ -214,6 +231,7 @@ const store = useStore();
 const column = [
   "Id",
   "Account Name",
+  "Status",
   "Account Code",
   "Email",
   "Register Date",

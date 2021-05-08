@@ -1,7 +1,7 @@
 import { getAccessToken } from "../helpers/jwt.helper";
 import { Account } from "../entity/DNMembership/Account";
 import { Request, Response } from "express";
-import { getConnection, ILike } from "typeorm";
+import { FindManyOptions, getConnection, ILike, QueryBuilder } from "typeorm";
 import jwt from "jsonwebtoken";
 
 export const getAccountData = async (req: Request, res: Response) => {
@@ -24,15 +24,54 @@ export const getAccounts = async (req: Request, res: Response) => {
   const take = parseInt(req.query.take as string) || 0;
   const skip = parseInt(req.query.skip as string) || 0;
   const keyword = req.query.keyword || "";
+  const status = req.query.status;
+
+  const findOptions: FindManyOptions<Account> = {
+    take,
+    skip,
+    relations: ["DNAuth"],
+    cache: true,
+  };
 
   try {
-    const accounts = await accountRepository.find({
-      take,
-      skip,
-      where: { AccountName: ILike(`%${keyword}%`) },
-      cache: true,
-      relations: ["DNAuth"],
-    });
+    let accounts: Account[];
+    if (status === "2") {
+      accounts = await accountRepository.find({
+        ...findOptions,
+        join: { alias: "accounts", leftJoin: { DNAuth: "accounts.DNAuth" } },
+        where: (qb) => {
+          qb.where({
+            AccountName: ILike(`%${keyword}%`),
+          }).andWhere("DNAuth.CertifyingStep = 2 ");
+        },
+      });
+    } else if (status === "0") {
+      accounts = await accountRepository.find({
+        ...findOptions,
+        join: {
+          alias: "accounts",
+          leftJoin: { DNAuth: "accounts.DNAuth" },
+        },
+        where: (qb) => {
+          qb.where([
+            {
+              AccountName: ILike(`%${keyword}%`),
+            },
+          ])
+            .andWhere("DNAuth.CertifyingStep IS NULL")
+            .orWhere("DNAuth.CertifyingStep = 0");
+        },
+      });
+      console.log(accounts);
+    } else {
+      accounts = await accountRepository.find({
+        ...findOptions,
+        where: {
+          AccountName: ILike(`%${keyword}%`),
+        },
+      });
+    }
+
     return res.status(200).json(accounts);
   } catch (err) {
     console.error(`Error when getting accounts: ${err}`);

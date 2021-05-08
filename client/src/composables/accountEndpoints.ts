@@ -11,6 +11,9 @@ export const account = ref({
   cash: 0,
   LastLoginDate: undefined,
   RegisterDate: undefined,
+  DNAuth: {
+    CertifyingStep: 0,
+  },
 });
 
 export const accounts = ref([{ ...account.value }]);
