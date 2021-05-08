@@ -72,7 +72,6 @@
             v-model="account.AccountLevelCode"
             class="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded outline-none"
             id="AccountLevelCode"
-            type="text"
           >
             <option :value="0">Player</option>
             <option :value="99">QA</option>
@@ -140,7 +139,6 @@
             v-model="account.AccountLevelCode"
             class="w-full px-3 py-2 text-gray-700 bg-gray-200 rounded outline-none"
             id="AccountLevelCode"
-            type="text"
           >
             <option :value="0">Player</option>
             <option :value="99">QA</option>
