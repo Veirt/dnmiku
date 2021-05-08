@@ -31,6 +31,7 @@ export const getAccounts = async (req: Request, res: Response) => {
       skip,
       where: { AccountName: ILike(`%${keyword}%`) },
       cache: true,
+      relations: ["DNAuth"],
     });
     return res.status(200).json(accounts);
   } catch (err) {

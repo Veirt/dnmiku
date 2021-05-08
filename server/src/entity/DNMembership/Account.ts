@@ -3,13 +3,15 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BeforeInsert,
-  OneToMany,
   getConnection,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
+import { DNAuth } from "./DNAuth";
 
 @Entity({ name: "Accounts", database: "DNMembership" })
 export class Account {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: "AccountID" })
   AccountId: number;
 
   @Column({ type: "nvarchar", length: 50, unique: true })
@@ -53,6 +55,10 @@ export class Account {
 
   @Column({ type: "varchar", length: 50, unique: true })
   Email: string;
+
+  @ManyToOne((type) => DNAuth)
+  @JoinColumn({ name: "AccountID", referencedColumnName: "AccountDBID" })
+  DNAuth: DNAuth;
 
   @BeforeInsert()
   async encryptPassword() {
