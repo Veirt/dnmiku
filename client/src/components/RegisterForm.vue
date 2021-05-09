@@ -90,66 +90,57 @@
   </form>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import { useStore } from "vuex";
 import axios from "axios";
 
-export default defineComponent({
-  name: "RegisterForm",
-  setup() {
-    const store = useStore();
+const store = useStore();
 
-    const account = ref({
-      AccountName: "",
-      Email: "",
-      Password: "",
-      ConfirmPassword: "",
+const account = ref({
+  AccountName: "",
+  Email: "",
+  Password: "",
+  ConfirmPassword: "",
+});
+
+const errors = ref({
+  AccountName: new Array<string>(),
+  Email: new Array<string>(),
+  Password: new Array<string>(),
+});
+
+const createAccount = async () => {
+  try {
+    await axios({
+      method: "POST",
+      baseURL: store.getters.apiUrl,
+      url: "/api/v1/accounts",
+      data: account.value,
     });
 
-    const errors = ref({
+    errors.value = {
       AccountName: new Array<string>(),
       Email: new Array<string>(),
       Password: new Array<string>(),
-    });
-
-    const createAccount = async () => {
-      try {
-        await axios({
-          method: "POST",
-          baseURL: store.getters.apiUrl,
-          url: "/api/v1/accounts",
-          data: account.value,
-        });
-
-        errors.value = {
-          AccountName: new Array<string>(),
-          Email: new Array<string>(),
-          Password: new Array<string>(),
-        };
-        alert("Success");
-      } catch (err) {
-        if (err.response.status === 400) {
-          err.response.data.forEach(
-            (error: { field: string; message: string }) => {
-              switch (error.field) {
-                case "AccountName":
-                  errors.value.AccountName.push(error.message);
-                  break;
-                case "Email":
-                  errors.value.Email.push(error.message);
-                  break;
-                case "Password":
-                  errors.value.Password.push(error.message);
-                  break;
-              }
-            }
-          );
-        }
-      }
     };
-
-    return { account, errors, createAccount };
-  },
-});
+    alert("Success");
+  } catch (err) {
+    if (err.response.status === 400) {
+      err.response.data.forEach((error: { field: string; message: string }) => {
+        switch (error.field) {
+          case "AccountName":
+            errors.value.AccountName.push(error.message);
+            break;
+          case "Email":
+            errors.value.Email.push(error.message);
+            break;
+          case "Password":
+            errors.value.Password.push(error.message);
+            break;
+        }
+      });
+    }
+  }
+};
 </script>
