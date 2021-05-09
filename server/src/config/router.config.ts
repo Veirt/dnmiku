@@ -1,18 +1,19 @@
 import express from "express";
+import helmet from "helmet";
 import cors from "cors";
 
 const routerConfig = (router: express.Router) => {
-  router.use(
-    cors({
-      origin:
-        process.env.NODE_ENV === "production"
-          ? process.env.DOMAIN
-          : "http://localhost:3000",
-      credentials: true,
-    })
-  );
+  if (process.env.NODE_ENV !== "development") {
+    router.use(
+      cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+      })
+    );
+  }
   router.use(express.json());
   router.use(express.urlencoded({ extended: true }));
+  router.use(helmet());
 };
 
 export default routerConfig;
