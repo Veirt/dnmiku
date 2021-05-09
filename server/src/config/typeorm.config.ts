@@ -9,6 +9,7 @@ const DNMembershipConfig: ConnectionOptions = {
   database: "DNMembership",
   options: {
     enableArithAbort: true,
+    encrypt: false,
   },
   synchronize: false,
   logging: false,
@@ -43,6 +44,7 @@ const DNWorldConfig: ConnectionOptions = {
   database: "DNWorld",
   options: {
     enableArithAbort: true,
+    encrypt: false,
   },
   synchronize: false,
   logging: false,
