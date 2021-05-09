@@ -1,7 +1,7 @@
 <template>
   <div v-if="!route.params.id" class="flex justify-center leading-loose">
     <form
-      @submit.prevent="createAccount"
+      @submit.prevent="createAdminAccount"
       class="flex-col max-w-xl p-10 m-4 bg-white rounded shadow-xl"
     >
       <p class="font-bold text-gray-800">Account Info</p>
@@ -163,7 +163,7 @@
 import {
   account,
   getAccountById,
-  createAccount,
+  createAdminAccount,
   editAccount,
 } from "../../../composables/accountEndpoints";
 import { useRoute } from "vue-router";

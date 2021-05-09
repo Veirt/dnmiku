@@ -43,7 +43,7 @@ export const getAccountById = async (id: number) => {
   }
 };
 
-export const createAccount = async () => {
+export const createAdminAccount = async () => {
   try {
     await axios({
       method: "POST",
