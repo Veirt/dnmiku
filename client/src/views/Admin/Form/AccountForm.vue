@@ -165,7 +165,7 @@ import {
   getAccountById,
   createAdminAccount,
   editAccount,
-} from "../../../composables/accountEndpoints";
+} from "../../../composables/account.api";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

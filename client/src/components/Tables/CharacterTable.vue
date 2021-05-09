@@ -245,7 +245,7 @@ import {
   characters,
   getCharacters,
   deleteCharacter,
-} from "../../composables/characterEndpoints";
+} from "../../composables/character.api";
 import query from "../../composables/paginationQuery";
 import { watch } from "vue";
 import { useStore } from "vuex";

@@ -73,7 +73,7 @@ import {
   character,
   getCharacterById,
   editCharacter,
-} from "../../../composables/characterEndpoints";
+} from "../../../composables/character.api";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

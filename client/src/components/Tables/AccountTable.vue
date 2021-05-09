@@ -221,7 +221,7 @@ import {
   accounts,
   getAccounts,
   deleteAccount,
-} from "../../composables/accountEndpoints";
+} from "../../composables/account.api";
 import query from "../../composables/paginationQuery";
 import { watch } from "vue";
 import { useStore } from "vuex";
