@@ -62,7 +62,6 @@ export const getAccounts = async (req: Request, res: Response) => {
             .orWhere("DNAuth.CertifyingStep = 0");
         },
       });
-      console.log(accounts);
     } else {
       accounts = await accountRepository.find({
         ...findOptions,
