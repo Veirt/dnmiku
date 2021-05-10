@@ -34,4 +34,7 @@ export class CharacterStatus {
 
   @Column({ type: "int" })
   LikeCount: number;
+
+  @Column({ type: "int" })
+  MissionScore: number;
 }

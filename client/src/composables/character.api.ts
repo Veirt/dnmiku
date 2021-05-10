@@ -9,7 +9,6 @@ export const character = ref({
   CharacterStatus: {
     CharacterLevel: 0,
     JobCode: 0,
-    LastMapId: 0,
     LastVillageMapID: 0,
     Coin: "",
     WarehouseCoin: "",
@@ -18,6 +17,7 @@ export const character = ref({
     WeeklyFatigue: 0,
     LastLoginDate: undefined,
     LikeCount: 0,
+    MissionScore: 0,
   },
 });
 

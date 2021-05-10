@@ -71,6 +71,7 @@ export const editCharacter = async (req: Request, res: Response) => {
     Fatigue,
     WeeklyFatigue,
     LikeCount,
+    MissionScore,
   } = req.body.CharacterStatus;
 
   try {
@@ -87,6 +88,7 @@ export const editCharacter = async (req: Request, res: Response) => {
       Fatigue,
       WeeklyFatigue,
       LikeCount,
+      MissionScore,
     });
 
     return res
