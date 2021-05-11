@@ -1,3 +1,5 @@
+import "../config/localStrategy.config";
+import "../config/jwtStrategy.config";
 import routerConfig from "../config/router.config";
 import * as accountControllers from "../controllers/account.controller";
 import * as characterControllers from "../controllers/character.controller";

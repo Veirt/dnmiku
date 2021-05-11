@@ -1,0 +1,48 @@
+import { Account, encryptPassword } from "../entity/DNMembership/Account";
+import { getConnection } from "typeorm";
+import localPassport from "passport-local";
+import passport from "passport";
+
+const localStrategy = localPassport.Strategy;
+
+passport.use(
+  "local",
+  new localStrategy(
+    {
+      usernameField: "AccountName",
+      passwordField: "Password",
+    },
+    async (AccountName, Password, done) => {
+      try {
+        const accountRepository =
+          getConnection("DNMembership").getRepository(Account);
+        const account = await accountRepository.findOne(
+          {
+            AccountName,
+          },
+          {
+            select: [
+              "Passphrase",
+              "AccountId",
+              "AccountName",
+              "Email",
+              "AccountLevelCode",
+            ],
+          }
+        );
+
+        if (!account) {
+          return done(null, false, { message: "Account not found" });
+        }
+
+        if (account.Passphrase !== (await encryptPassword(Password))) {
+          return done(null, false, { message: "Wrong Password" });
+        }
+
+        return done(null, account, { message: "Logged in Successfully" });
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
+);
