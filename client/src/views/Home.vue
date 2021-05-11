@@ -26,12 +26,10 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 document.title = route.meta.title as string;
 
-const PlayerStats = defineAsyncComponent(
-  () => import("@/components/Stats/PlayerStats.vue")
+const PlayerStats = defineAsyncComponent(() =>
+  import("@/components/Stats/PlayerStats.vue")
 );
-const ServerStats = defineAsyncComponent(
-  () => import("@/components/Stats/ServerStats.vue")
+const ServerStats = defineAsyncComponent(() =>
+  import("@/components/Stats/ServerStats.vue")
 );
 </script>
-
-<style src="@/assets/css/all.css"></style>

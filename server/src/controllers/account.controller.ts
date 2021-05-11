@@ -1,25 +1,35 @@
 import { getAccessToken } from "../helpers/jwt.helper";
 import { Account } from "../entity/DNMembership/Account";
-import { Request, Response } from "express";
-import { FindManyOptions, getConnection, ILike, QueryBuilder } from "typeorm";
+import { NextFunction, Request, Response } from "express";
+import { FindManyOptions, getConnection, ILike } from "typeorm";
 import jwt from "jsonwebtoken";
+import passport from "passport";
 
-export const getAccountData = async (req: Request, res: Response) => {
-  const accessToken = getAccessToken(req.headers.authorization);
-  const decoded = jwt.decode(accessToken, {
-    json: true,
-  });
-  const accountRepository = getConnection("DNMembership").getRepository(
-    Account
-  );
-  const account = await accountRepository.findOne({ AccountId: decoded.id });
-  return res.status(200).json({ ...account, accessToken });
+export const getAccountData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  passport.authenticate("jwt", { session: false }, async (err, payload) => {
+    const accountRepository =
+      getConnection("DNMembership").getRepository(Account);
+    const account = await accountRepository.findOne(payload.sub);
+    const accessToken = jwt.sign(
+      { name: payload.name, mail: payload.mail },
+      process.env.JWT_SECRET,
+      { audience: payload.aud, issuer: payload.iss, subject: payload.sub }
+    );
+
+    return res
+      .cookie("token", accessToken)
+      .status(200)
+      .json({ ...account, accessToken });
+  })(req, res, next);
 };
 
 export const getAccounts = async (req: Request, res: Response) => {
-  const accountRepository = getConnection("DNMembership").getRepository(
-    Account
-  );
+  const accountRepository =
+    getConnection("DNMembership").getRepository(Account);
 
   const take = parseInt(req.query.take as string) || 0;
   const skip = parseInt(req.query.skip as string) || 0;
@@ -85,9 +95,8 @@ export const getAccounts = async (req: Request, res: Response) => {
 };
 
 export const getAccountById = async (req: Request, res: Response) => {
-  const accountRepository = getConnection("DNMembership").getRepository(
-    Account
-  );
+  const accountRepository =
+    getConnection("DNMembership").getRepository(Account);
 
   try {
     const account = await accountRepository.findOneOrFail(req.params.id);
@@ -105,9 +114,8 @@ export const getAccountById = async (req: Request, res: Response) => {
 };
 
 export const createAdminAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection("DNMembership").getRepository(
-    Account
-  );
+  const accountRepository =
+    getConnection("DNMembership").getRepository(Account);
 
   const { AccountName, AccountLevelCode, Email, Password, cash } = req.body;
   try {
@@ -141,9 +149,8 @@ export const createAdminAccount = async (req: Request, res: Response) => {
 };
 
 export const editAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection("DNMembership").getRepository(
-    Account
-  );
+  const accountRepository =
+    getConnection("DNMembership").getRepository(Account);
 
   const { AccountName, AccountLevelCode, Email, cash } = req.body;
 
@@ -170,9 +177,8 @@ export const editAccount = async (req: Request, res: Response) => {
 };
 
 export const deleteAccount = async (req: Request, res: Response) => {
-  const accountRepository = getConnection("DNMembership").getRepository(
-    Account
-  );
+  const accountRepository =
+    getConnection("DNMembership").getRepository(Account);
 
   try {
     await accountRepository.delete(req.params.id);

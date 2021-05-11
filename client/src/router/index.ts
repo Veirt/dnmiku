@@ -66,6 +66,14 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+    meta: {
+      title: `${import.meta.env.VITE_APP_BASE_TITLE} | Profile`,
+    },
+  },
+  {
     path: "/admin",
     name: "Admin",
     component: () => import("../views/Admin/Admin.vue"),

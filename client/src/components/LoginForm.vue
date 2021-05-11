@@ -50,26 +50,38 @@
       <div class="w-full px-3 mb-5">
         <button
           type="submit"
-          class="block w-full max-w-xs px-3 py-3 mx-auto font-semibold text-white bg-black rounded-lg hover:text-red-300 focus:text-red-300"
+          class="block w-full max-w-xs px-3 py-3 mx-auto font-semibold text-white transition duration-200 bg-black rounded-md hover:text-red-300 focus:text-red-300"
         >
           LOGIN
         </button>
       </div>
     </div>
-    <div class="flex -mx-3">
-      <div class="w-full px-3 mb-5">
-        <router-link :to="{ name: 'Login' }">Forgot password ?</router-link>
-      </div>
+    <div class="flex flex-col items-center justify-center px-12">
+      <a
+        :href="`${store.getters.apiUrl}/api/v1/oauth/discord`"
+        class="px-3 py-2 text-sm font-bold text-center text-transparent text-white uppercase transition duration-200 rounded-md discord"
+      >
+        Login using Discord
+        <i class="ml-2 fab fa-discord"></i>
+      </a>
+      <p
+        v-if="route.query.e === 'discord'"
+        class="mt-2 text-sm text-center text-red-500"
+      >
+        Your discord is not associated with any account
+      </p>
     </div>
   </form>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import axios from "../axios";
 
 const store = useStore();
+const route = useRoute();
 
 const account = ref({
   AccountName: "",
@@ -96,4 +108,12 @@ const login = async () => {
 
 <style scoped>
 @import url("https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css");
+
+.discord {
+  background: #8c95c9;
+}
+
+.discord:hover {
+  background: #a8b3ee;
+}
 </style>

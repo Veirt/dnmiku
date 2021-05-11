@@ -12,6 +12,12 @@
         >Download</router-link
       >
       <router-link
+        :to="{ name: 'Profile' }"
+        v-if="store.getters.accessToken"
+        class="py-3 mr-8 text-xs font-bold tracking-wide text-white no-underline uppercase transition duration-200 ease-in-out hover:text-red-300"
+        >Profile</router-link
+      >
+      <router-link
         :to="{ name: 'Admin' }"
         v-if="store.getters.isAdmin"
         class="py-3 mr-8 text-xs font-bold tracking-wide text-white no-underline uppercase transition duration-200 ease-in-out hover:text-red-300"

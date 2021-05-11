@@ -13,5 +13,6 @@ import { createConnection } from "typeorm";
 const app = express();
 app.use(passport.initialize());
 app.use("/api/v1", require("./routes"));
+app.use("/api/v1/oauth", require("./routes/oauth"));
 
 app.listen(8080, () => console.log("Listening on http://localhost:8080"));

@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="w-full px-5 py-10 md:w-1/2 md:px-10">
-          <div class="mb-10 text-center">
+          <div class="mb-5 text-center">
             <h1 class="text-3xl font-bold text-gray-900">LOGIN</h1>
           </div>
           <LoginForm />
@@ -25,7 +25,6 @@
 
 <script setup lang="ts">
 import LoginForm from "@/components/LoginForm.vue";
-import logo from "@/assets/images/dnmiku-black.png";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

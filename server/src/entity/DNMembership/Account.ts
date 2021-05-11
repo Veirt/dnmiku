@@ -56,6 +56,9 @@ export class Account {
   @Column({ type: "varchar", length: 50, unique: true })
   Email: string;
 
+  @Column({ type: "varchar", length: 20, nullable: true })
+  DiscordID: string;
+
   @ManyToOne((type) => DNAuth)
   @JoinColumn({ name: "AccountID", referencedColumnName: "AccountDBID" })
   DNAuth: DNAuth;
@@ -100,9 +103,7 @@ export class Account {
 export const encryptPassword = (password: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const query = await getConnection(
-        "DNMembership"
-      ).query(
+      const query = await getConnection("DNMembership").query(
         "SELECT UPPER(SUBSTRING(sys.fn_VarBinToHexStr(HASHBYTES('MD5', CAST(@0 AS VarChar(12)))),3,32)) AS EncryptedPassword",
         [password]
       );
