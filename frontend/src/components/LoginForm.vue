@@ -76,12 +76,13 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 import axios from "../axios";
 
 const store = useStore();
 const route = useRoute();
+const router = useRouter();
 
 const account = ref({
 	AccountName: "",
@@ -99,7 +100,7 @@ const login = async () => {
 
 		store.commit("setAccessToken", res.data.token);
 		if (res.data.account.role >= 99) store.commit("setAdmin");
-		alert("success");
+		router.replace("/profile");
 	} catch (err) {
 		alert(err);
 	}
