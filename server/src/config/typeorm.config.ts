@@ -1,4 +1,4 @@
-import { ConnectionOptions } from "typeorm";
+import { ConnectionOptions } from "typeorm"
 
 const DNMembershipConfig: ConnectionOptions = {
   name: "DNMembership",
@@ -33,7 +33,7 @@ const DNMembershipConfig: ConnectionOptions = {
     migrationsDir: "src/migration",
     subscribersDir: "src/subscriber",
   },
-};
+}
 
 const DNWorldConfig: ConnectionOptions = {
   name: "DNWorld",
@@ -68,6 +68,6 @@ const DNWorldConfig: ConnectionOptions = {
     migrationsDir: "src/migration",
     subscribersDir: "src/subscriber",
   },
-};
+}
 
-export { DNMembershipConfig, DNWorldConfig };
+export { DNMembershipConfig, DNWorldConfig }

@@ -6,67 +6,67 @@ import {
   getConnection,
   ManyToOne,
   JoinColumn,
-} from "typeorm";
-import { DNAuth } from "./DNAuth";
+} from "typeorm"
+import { DNAuth } from "./DNAuth"
 
 @Entity({ name: "Accounts", database: "DNMembership" })
 export class Account {
   @PrimaryGeneratedColumn({ name: "AccountID" })
-  AccountId: number;
+  AccountId: number
 
   @Column({ type: "nvarchar", length: 50, unique: true })
-  AccountName: string;
+  AccountName: string
 
   @Column({ type: "tinyint" })
-  AccountLevelCode: number;
+  AccountLevelCode: number
 
   @Column({ type: "tinyint", select: false })
-  CharacterCreateLimit: number;
+  CharacterCreateLimit: number
 
   @Column({ type: "tinyint", select: false })
-  CharacterMaxCount: number;
+  CharacterMaxCount: number
 
   @Column({ type: "datetime2", nullable: true })
-  LastLoginDate: Date;
+  LastLoginDate: Date
 
   @Column({ type: "datetime2", default: () => "GETDATE()" })
-  RegisterDate: Date;
+  RegisterDate: Date
 
   @Column({ type: "tinyint", select: false })
-  PublisherCode: number;
+  PublisherCode: number
 
   @Column({ type: "varchar", length: 32, select: false })
-  Passphrase: string;
+  Passphrase: string
 
   @Column({ type: "tinyint", select: false })
-  SecondAuthFailCount: number;
+  SecondAuthFailCount: number
 
   @Column({ type: "tinyint", select: false })
-  SecondAuthCode: number;
+  SecondAuthCode: number
 
   @Column({ type: "bit", select: false })
-  SecondAuthLockFlag: boolean;
+  SecondAuthLockFlag: boolean
 
   @Column({ type: "varchar", length: 32, select: false })
-  RLKTPassword: string;
+  RLKTPassword: string
 
   @Column({ type: "int", nullable: false })
-  cash: number;
+  cash: number
 
   @Column({ type: "varchar", length: 50, unique: true })
-  Email: string;
+  Email: string
 
   @Column({ type: "varchar", length: 20, nullable: true })
-  DiscordID: string;
+  DiscordID: string
 
   @ManyToOne((type) => DNAuth)
   @JoinColumn({ name: "AccountID", referencedColumnName: "AccountDBID" })
-  DNAuth: DNAuth;
+  DNAuth: DNAuth
 
   @BeforeInsert()
   async encryptPassword() {
-    this.RLKTPassword = await encryptPassword(this.RLKTPassword);
-    this.Passphrase = this.RLKTPassword;
+    this.RLKTPassword = await encryptPassword(this.RLKTPassword)
+    this.Passphrase = this.RLKTPassword
   }
 
   constructor(
@@ -84,19 +84,19 @@ export class Account {
     RegisterDate: Date,
     cash: number
   ) {
-    this.AccountName = AccountName;
-    this.Email = Email;
-    this.AccountLevelCode = AccountLevelCode;
-    this.RLKTPassword = RLKTPassword;
-    this.LastLoginDate = LastLoginDate;
-    this.SecondAuthFailCount = SecondAuthFailCount;
-    this.SecondAuthCode = SecondAuthCode;
-    this.SecondAuthLockFlag = SecondAuthLockFlag;
-    this.CharacterCreateLimit = CharacterCreateLimit;
-    this.CharacterMaxCount = CharacterMaxCount;
-    this.PublisherCode = PublisherCode;
-    this.RegisterDate = RegisterDate;
-    this.cash = cash;
+    this.AccountName = AccountName
+    this.Email = Email
+    this.AccountLevelCode = AccountLevelCode
+    this.RLKTPassword = RLKTPassword
+    this.LastLoginDate = LastLoginDate
+    this.SecondAuthFailCount = SecondAuthFailCount
+    this.SecondAuthCode = SecondAuthCode
+    this.SecondAuthLockFlag = SecondAuthLockFlag
+    this.CharacterCreateLimit = CharacterCreateLimit
+    this.CharacterMaxCount = CharacterMaxCount
+    this.PublisherCode = PublisherCode
+    this.RegisterDate = RegisterDate
+    this.cash = cash
   }
 }
 
@@ -106,11 +106,11 @@ export const encryptPassword = (password: string): Promise<any> => {
       const query = await getConnection("DNMembership").query(
         "SELECT UPPER(SUBSTRING(sys.fn_VarBinToHexStr(HASHBYTES('MD5', CAST(@0 AS VarChar(12)))),3,32)) AS EncryptedPassword",
         [password]
-      );
+      )
 
-      resolve(query[0].EncryptedPassword);
+      resolve(query[0].EncryptedPassword)
     } catch (err) {
-      reject(err);
+      reject(err)
     }
-  });
-};
+  })
+}

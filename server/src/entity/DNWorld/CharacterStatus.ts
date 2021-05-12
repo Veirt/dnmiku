@@ -1,40 +1,40 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
 @Entity({ name: "CharacterStatus", database: "DNWorld" })
 export class CharacterStatus {
   @PrimaryGeneratedColumn({ type: "bigint" })
-  CharacterID: number;
+  CharacterID: number
 
   @Column({ type: "tinyint" })
-  CharacterLevel: number;
+  CharacterLevel: number
 
   @Column({ type: "tinyint" })
-  JobCode: number;
+  JobCode: number
 
   @Column({ type: "int" })
-  LastVillageMapID: number;
+  LastVillageMapID: number
 
   @Column({ type: "bigint" })
-  Coin: number;
+  Coin: number
 
   @Column({ type: "bigint" })
-  WarehouseCoin: number;
+  WarehouseCoin: number
 
   @Column({ type: "smallint" })
-  SkillPoint: number;
+  SkillPoint: number
 
   @Column({ type: "smallint" })
-  Fatigue: number;
+  Fatigue: number
 
   @Column({ type: "smallint" })
-  WeeklyFatigue: number;
+  WeeklyFatigue: number
 
   @Column({ type: "datetime2" })
-  LastLoginDate: Date;
+  LastLoginDate: Date
 
   @Column({ type: "int" })
-  LikeCount: number;
+  LikeCount: number
 
   @Column({ type: "int" })
-  MissionScore: number;
+  MissionScore: number
 }

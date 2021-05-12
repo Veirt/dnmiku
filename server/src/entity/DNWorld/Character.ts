@@ -4,45 +4,45 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-} from "typeorm";
-import { CharacterStatus } from "./CharacterStatus";
+} from "typeorm"
+import { CharacterStatus } from "./CharacterStatus"
 
 @Entity({ name: "Characters", database: "DNWorld" })
 export class Character {
   @PrimaryGeneratedColumn({ type: "bigint" })
-  CharacterID: number;
+  CharacterID: number
 
   @Column({ type: "int", nullable: false, select: false })
-  AccountID: number;
+  AccountID: number
 
   @Column({ type: "nvarchar", length: 50, nullable: false })
-  AccountName: string;
+  AccountName: string
 
   @Column({ type: "nvarchar", length: 30, nullable: false })
-  CharacterName: string;
+  CharacterName: string
 
   @Column({ type: "tinyint", nullable: false })
-  CharacterClassCode: number;
+  CharacterClassCode: number
 
   @Column({ type: "int" })
-  DefaultBody: number;
+  DefaultBody: number
 
   @Column({ type: "int" })
-  DefaultLeg: number;
+  DefaultLeg: number
 
   @Column({ type: "int" })
-  DefaultHand: number;
+  DefaultHand: number
 
   @Column({ type: "int" })
-  DefaultFoot: number;
+  DefaultFoot: number
 
   @Column({ type: "bit" })
-  DeleteFlag: Boolean;
+  DeleteFlag: Boolean
 
   @Column({ type: "datetime2" })
-  CreateDate: Date;
+  CreateDate: Date
 
   @ManyToOne((type) => CharacterStatus)
   @JoinColumn({ name: "CharacterID" })
-  CharacterStatus: CharacterStatus;
+  CharacterStatus: CharacterStatus
 }

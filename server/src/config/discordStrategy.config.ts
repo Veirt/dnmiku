@@ -1,9 +1,9 @@
-import { Account } from "../entity/DNMembership/Account";
-import passport from "passport";
-import discordPassport from "passport-discord";
-import { EntityNotFoundError, getConnection } from "typeorm";
+import { Account } from "../entity/DNMembership/Account"
+import passport from "passport"
+import discordPassport from "passport-discord"
+import { EntityNotFoundError, getConnection } from "typeorm"
 
-const DiscordStrategy = discordPassport.Strategy;
+const DiscordStrategy = discordPassport.Strategy
 
 passport.use(
   new DiscordStrategy(
@@ -15,19 +15,19 @@ passport.use(
     },
     async (_, __, profile, done) => {
       const accountRepository =
-        getConnection("DNMembership").getRepository(Account);
+        getConnection("DNMembership").getRepository(Account)
 
       try {
         const account = await accountRepository.findOneOrFail({
           DiscordID: profile.id,
-        });
+        })
 
-        return done(null, account);
+        return done(null, account)
       } catch (err) {
         if (err.name === "EntityNotFoundError")
-          return done(null, false, { DiscordID: profile.id });
-        else return done(err, false);
+          return done(null, false, { DiscordID: profile.id })
+        else return done(err, false)
       }
     }
   )
-);
+)

@@ -1,8 +1,8 @@
-import Validator from "fastest-validator";
+import Validator from "fastest-validator"
 
 const v = new Validator({
   useNewCustomCheckerFunction: true,
-});
+})
 
 const CreateAccountSchema = {
   AccountName: {
@@ -35,6 +35,6 @@ const CreateAccountSchema = {
       stringMax: "Password must be 6-14 chars",
     },
   },
-};
+}
 
-export const CreateAccountValidation = v.compile(CreateAccountSchema);
+export const CreateAccountValidation = v.compile(CreateAccountSchema)
