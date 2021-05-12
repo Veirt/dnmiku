@@ -1,4 +1,3 @@
-import { getAccessToken } from "../helpers/jwt.helper";
 import { Account } from "../entity/DNMembership/Account";
 import { NextFunction, Request, Response } from "express";
 import { FindManyOptions, getConnection, ILike } from "typeorm";
@@ -11,6 +10,7 @@ export const getAccountData = async (
   next: NextFunction
 ) => {
   passport.authenticate("jwt", { session: false }, async (err, payload) => {
+    if (err) return res.status(401).json({ code: 400, message: err });
     const accountRepository =
       getConnection("DNMembership").getRepository(Account);
     const account = await accountRepository.findOne(payload.sub);
@@ -20,10 +20,7 @@ export const getAccountData = async (
       { audience: payload.aud, issuer: payload.iss, subject: payload.sub }
     );
 
-    return res
-      .cookie("token", accessToken)
-      .status(200)
-      .json({ ...account, accessToken });
+    return res.status(200).json({ ...account, accessToken });
   })(req, res, next);
 };
 
