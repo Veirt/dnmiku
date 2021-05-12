@@ -15,21 +15,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import RegisterForm from "@/components/RegisterForm.vue";
+<script setup lang="ts">
 import logo from "@/assets/images/dnmiku-black.png";
+import {useRoute} from "vue-router"
 
-export default defineComponent({
-  name: "Register",
-  components: { RegisterForm },
-  data() {
-    return {
-      logo,
-    };
-  },
-  created() {
-    document.title = this.$route.meta.title as string;
-  },
-});
+const route = useRoute()
+
+document.title = route.meta.title as string;
 </script>

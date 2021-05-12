@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import LoginForm from "@/components/LoginForm.vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
