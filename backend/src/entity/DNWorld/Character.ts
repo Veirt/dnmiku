@@ -1,9 +1,9 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	JoinColumn,
 } from "typeorm"
 import { CharacterStatus } from "./CharacterStatus"
 
@@ -37,12 +37,12 @@ export class Character {
   DefaultFoot: number
 
   @Column({ type: "bit" })
-  DeleteFlag: Boolean
+  DeleteFlag: boolean
 
   @Column({ type: "datetime2" })
   CreateDate: Date
 
-  @ManyToOne((type) => CharacterStatus)
+  @ManyToOne(() => CharacterStatus)
   @JoinColumn({ name: "CharacterID" })
   CharacterStatus: CharacterStatus
 }
