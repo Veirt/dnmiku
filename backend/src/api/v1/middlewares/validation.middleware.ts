@@ -30,7 +30,12 @@ export const validateCreateAccount = async (
 		}
 	} catch (err) {
 		console.error(`Error when validating account name: ${err}`)
-		return res.status(500).json({ code: 500, message: "Internal server error" })
+		return res.status(500).json({
+			code: 500, message: "Internal server error",
+			_links: {
+				self: { href: req.baseUrl },
+			},
+		})
 	}
 
 	try {
@@ -47,7 +52,12 @@ export const validateCreateAccount = async (
 		}
 	} catch (err) {
 		console.error(`Error when validating email: ${err}`)
-		return res.status(500).json({ code: 500, message: "Internal server error" })
+		return res.status(500).json({
+			code: 500, message: "Internal server error",
+			_links: {
+				self: { href: req.baseUrl },
+			},
+		})
 
 	}
 

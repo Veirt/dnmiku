@@ -84,7 +84,7 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 			code: 500,
 			message: "Internal server error",
 			_links: {
-				self: { href: req.url },
+				self: { href: req.baseUrl },
 			},
 		})
 	}
@@ -102,7 +102,7 @@ export const getAccountById = async (req: Request, res: Response): Promise<Respo
 			code: 404,
 			message: "Resource not found",
 			_links: {
-				self: { href: req.url },
+				self: { href: req.baseUrl },
 			},
 		})
 	}
@@ -163,7 +163,7 @@ export const editAccount = async (req: Request, res: Response): Promise<Response
 			code: 500,
 			message: "Internal server error",
 			_links: {
-				self: { href: req.url },
+				self: { href: req.baseUrl },
 			},
 		})
 	}
@@ -183,7 +183,7 @@ export const deleteAccount = async (req: Request, res: Response): Promise<Respon
 			code: 500,
 			message: "Internal server error",
 			_links: {
-				self: { href: req.url },
+				self: { href: req.baseUrl },
 			},
 		})
 	}

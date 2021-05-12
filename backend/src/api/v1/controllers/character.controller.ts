@@ -28,7 +28,7 @@ export const getCharacters = async (req: Request, res: Response): Promise<Respon
 			code: 500,
 			message: "Internal server error",
 			_links: {
-				self: { href: req.url },
+				self: { href: req.baseUrl },
 			},
 		})
 	}
@@ -46,7 +46,7 @@ export const getCharacterById = async (req: Request, res: Response): Promise<Res
 			return res.status(404).json({
 				code: 404,
 				message: "Resource not found",
-				_links: { self: { href: req.url } },
+				_links: { self: { href: req.baseUrl } },
 			})
 		}
 		return res.status(200).json(character)
@@ -98,7 +98,7 @@ export const editCharacter = async (req: Request, res: Response): Promise<Respon
 		return res.status(500).json({
 			code: 500,
 			message: "Internal server error",
-			_links: { self: { href: req.url } },
+			_links: { self: { href: req.baseUrl } },
 		})
 	}
 }
