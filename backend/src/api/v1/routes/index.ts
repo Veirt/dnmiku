@@ -1,6 +1,6 @@
 import "@config/localStrategy.config"
 import "@config/jwtStrategy.config"
-import routerConfig from "@config/router.config"
+import configureRouter from "@config/router.config"
 import * as accountControllers from "@api/v1/controllers/account.controller"
 import * as characterControllers from "@api/v1/controllers/character.controller"
 import { createAccount, loginAccount } from "@api/v1/controllers/auth.controller"
@@ -13,7 +13,7 @@ import { validateCreateAccount } from "@api/v1/middlewares/validation.middleware
 import express from "express"
 
 const router = express.Router()
-routerConfig(router)
+configureRouter(router)
 
 router.get("/", (_, res) => res.json({ message: "pong" }))
 router.get("/status/server", getServerStatus)

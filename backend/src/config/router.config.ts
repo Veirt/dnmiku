@@ -2,7 +2,7 @@ import express from "express"
 import helmet from "helmet"
 import cors from "cors"
 
-const routerConfig = (router: express.Router): void => {
+const configureRouter = (router: express.Router): void => {
 	if (process.env.NODE_ENV !== "development") {
 		router.use(
 			cors({
@@ -16,4 +16,4 @@ const routerConfig = (router: express.Router): void => {
 	router.use(helmet())
 }
 
-export default routerConfig
+export default configureRouter
