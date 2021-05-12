@@ -1,15 +1,15 @@
-import "../../../config/localStrategy.config"
-import "../../../config/jwtStrategy.config"
-import routerConfig from "../../../config/router.config"
-import * as accountControllers from "../controllers/account.controller"
-import * as characterControllers from "../controllers/character.controller"
-import { createAccount, loginAccount } from "../controllers/auth.controller"
+import "@config/localStrategy.config"
+import "@config/jwtStrategy.config"
+import routerConfig from "@config/router.config"
+import * as accountControllers from "@api/v1/controllers/account.controller"
+import * as characterControllers from "@api/v1/controllers/character.controller"
+import { createAccount, loginAccount } from "@api/v1/controllers/auth.controller"
 import {
   getServerStatus,
   getPlayerStatus,
-} from "../controllers/server.controller"
-import { isAdmin, isAuthenticated } from "../middlewares/auth.middleware"
-import { validateCreateAccount } from "../middlewares/validation.middleware"
+} from "@api/v1/controllers/server.controller"
+import { isAdmin, isAuthenticated } from "@api/v1/middlewares/auth.middleware"
+import { validateCreateAccount } from "@api/v1/middlewares/validation.middleware"
 import express from "express"
 
 const router = express.Router()

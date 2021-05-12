@@ -65,7 +65,12 @@
 
     /* Advanced Options */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
+    "paths": {
+      "@entity/*": ["./src/entity/*"],
+      "@config/*": ["./src/config/*"],
+      "@api/v1/*": ["./src/api/v1/*"]
+    }
   },
   "exclude": ["node_modules", "*.config.js", "**/*.test.ts", "**/*.spec.ts"]
 }

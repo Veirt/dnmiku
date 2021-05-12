@@ -1,5 +1,5 @@
-import { Account } from "../../../entity/DNMembership/Account"
-import { CreateAccountValidation } from "../helpers/validation.helper"
+import { Account } from "@entity/DNMembership/Account"
+import { CreateAccountValidation } from "@api/v1/helpers/validation.helper"
 import { Request, Response, NextFunction } from "express"
 import { getConnection } from "typeorm"
 

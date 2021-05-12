@@ -1,7 +1,7 @@
-import { Account, encryptPassword } from "../entity/DNMembership/Account"
+import { Account, encryptPassword } from "@entity/DNMembership/Account"
 import { getConnection } from "typeorm"
-import localPassport from "passport-local"
 import passport from "passport"
+import localPassport from "passport-local"
 
 const localStrategy = localPassport.Strategy
 

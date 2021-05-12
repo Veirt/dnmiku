@@ -1,4 +1,4 @@
-import { Account } from "../../../entity/DNMembership/Account"
+import { Account } from "@entity/DNMembership/Account"
 import { getConnection } from "typeorm"
 
 export const checkIfAdmin = async (AccountId: number) => {

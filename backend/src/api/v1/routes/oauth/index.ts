@@ -1,5 +1,5 @@
-import "../../../../config/discordStrategy.config"
-import { Account } from "../../../../entity/DNMembership/Account"
+import "@config/discordStrategy.config"
+import { Account } from "@entity/DNMembership/Account"
 import { getConnection } from "typeorm"
 import express from "express"
 import passport from "passport"

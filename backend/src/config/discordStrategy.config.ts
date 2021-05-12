@@ -1,7 +1,7 @@
-import { Account } from "../entity/DNMembership/Account"
+import { Account } from "@entity/DNMembership/Account"
+import { getConnection } from "typeorm"
 import passport from "passport"
 import discordPassport from "passport-discord"
-import { EntityNotFoundError, getConnection } from "typeorm"
 
 const DiscordStrategy = discordPassport.Strategy
 

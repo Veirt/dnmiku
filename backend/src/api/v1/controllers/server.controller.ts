@@ -1,7 +1,7 @@
-import { DNAuth } from "../../../entity/DNMembership/DNAuth"
-import { Account } from "../../../entity/DNMembership/Account"
-import { Character } from "../../../entity/DNWorld/Character"
-import checkServerPort from "../helpers/server.helper"
+import { DNAuth } from "@entity/DNMembership/DNAuth"
+import { Account } from "@entity/DNMembership/Account"
+import { Character } from "@entity/DNWorld/Character"
+import checkServerPort from "@api/v1/helpers/server.helper"
 import { Request, Response } from "express"
 import { getConnection } from "typeorm"
 

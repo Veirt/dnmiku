@@ -1,4 +1,4 @@
-import { checkIfAdmin } from "../helpers/auth.helper"
+import { checkIfAdmin } from "@api/v1/helpers/auth.helper"
 import { Request, Response, NextFunction } from "express"
 import passport from "passport"
 
