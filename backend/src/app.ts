@@ -2,10 +2,10 @@ import dotenv from "dotenv"
 dotenv.config()
 import { DNMembershipConfig, DNWorldConfig } from "@config/typeorm.config"
 import apiv1Routes from "@api/v1/routes"
-import "reflect-metadata"
 import { createConnection } from "typeorm"
 import express from "express"
-import passport from "passport";
+import passport from "passport"
+import "reflect-metadata"
 
 (async () => {
 	await createConnection(DNMembershipConfig)

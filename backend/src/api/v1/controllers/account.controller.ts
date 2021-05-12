@@ -1,8 +1,8 @@
 import { Account } from "@entity/DNMembership/Account"
 import { NextFunction, Request, Response } from "express"
 import { FindManyOptions, getConnection, ILike } from "typeorm"
-import jwt from "jsonwebtoken"
 import passport from "passport"
+import jwt from "jsonwebtoken"
 
 export const getAccountData = async (
 	req: Request,
