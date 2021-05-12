@@ -1,8 +1,8 @@
+import dotenv from "dotenv"
+dotenv.config()
 import { DNMembershipConfig, DNWorldConfig } from "@config/typeorm.config"
 import router from "@api/v1/routes"
 import oauthRouter from "@api/v1/routes/oauth"
-import dotenv from "dotenv"
-dotenv.config()
 import "reflect-metadata"
 import { createConnection } from "typeorm"
 import express from "express"
