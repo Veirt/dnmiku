@@ -1,10 +1,9 @@
-import { isAuthenticated } from "../../middlewares/auth.middleware"
-import "../../config/discordStrategy.config"
+import "../../../../config/discordStrategy.config"
+import { Account } from "../../../../entity/DNMembership/Account"
+import { getConnection } from "typeorm"
 import express from "express"
 import passport from "passport"
 import jwt from "jsonwebtoken"
-import { getConnection } from "typeorm"
-import { Account } from "../../entity/DNMembership/Account"
 
 const router = express.Router()
 

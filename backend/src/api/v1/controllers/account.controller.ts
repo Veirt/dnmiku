@@ -1,4 +1,4 @@
-import { Account } from "../entity/DNMembership/Account"
+import { Account } from "../../../entity/DNMembership/Account"
 import { NextFunction, Request, Response } from "express"
 import { FindManyOptions, getConnection, ILike } from "typeorm"
 import jwt from "jsonwebtoken"

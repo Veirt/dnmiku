@@ -1,5 +1,5 @@
-import "../config/localStrategy.config"
-import { Account } from "../entity/DNMembership/Account"
+import "../../../config/localStrategy.config"
+import { Account } from "../../../entity/DNMembership/Account"
 import { NextFunction, Request, Response } from "express"
 import { getConnection } from "typeorm"
 import passport from "passport"

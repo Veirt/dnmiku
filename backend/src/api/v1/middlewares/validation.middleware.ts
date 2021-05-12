@@ -1,4 +1,4 @@
-import { Account } from "../entity/DNMembership/Account"
+import { Account } from "../../../entity/DNMembership/Account"
 import { CreateAccountValidation } from "../helpers/validation.helper"
 import { Request, Response, NextFunction } from "express"
 import { getConnection } from "typeorm"
@@ -25,7 +25,7 @@ export const validateCreateAccount = async (
         { message: "Username already exists", field: "AccountName" },
       ]
     }
-  } catch (err) {}
+  } catch (err) { }
 
   try {
     await repository.findOneOrFail({
@@ -39,7 +39,7 @@ export const validateCreateAccount = async (
     } else {
       validationResult = [{ message: "Email already exists", field: "Email" }]
     }
-  } catch (err) {}
+  } catch (err) { }
 
   if (validationResult === true) return next()
   else res.status(400).json(validationResult)

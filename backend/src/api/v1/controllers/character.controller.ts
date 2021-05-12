@@ -1,7 +1,7 @@
-import { Character } from "../entity/DNWorld/Character"
+import { Character } from "../../../entity/DNWorld/Character"
 import { Request, Response } from "express"
 import { getConnection, ILike } from "typeorm"
-import { CharacterStatus } from "../entity/DNWorld/CharacterStatus"
+import { CharacterStatus } from "../../../entity/DNWorld/CharacterStatus"
 
 export const getCharacters = async (req: Request, res: Response) => {
   const characterRepository = getConnection("DNWorld").getRepository(Character)

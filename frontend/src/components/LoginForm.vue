@@ -97,7 +97,7 @@ const login = async () => {
       data: account.value,
     });
 
-    store.commit("setAccessToken", res.data.accessToken);
+    store.commit("setAccessToken", res.data.token);
     if (res.data.account.role >= 99) store.commit("setAdmin");
     alert("success");
   } catch (err) {
