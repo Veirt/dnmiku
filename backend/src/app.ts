@@ -1,8 +1,7 @@
 import dotenv from "dotenv"
 dotenv.config()
 import { DNMembershipConfig, DNWorldConfig } from "@config/typeorm.config"
-import router from "@api/v1/routes"
-import oauthRouter from "@api/v1/routes/oauth"
+import apiv1Routes from "@api/v1/routes"
 import "reflect-metadata"
 import { createConnection } from "typeorm"
 import express from "express"
@@ -15,7 +14,6 @@ import passport from "passport";
 
 const app = express()
 app.use(passport.initialize())
-app.use("/api/v1", router)
-app.use("/api/v1/oauth", oauthRouter)
+app.use("/api/v1", apiv1Routes)
 
 app.listen(8080, () => console.log("Listening on http://localhost:8080"))
