@@ -1,6 +1,6 @@
 import "@config/discordStrategy.config"
 import { Account } from "@entity/DNMembership/Account"
-import { signToken } from "../../helpers/jwt.helper"
+import { signToken } from "@api/v1/helpers/jwt.helper"
 import { getConnection } from "typeorm"
 import express from "express"
 import passport from "passport"

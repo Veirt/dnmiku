@@ -1,5 +1,5 @@
 import { Account } from "@entity/DNMembership/Account"
-import { signToken } from "../helpers/jwt.helper"
+import { signToken } from "@api/v1/helpers/jwt.helper"
 import { NextFunction, Request, Response } from "express"
 import { FindManyOptions, getConnection, ILike } from "typeorm"
 import passport from "passport"
