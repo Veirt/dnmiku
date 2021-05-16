@@ -1,9 +1,9 @@
 import "@config/localStrategy.config"
 import { Account } from "@entity/DNMembership/Account"
+import { signToken } from "../helpers/jwt.helper"
 import { NextFunction, Request, Response } from "express"
 import { getConnection } from "typeorm"
 import passport from "passport"
-import jwt from "jsonwebtoken"
 
 export const createAccount = async (req: Request, res: Response): Promise<Response> => {
 	const accountRepository = getConnection("DNMembership").getRepository(Account)
@@ -64,12 +64,7 @@ export const loginAccount = async (
 						role: account.AccountLevelCode,
 					}
 
-					const token = jwt.sign(payload, process.env.JWT_SECRET, {
-						audience: "mikudn",
-						issuer: "exlog",
-						expiresIn: "30 days",
-						subject: `${account.AccountId}`,
-					})
+					const token = signToken(payload, `${account.AccountId}`)
 
 					return res
 						.cookie("token", token, {

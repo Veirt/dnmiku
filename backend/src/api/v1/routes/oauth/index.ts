@@ -1,5 +1,6 @@
 import "@config/discordStrategy.config"
 import { Account } from "@entity/DNMembership/Account"
+import { signToken } from "../../helpers/jwt.helper"
 import { getConnection } from "typeorm"
 import express from "express"
 import passport from "passport"
@@ -43,12 +44,7 @@ router.get("/discord/callback", (req, res) => {
 					role: account.AccountLevelCode,
 				}
 
-				const token = jwt.sign(payload, process.env.JWT_SECRET, {
-					audience: "mikudn",
-					issuer: "exlog",
-					expiresIn: "30 days",
-					subject: `${account.AccountId}`,
-				})
+				const token = signToken(payload, `${account.AccountId}`)
 
 				return res
 					.cookie("token", token)

@@ -21,15 +21,15 @@ const verifyToken = async () => {
       withCredentials: true,
     });
 
-    if (res.data.accessToken) {
-      store.commit("setAccessToken", res.data.accessToken);
+    if (res.data.token) {
+      store.commit("setAccessToken", res.data.token);
       if (res.data.AccountLevelCode >= 99) {
         store.commit("setAdmin", true);
       }
     } else {
       throw new Error("There is no token");
     }
-  } catch (err) {}
+  } catch (err) { }
 };
 
 const routes: Array<RouteRecordRaw> = [

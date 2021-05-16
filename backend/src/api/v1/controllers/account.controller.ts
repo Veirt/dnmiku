@@ -1,8 +1,8 @@
 import { Account } from "@entity/DNMembership/Account"
+import { signToken } from "../helpers/jwt.helper"
 import { NextFunction, Request, Response } from "express"
 import { FindManyOptions, getConnection, ILike } from "typeorm"
 import passport from "passport"
-import jwt from "jsonwebtoken"
 
 export const getAccountData = async (
 	req: Request,
@@ -14,13 +14,10 @@ export const getAccountData = async (
 		const accountRepository =
 			getConnection("DNMembership").getRepository(Account)
 		const account = await accountRepository.findOne(payload.sub)
-		const accessToken = jwt.sign(
-			{ name: payload.name, mail: payload.mail },
-			process.env.JWT_SECRET,
-			{ audience: payload.aud, issuer: payload.iss, subject: payload.sub }
-		)
 
-		return res.status(200).json({ ...account, accessToken })
+		const token = signToken({ mail: payload.mail, name: payload.name, role: payload.role }, payload.sub)
+
+		return res.status(200).json({ ...account, token })
 	})(req, res, next)
 }
 
