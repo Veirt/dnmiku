@@ -4,6 +4,7 @@ import { DNMembershipConfig, DNWorldConfig } from "@config/typeorm.config"
 import apiv1Routes from "@api/v1/routes"
 import { createConnection } from "typeorm"
 import express from "express"
+import compression from "compression"
 import passport from "passport"
 import "reflect-metadata"
 
@@ -12,7 +13,9 @@ import "reflect-metadata"
 	await createConnection(DNWorldConfig)
 })()
 
+
 const app = express()
+app.use(compression())
 app.use(passport.initialize())
 app.use("/api/v1", apiv1Routes)
 
