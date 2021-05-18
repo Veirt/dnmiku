@@ -1,6 +1,6 @@
 import detect from "detect-port"
 
-const checkServerPort = (port: number): Promise<string> => {
+export const checkServerPort = (port: number): Promise<string> => {
 	return new Promise((resolve) => {
 		detect(port)
 			.then((_port: number) => {
@@ -16,4 +16,3 @@ const checkServerPort = (port: number): Promise<string> => {
 	})
 }
 
-export default checkServerPort

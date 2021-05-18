@@ -6,6 +6,7 @@ import charactersRouter from "@api/v1/routes/characters.router"
 import OAuthRouter from "@api/v1/routes/oauth"
 import * as statusController from "@api/v1/controllers/server.controller"
 import { loginAccount } from "@api/v1/controllers/auth.controller"
+import { cacheResponse } from "@api/v1/middlewares/cache.middleware"
 import { Router } from "express"
 
 const router = Router()
@@ -17,8 +18,8 @@ router.use("/characters", charactersRouter)
 
 router.get("/", (_, res) => res.json({ message: "pong" }))
 
-router.get("/status/server", statusController.getServerStatus)
-router.get("/status/players", statusController.getPlayerStatus)
+router.get("/status/server", cacheResponse, statusController.getServerStatus)
+router.get("/status/players", cacheResponse, statusController.getPlayerStatus)
 
 router.post("/auth/local", loginAccount)
 
