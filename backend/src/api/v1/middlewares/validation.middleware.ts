@@ -33,7 +33,7 @@ export const validateCreateAccount = async (
 		return res.status(500).json({
 			code: 500, message: "Internal server error",
 			_links: {
-				self: { href: req.baseUrl },
+				self: { href: `${req.baseUrl}${req.url}`, },
 			},
 		})
 	}
@@ -55,7 +55,7 @@ export const validateCreateAccount = async (
 		return res.status(500).json({
 			code: 500, message: "Internal server error",
 			_links: {
-				self: { href: req.baseUrl },
+				self: { href: `${req.baseUrl}${req.url}`, },
 			},
 		})
 
