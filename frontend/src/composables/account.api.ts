@@ -1,5 +1,6 @@
 import axios from "../axios";
 import { ref } from "vue";
+import store from "../store"
 
 export const account = ref({
   AccountId: 0,
@@ -11,6 +12,7 @@ export const account = ref({
   cash: 0,
   LastLoginDate: undefined,
   RegisterDate: undefined,
+  DiscordID: null,
   DNAuth: {
     CertifyingStep: 0,
   },
@@ -36,6 +38,17 @@ export const getAccounts = async (query?: QueryParams) => {
   }
 };
 
+export const getMyAccount = async () => {
+  try {
+    const res = await axios({
+      method: "GET",
+      url: "accounts/@me",
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` }
+    })
+    account.value = res.data
+  } catch (err) { alert(err) }
+}
+
 export const getAccountById = async (id: number) => {
   try {
     const res = await axios({
@@ -43,9 +56,7 @@ export const getAccountById = async (id: number) => {
       url: `accounts/${id}`,
     });
     account.value = res.data;
-  } catch (err) {
-    alert(err);
-  }
+  } catch (err) { alert(err); }
 };
 
 export const createAdminAccount = async () => {
