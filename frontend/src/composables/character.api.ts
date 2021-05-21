@@ -21,7 +21,7 @@ export const character = ref({
   },
 });
 
-export const characters = ref([{ ...character.value }]);
+export const characters = ref({ total: 0, result: [{ ...character.value }] });
 
 export const getCharacters = async (query?: QueryParams) => {
   try {
@@ -30,7 +30,8 @@ export const getCharacters = async (query?: QueryParams) => {
       url: "characters",
       params: query,
     });
-    characters.value = res.data;
+    characters.value.result = res.data.result;
+    characters.value.total = res.data.total;
   } catch (err) {
     alert(err);
   }

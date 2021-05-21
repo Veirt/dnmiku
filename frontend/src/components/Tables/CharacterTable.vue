@@ -79,7 +79,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="character in characters">
+						<tr v-for="character in characters.result">
 							<td class="t-data">
 								<p class="t-text">
 									{{ character.CharacterID }}
@@ -189,7 +189,7 @@
 					class="flex flex-col items-center px-5 py-5 bg-white border-t xs:flex-row xs:justify-between"
 				>
 					<span class="text-xs text-gray-900 xs:text-sm">
-						{{ characters.length }} Entries
+						{{ characters.result.length }} Entries
 					</span>
 					<div v-show="query.take !== 0" class="inline-flex mt-2 xs:mt-0">
 						<button
@@ -201,7 +201,7 @@
 						</button>
 						<button
 							@click="query.skip += query.take"
-							:disabled="query.skip + query.take > characters.length"
+							:disabled="query.skip + query.take > characters.total"
 							class="px-4 py-2 text-sm font-semibold text-white transition delay-100 bg-black rounded-r enabled:hover:text-red-300 disabled:cursor-not-allowed"
 						>
 							Next
@@ -231,8 +231,7 @@ const column = [
 	"Character Name",
 	"Account Owner",
 	"Created Date",
-	"Last Login",
-	"Job",
+	"Last Login" > "Job",
 	"Last Village",
 	"Like",
 	"Gold",
@@ -242,6 +241,6 @@ const column = [
 	"Actions",
 ]
 
-getCharacters()
+getCharacters(query.value)
 watch(query.value, _ => getCharacters(query.value))
 </script>

@@ -16,7 +16,11 @@ export const account = ref({
   },
 });
 
-export const accounts = ref([{ ...account.value }]);
+export const accounts = ref({
+  result: [{ ...account.value, }],
+  total: 0
+}
+);
 
 export const getAccounts = async (query?: QueryParams) => {
   try {
@@ -25,7 +29,8 @@ export const getAccounts = async (query?: QueryParams) => {
       url: "accounts",
       params: query,
     });
-    accounts.value = res.data;
+    accounts.value.result = res.data.result;
+    accounts.value.total = res.data.total;
   } catch (err) {
     alert(err);
   }

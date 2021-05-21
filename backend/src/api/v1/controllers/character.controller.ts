@@ -11,7 +11,7 @@ export const getCharacters = async (req: Request, res: Response): Promise<Respon
 	const keyword = req.query.keyword || ""
 
 	try {
-		const characters = await characterRepository.find({
+		const [characters, total] = await characterRepository.find({
 			take,
 			skip,
 			cache: true,
@@ -21,7 +21,7 @@ export const getCharacters = async (req: Request, res: Response): Promise<Respon
 			relations: ["CharacterStatus"],
 		})
 
-		return res.status(200).json(characters)
+		return res.status(200).json({ total, result: characters })
 	} catch (err) {
 		console.error(`Error when getting characters: ${err}`)
 		return res.status(500).json({

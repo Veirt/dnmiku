@@ -38,8 +38,9 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 
 	try {
 		let accounts: Account[]
+		let total: number
 		if (status === "2") {
-			accounts = await accountRepository.find({
+			[accounts, total] = await accountRepository.findAndCount({
 				...findOptions,
 				join: { alias: "accounts", leftJoin: { DNAuth: "accounts.DNAuth" } },
 				where: (qb) => {
@@ -49,7 +50,7 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 				},
 			})
 		} else if (status === "0") {
-			accounts = await accountRepository.find({
+			[accounts, total] = await accountRepository.findAndCount({
 				...findOptions,
 				join: {
 					alias: "accounts",
@@ -66,7 +67,7 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 				},
 			})
 		} else {
-			accounts = await accountRepository.find({
+			[accounts, total] = await accountRepository.findAndCount({
 				...findOptions,
 				where: {
 					AccountName: ILike(`%${keyword}%`),
@@ -74,7 +75,7 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 			})
 		}
 
-		return res.status(200).json(accounts)
+		return res.status(200).json({ total, result: accounts })
 	} catch (err) {
 		console.error(`Error when getting accounts: ${err}`)
 		return res.status(500).json({
