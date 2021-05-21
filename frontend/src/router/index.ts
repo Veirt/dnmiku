@@ -22,7 +22,7 @@ const verifyToken = async () => {
     });
 
     if (res.data.token) {
-      store.dispatch("setAuthStatus", { token: res.data.token, role: res.data.AccountLevelCode })
+      store.dispatch("setAuthStatus", { token: res.data.token, role: res.data.payload.role })
     } else {
       throw new Error("There is no token");
     }
