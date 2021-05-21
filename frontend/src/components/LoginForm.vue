@@ -78,7 +78,7 @@
 import { ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useStore } from "vuex"
-import axios from "../axios"
+import axios from "../api/axios"
 
 const store = useStore()
 const route = useRoute()

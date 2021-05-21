@@ -85,7 +85,7 @@ export const checkAuth = async (
 	next: NextFunction
 ): Promise<void> => {
 	passport.authenticate("jwt", { session: false }, async (err, payload) => {
-		if (err) return res.status(401).json({ code: 400, message: err })
+		if (err || !payload) return res.status(401).json({ code: 400, message: err })
 
 		const { mail, name, role, sub } = payload
 
