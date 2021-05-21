@@ -12,9 +12,9 @@ const verifyToken = async () => {
 
   try {
     const res = await axios({
-      method: "GET",
+      method: "POST",
       baseURL: store.getters.getApiUrl,
-      url: "/api/v1/accounts/@me",
+      url: "/api/v1/auth",
       headers: {
         authorization: `Bearer ${cookies.token}`,
       },

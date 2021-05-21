@@ -19,7 +19,7 @@ router.post(
 	isAdmin,
 	accountControllers.createAdminAccount
 )
-router.get("/@me", isAuthenticated, accountControllers.getAccountData)
+router.get("/@me", isAuthenticated, accountControllers.getMyAccount)
 
 router.get(
 	"/:id",

@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express"
 import { FindManyOptions, getConnection, ILike } from "typeorm"
 import passport from "passport"
 
-export const getAccountData = async (
+export const getMyAccount = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -15,9 +15,7 @@ export const getAccountData = async (
 			getConnection("DNMembership").getRepository(Account)
 		const account = await accountRepository.findOne(payload.sub)
 
-		const token = signToken({ mail: payload.mail, name: payload.name, role: payload.role }, payload.sub)
-
-		return res.status(200).json({ ...account, token })
+		return res.status(200).json(account)
 	})(req, res, next)
 }
 

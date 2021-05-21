@@ -5,7 +5,7 @@ import accountsRouter from "@api/v1/routes/accounts.router"
 import charactersRouter from "@api/v1/routes/characters.router"
 import OAuthRouter from "@api/v1/routes/oauth"
 import * as statusController from "@api/v1/controllers/server.controller"
-import { loginAccount } from "@api/v1/controllers/auth.controller"
+import { checkAuth, loginAccount } from "@api/v1/controllers/auth.controller"
 import { cacheResponse } from "@api/v1/middlewares/cache.middleware"
 import { Router } from "express"
 
@@ -21,6 +21,7 @@ router.get("/", (_, res) => res.json({ message: "pong" }))
 router.get("/status/server", cacheResponse, statusController.getServerStatus)
 router.get("/status/players", cacheResponse, statusController.getPlayerStatus)
 
+router.post("/auth", checkAuth)
 router.post("/auth/local", loginAccount)
 
 
