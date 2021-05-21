@@ -26,10 +26,13 @@
 			<router-link
 				:to="{ name: 'Login' }"
 				v-if="!store.getters.getAccessToken"
-				class="nav-item"
+				class="nav-item "
 				>Login</router-link
 			>
-			<a @click="logOut" v-if="store.getters.getAccessToken" class="nav-item"
+			<a
+				@click="logOut"
+				v-if="store.getters.getAccessToken"
+				class="nav-item cursor-pointer"
 				>Logout</a
 			>
 		</div>
