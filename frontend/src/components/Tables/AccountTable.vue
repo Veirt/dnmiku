@@ -88,25 +88,19 @@
 					</thead>
 					<tbody>
 						<tr v-for="account in accounts">
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ account.AccountId }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ account.AccountName }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
+							<td class="t-data">
 								<p
 									class="whitespace-nowrap"
 									:class="{
@@ -120,34 +114,26 @@
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ account.AccountLevelCode }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ account.Email ?? "-" }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ store.getters.dayjs(account.RegisterDate).fromNow() }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{
 										account.LastLoginDate
 											? store.getters.dayjs(account.LastLoginDate).fromNow()
@@ -156,17 +142,13 @@
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ account.cash.toLocaleString() }}
 								</p>
 							</td>
 
-							<td
-								class="flex px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
+							<td class="flex t-data">
 								<router-link
 									class="w-1/2 m-1"
 									:to="{ path: `/admin/accounts/edit/${account.AccountId}` }"

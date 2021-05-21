@@ -80,42 +80,32 @@
 					</thead>
 					<tbody>
 						<tr v-for="character in characters">
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.CharacterID }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.CharacterName }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.AccountName }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ store.getters.dayjs(character.CreateDate).fromNow() }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{
 										store.getters
 											.dayjs(character.CharacterStatus.LastLoginDate)
@@ -124,44 +114,34 @@
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.CharacterStatus.JobCode }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.CharacterStatus.LastVillageMapID }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.CharacterStatus.LikeCount.toLocaleString() }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{
 										parseInt(character.CharacterStatus.Coin).toLocaleString()
 									}}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{
 										parseInt(
 											character.CharacterStatus.WarehouseCoin
@@ -170,25 +150,19 @@
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.CharacterStatus.Fatigue.toLocaleString() }}
 								</p>
 							</td>
 
-							<td
-								class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
-								<p class="text-gray-900 whitespace-no-wrap">
+							<td class="t-data">
+								<p class="t-text">
 									{{ character.CharacterStatus.WeeklyFatigue.toLocaleString() }}
 								</p>
 							</td>
 
-							<td
-								class="flex px-5 py-5 text-sm text-center bg-white border-b border-gray-200"
-							>
+							<td class="flex t-data">
 								<router-link
 									class="w-1/2 m-1"
 									:to="{
