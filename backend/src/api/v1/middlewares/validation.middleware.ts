@@ -28,15 +28,7 @@ export const validateCreateAccount = async (
 				{ message: "Username already exists", field: "AccountName" },
 			]
 		}
-	} catch (err) {
-		console.error(`Error when validating account name: ${err}`)
-		return res.status(500).json({
-			code: 500, message: "Internal server error",
-			_links: {
-				self: { href: `${req.baseUrl}${req.url}`, },
-			},
-		})
-	}
+	} catch (err) { }
 
 	try {
 		await accountRepository.findOneOrFail({
@@ -50,16 +42,7 @@ export const validateCreateAccount = async (
 		} else {
 			validationResult = [{ message: "Email already exists", field: "Email" }]
 		}
-	} catch (err) {
-		console.error(`Error when validating email: ${err}`)
-		return res.status(500).json({
-			code: 500, message: "Internal server error",
-			_links: {
-				self: { href: `${req.baseUrl}${req.url}`, },
-			},
-		})
-
-	}
+	} catch (err) { }
 
 	if (validationResult === true) return next()
 	else res.status(400).json(validationResult)
