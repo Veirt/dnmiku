@@ -15,7 +15,7 @@ passport.use(
 		},
 		async (_, __, profile, done) => {
 			const accountRepository =
-        getConnection("DNMembership").getRepository(Account)
+				getConnection("DNMembership").getRepository(Account)
 
 			try {
 				const account = await accountRepository.findOneOrFail({
@@ -24,7 +24,7 @@ passport.use(
 
 				return done(null, account)
 			} catch (err) {
-				if (err.name === "EntityNotFoundError")
+				if (err.name === "EntityNotFound")
 					return done(null, false, { DiscordID: profile.id })
 				else return done(err, false)
 			}
