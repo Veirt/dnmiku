@@ -1,6 +1,6 @@
+import store from "../store"
 import axios from "../api/axios";
 import { ref } from "vue";
-import store from "../store"
 
 export const account = ref({
   AccountId: 0,
@@ -13,6 +13,7 @@ export const account = ref({
   LastLoginDate: undefined,
   RegisterDate: undefined,
   DiscordID: null,
+  Avatar: null,
   DNAuth: {
     CertifyingStep: 0,
   },

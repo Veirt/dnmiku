@@ -12,7 +12,11 @@
 					<img
 						class="rounded-full"
 						alt="A"
-						src="https://cdn.discordapp.com/avatars/723753456384606238/79a61b43dd42957b40f2c9577b010fa0.png?size=4096"
+						:src="
+							account.Avatar
+								? `https://cdn.discordapp.com/avatars/${account.DiscordID}/${account.Avatar}.png?size=4096`
+								: ``
+						"
 					/>
 				</div>
 				<div class="flex flex-row w-full ml-5 md:ml-10">

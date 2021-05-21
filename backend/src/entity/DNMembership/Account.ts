@@ -59,6 +59,10 @@ export class Account {
 	@Column({ type: "varchar", length: 20, nullable: true })
 	DiscordID: string
 
+	@Column({ type: "varchar", length: 40, nullable: true })
+	Avatar: string
+
+
 	@ManyToOne(() => DNAuth)
 	@JoinColumn({ name: "AccountID", referencedColumnName: "AccountDBID" })
 	DNAuth: DNAuth

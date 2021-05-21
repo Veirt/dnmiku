@@ -22,10 +22,14 @@ passport.use(
 					DiscordID: profile.id,
 				})
 
+				if (account.Avatar !== profile.avatar)
+					await accountRepository.update({ DiscordID: profile.id }, { Avatar: profile.avatar })
+
+
 				return done(null, account)
 			} catch (err) {
 				if (err.name === "EntityNotFound")
-					return done(null, false, { DiscordID: profile.id })
+					return done(null, false, { DiscordID: profile.id, Avatar: profile.avatar })
 				else return done(err, false)
 			}
 		}

@@ -14,7 +14,7 @@ router.get("/discord/callback", (req, res) => {
 	passport.authenticate(
 		"discord",
 		{ session: false, failureRedirect: "/" },
-		async (err: Error | null, account, info: { DiscordID: string }) => {
+		async (err: Error | null, account, info: { DiscordID: string, Avatar: string }) => {
 			const accountRepository =
 				getConnection("DNMembership").getRepository(Account)
 			if (info?.DiscordID) {
@@ -26,7 +26,7 @@ router.get("/discord/callback", (req, res) => {
 				try {
 					await accountRepository.update(
 						{ AccountId },
-						{ DiscordID: info.DiscordID }
+						{ DiscordID: info.DiscordID, Avatar: info.Avatar }
 					)
 					return res.redirect("http://localhost:3000/profile")
 				} catch (err) {
