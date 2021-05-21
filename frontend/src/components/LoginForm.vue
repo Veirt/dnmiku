@@ -58,7 +58,7 @@
 		</div>
 		<div class="flex flex-col items-center justify-center px-12">
 			<a
-				:href="`${store.getters.apiUrl}/api/v1/oauth/discord`"
+				:href="`${store.getters.getApiUrl}/api/v1/oauth/discord`"
 				class="px-3 py-2 text-sm font-bold text-center text-transparent text-white uppercase transition duration-200 rounded-md discord"
 			>
 				Login using Discord
@@ -75,19 +75,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
-import axios from "../axios";
+import { ref } from "vue"
+import { useRoute, useRouter } from "vue-router"
+import { useStore } from "vuex"
+import axios from "../axios"
 
-const store = useStore();
-const route = useRoute();
-const router = useRouter();
+const store = useStore()
+const route = useRoute()
+const router = useRouter()
 
 const account = ref({
 	AccountName: "",
 	Password: "",
-});
+})
 
 const login = async () => {
 	try {
@@ -96,15 +96,17 @@ const login = async () => {
 			url: "auth/local",
 			withCredentials: true,
 			data: account.value,
-		});
+		})
 
-		store.commit("setAccessToken", res.data.token);
-		if (res.data.account.role >= 99) store.commit("setAdmin");
-		router.replace("/profile");
+		store.dispatch("setAuthStatus", {
+			token: res.data.token,
+			role: res.data.account.role,
+		})
+		router.replace("/profile")
 	} catch (err) {
-		alert(err);
+		alert(err)
 	}
-};
+}
 </script>
 
 <style scoped>

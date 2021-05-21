@@ -13,7 +13,7 @@ const verifyToken = async () => {
   try {
     const res = await axios({
       method: "GET",
-      baseURL: store.getters.apiUrl,
+      baseURL: store.getters.getApiUrl,
       url: "/api/v1/accounts/@me",
       headers: {
         authorization: `Bearer ${cookies.token}`,
@@ -22,10 +22,7 @@ const verifyToken = async () => {
     });
 
     if (res.data.token) {
-      store.commit("setAccessToken", res.data.token);
-      if (res.data.AccountLevelCode >= 99) {
-        store.commit("setAdmin", true);
-      }
+      store.dispatch("setAuthStatus", { token: res.data.token, role: res.data.AccountLevelCode })
     } else {
       throw new Error("There is no token");
     }
@@ -140,9 +137,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (_, __, next) => {
-  if (!store.getters.done) {
+  if (!store.getters.getAuthCheck) {
     await verifyToken();
-    store.commit("auth");
+    store.commit('SET_AUTH_CHECK')
   }
   next();
 });

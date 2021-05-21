@@ -8,42 +8,48 @@ dayjs.locale("id");
 export default createStore({
   state: {
     apiUrl: import.meta.env.VITE_APP_API_ENDPOINT,
-    done: false,
-    isAdmin: false,
+    authCheck: false,
     accessToken: "",
+    admin: false,
   },
   mutations: {
-    setAccessToken(state, payload) {
+    SET_ACCESS_TOKEN(state, payload) {
       state.accessToken = payload;
     },
-    setAdmin(state) {
-      state.isAdmin = true;
+    SET_ADMIN(state) {
+      state.admin = true;
     },
-    auth(state) {
-      state.done = true;
+    SET_AUTH_CHECK(state) {
+      state.authCheck = true;
     },
-    logOut(state) {
+    LOG_OUT(state) {
       state.accessToken = "";
-      state.isAdmin = false;
+      state.admin = false;
     },
   },
-  actions: {},
+  actions: {
+    setAuthStatus({ commit }, payload) {
+      commit('SET_AUTH_CHECK')
+      commit('SET_ACCESS_TOKEN', payload.token)
+      if (payload.role >= 99) commit('SET_ADMIN')
+    }
+  },
   modules: {},
   getters: {
-    apiUrl(state) {
-      return state.apiUrl;
+    getApiUrl(state) {
+      return state.apiUrl
     },
-    accessToken(state) {
-      return state.accessToken;
+    getAccessToken(state) {
+      return state.accessToken
+    },
+    getAuthCheck(state) {
+      return state.authCheck
     },
     isAdmin(state) {
-      return state.isAdmin;
+      return state.admin
     },
     dayjs() {
       return dayjs;
-    },
-    done(state) {
-      return state.done;
     },
   },
 });
