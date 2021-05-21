@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "../api/axios";
 import { ref } from "vue";
 import store from "../store"
 

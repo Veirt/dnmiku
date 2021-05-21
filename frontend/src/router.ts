@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import store from "../store";
+import store from "./store";
 import axios from "axios";
 
 const verifyToken = async () => {
@@ -33,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/Home.vue"),
+    component: () => import("./views/Home.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Home`,
     },
@@ -41,7 +41,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/download",
     name: "Download",
-    component: () => import("../views/Download.vue"),
+    component: () => import("./views/Download.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Download`,
     },
@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
+    component: () => import("./views/Login.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Login`,
     },
@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/register",
     name: "Register",
-    component: () => import("../views/Register.vue"),
+    component: () => import("./views/Register.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Register`,
     },
@@ -65,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/profile",
     name: "Profile",
-    component: () => import("../views/Profile.vue"),
+    component: () => import("./views/Profile.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Profile`,
     },
@@ -73,7 +73,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/admin",
     name: "Admin",
-    component: () => import("../views/Admin/Admin.vue"),
+    component: () => import("./views/Admin/Admin.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Admin`,
     },
@@ -82,22 +82,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/admin/accounts",
     name: "ManageAccounts",
-    component: () => import("../components/PassThrough.vue"),
+    component: () => import("./components/PassThrough.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Manage Account`,
     },
     children: [
       {
         path: "",
-        component: () => import("../views/Admin/Account.vue"),
+        component: () => import("./views/Admin/Account.vue"),
       },
       {
         path: "create",
-        component: () => import("../views/Admin/Form/AccountForm.vue"),
+        component: () => import("./views/Admin/Form/AccountForm.vue"),
       },
       {
         path: "edit/:id",
-        component: () => import("../views/Admin/Form/AccountForm.vue"),
+        component: () => import("./views/Admin/Form/AccountForm.vue"),
       },
     ],
   },
@@ -105,29 +105,29 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/admin/characters",
     name: "ManageCharacters",
-    component: () => import("../components/PassThrough.vue"),
+    component: () => import("./components/PassThrough.vue"),
     meta: {
       title: `${import.meta.env.VITE_APP_BASE_TITLE} | Manage Character`,
     },
     children: [
       {
         path: "",
-        component: () => import("../views/Admin/Character.vue"),
+        component: () => import("./views/Admin/Character.vue"),
       },
       {
         path: "create",
-        component: () => import("../views/Admin/Form/CharacterForm.vue"),
+        component: () => import("./views/Admin/Form/CharacterForm.vue"),
       },
       {
         path: "edit/:id",
-        component: () => import("../views/Admin/Form/CharacterForm.vue"),
+        component: () => import("./views/Admin/Form/CharacterForm.vue"),
       },
     ],
   },
 
   {
     path: "/:pathMatch(.*)*",
-    component: () => import("../views/Error/404.vue"),
+    component: () => import("./views/Error/404.vue"),
   },
 ];
 
