@@ -1,3 +1,4 @@
+import store from "../store"
 import axios from "../api/axios";
 import { ref } from "vue";
 
@@ -29,6 +30,7 @@ export const getCharacters = async (query?: QueryParams) => {
       method: "GET",
       url: "characters",
       params: query,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     });
     characters.value.result = res.data.result;
     characters.value.total = res.data.total;
@@ -42,6 +44,7 @@ export const getCharacterById = async (id: number) => {
     const res = await axios({
       method: "GET",
       url: `characters/${id}`,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     });
     character.value = res.data;
   } catch (err) {
@@ -55,6 +58,7 @@ export const editCharacter = async (id: number) => {
       method: "PATCH",
       url: `characters/${id}`,
       data: character.value,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     });
   } catch (err) {
     alert(err);
@@ -66,6 +70,7 @@ export const deleteCharacter = async (id: number) => {
     await axios({
       method: "DELETE",
       url: `characters/${id}`,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     });
     await getCharacters();
   } catch (err) {

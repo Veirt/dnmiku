@@ -93,8 +93,8 @@ const login = async () => {
 	try {
 		const res = await axios({
 			method: "POST",
-			baseURL: `${store.getters.getApiUrl}`,
-			url: "/api/v1/auth/local",
+			baseURL: `${store.getters.getApiUrl}/api/v1`,
+			url: "auth/local",
 			withCredentials: true,
 			data: account.value,
 		})
@@ -103,6 +103,7 @@ const login = async () => {
 			token: res.data.token,
 			role: res.data.account.role,
 		})
+
 		router.replace("/profile")
 	} catch (err) {
 		alert(err)

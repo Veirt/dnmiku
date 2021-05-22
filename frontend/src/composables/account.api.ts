@@ -30,6 +30,7 @@ export const getAccounts = async (query?: QueryParams) => {
     const res = await axios({
       method: "GET",
       url: "accounts",
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
       params: query,
     });
     accounts.value.result = res.data.result;
@@ -44,6 +45,7 @@ export const getMyAccount = async () => {
     const res = await axios({
       method: "GET",
       url: "accounts/@me",
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     })
     account.value = res.data
   } catch (err) { alert(err) }
@@ -54,6 +56,7 @@ export const getAccountById = async (id: number) => {
     const res = await axios({
       method: "GET",
       url: `accounts/${id}`,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     });
     account.value = res.data;
   } catch (err) { alert(err); }
@@ -64,6 +67,7 @@ export const createAdminAccount = async () => {
     await axios({
       method: "POST",
       url: `accounts/admin`,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
       data: account.value,
     });
   } catch (err) {
@@ -88,6 +92,7 @@ export const deleteAccount = async (id: number) => {
     await axios({
       method: "DELETE",
       url: `accounts/${id}`,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     });
     await getAccounts();
   } catch (err) {
