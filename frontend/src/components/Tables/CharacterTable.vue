@@ -79,7 +79,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="character in characters.result">
+						<tr
+							v-for="character in characters.result"
+							:key="character.CharacterID"
+						>
 							<td class="t-data">
 								<p class="t-text">
 									{{ character.CharacterID }}

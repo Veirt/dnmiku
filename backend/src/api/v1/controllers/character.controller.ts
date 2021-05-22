@@ -11,7 +11,7 @@ export const getCharacters = async (req: Request, res: Response): Promise<Respon
 	const keyword = req.query.keyword || ""
 
 	try {
-		const [characters, total] = await characterRepository.find({
+		const [characters, total] = await characterRepository.findAndCount({
 			take,
 			skip,
 			cache: true,
