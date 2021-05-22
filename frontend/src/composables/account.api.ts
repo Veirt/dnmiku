@@ -44,7 +44,6 @@ export const getMyAccount = async () => {
     const res = await axios({
       method: "GET",
       url: "accounts/@me",
-      headers: { authorization: `Bearer ${store.getters.getAccessToken}` }
     })
     account.value = res.data
   } catch (err) { alert(err) }

@@ -78,7 +78,7 @@
 import { ref } from "vue"
 import { useRoute, useRouter } from "vue-router"
 import { useStore } from "vuex"
-import axios from "../api/axios"
+import axios from "axios"
 
 const store = useStore()
 const route = useRoute()
@@ -93,7 +93,8 @@ const login = async () => {
 	try {
 		const res = await axios({
 			method: "POST",
-			url: "auth/local",
+			baseURL: `${store.getters.getApiUrl}`,
+			url: "/api/v1/auth/local",
 			withCredentials: true,
 			data: account.value,
 		})
