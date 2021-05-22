@@ -81,6 +81,7 @@ export const editAccount = async (id: number) => {
       method: "PATCH",
       url: `accounts/${id}`,
       data: account.value,
+      headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
     });
   } catch (err) {
     alert(err);
