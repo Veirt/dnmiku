@@ -19,24 +19,27 @@ router.get("/discord/callback", (req, res) => {
 				getConnection("DNMembership").getRepository(Account)
 			if (info?.DiscordID) {
 				// Forgive me, my future self
-				const accessToken = req.headers.cookie.split("token=")[1]
-
-				const AccountId = jwt.decode(accessToken, { json: true }).sub
-
 				try {
-					await accountRepository.update(
-						{ AccountId },
-						{ DiscordID: info.DiscordID, Avatar: info.Avatar }
-					)
-					return res.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
+					const accessToken = req.headers.cookie.split("token=")[1]
+					const AccountId = jwt.decode(accessToken, { json: true }).sub
+
+
+					try {
+						await accountRepository.update(
+							{ AccountId },
+							{ DiscordID: info.DiscordID, Avatar: info.Avatar }
+						)
+						return res.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
+					} catch (err) {
+						console.error(`Error when updating DiscordID OAuth: ${err}`)
+						return res
+							.status(500)
+							.json({ code: 500, message: "Internal server error" })
+					}
+
 				} catch (err) {
-					console.error(`Error when updating DiscordID OAuth: ${err}`)
-					return res
-						.status(500)
-						.json({ code: 500, message: "Internal server error" })
+					return res.status(500).redirect(`${process.env.FRONTEND_DOMAIN}/login?e=discord`)
 				}
-			} else if (err) {
-				return res.status(500).redirect(`${process.env.FRONTEND_DOMAIN}/login?e=discord`)
 			} else {
 				const payload = {
 					name: account.AccountName,
