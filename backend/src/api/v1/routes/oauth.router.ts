@@ -28,7 +28,7 @@ router.get("/discord/callback", (req, res) => {
 						{ AccountId },
 						{ DiscordID: info.DiscordID, Avatar: info.Avatar }
 					)
-					return res.redirect("http://localhost:3000/profile")
+					return res.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
 				} catch (err) {
 					console.error(`Error when updating DiscordID OAuth: ${err}`)
 					return res
@@ -36,7 +36,7 @@ router.get("/discord/callback", (req, res) => {
 						.json({ code: 500, message: "Internal server error" })
 				}
 			} else if (err) {
-				return res.status(500).redirect("http://localhost:3000/login?e=discord")
+				return res.status(500).redirect(`${process.env.FRONTEND_DOMAIN}/login?e=discord`)
 			} else {
 				const payload = {
 					name: account.AccountName,
@@ -48,7 +48,7 @@ router.get("/discord/callback", (req, res) => {
 
 				return res
 					.cookie("token", token)
-					.redirect("http://localhost:3000/profile")
+					.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
 			}
 		}
 	)(req, res)
