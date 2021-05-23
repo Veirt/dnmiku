@@ -10,7 +10,10 @@ passport.use(
 		{
 			clientID: process.env.CLIENT_ID,
 			clientSecret: process.env.CLIENT_SECRET,
-			callbackURL: process.env.CALLBACK_URL,
+			callbackURL:
+				process.env.NODE_ENV === "production"
+					? `${process.env.BACKEND_DOMAIN}${process.env.CALLBACK_URL}`
+					: process.env.CALLBACK_URL,
 			scope: ["identify"],
 		},
 		async (_, __, profile, done) => {
@@ -23,13 +26,18 @@ passport.use(
 				})
 
 				if (account.Avatar !== profile.avatar)
-					await accountRepository.update({ DiscordID: profile.id }, { Avatar: profile.avatar })
-
+					await accountRepository.update(
+						{ DiscordID: profile.id },
+						{ Avatar: profile.avatar }
+					)
 
 				return done(null, account)
 			} catch (err) {
 				if (err.name === "EntityNotFound")
-					return done(null, false, { DiscordID: profile.id, Avatar: profile.avatar })
+					return done(null, false, {
+						DiscordID: profile.id,
+						Avatar: profile.avatar,
+					})
 				else return done(err, false)
 			}
 		}
