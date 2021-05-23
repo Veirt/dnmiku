@@ -10,23 +10,29 @@ const verifyToken = async () => {
     })
   );
 
-  try {
-    const res = await axios({
-      method: "POST",
-      baseURL: store.getters.getApiUrl,
-      url: "/api/v1/auth",
-      headers: {
-        authorization: `Bearer ${cookies.token}`,
-      },
-      withCredentials: true,
-    });
+  if (cookies.token) {
+    try {
+      const res = await axios({
+        method: "POST",
+        baseURL: store.getters.getApiUrl,
+        url: "/api/v1/auth",
+        headers: {
+          authorization: `Bearer ${cookies.token}`,
+        },
+        withCredentials: true,
+      });
 
-    if (res.data.token) {
-      store.dispatch("setAuthStatus", { token: res.data.token, role: res.data.payload.role })
-    } else {
-      throw new Error("There is no token");
-    }
-  } catch (err) { }
+      if (res.data.token) {
+        store.dispatch("setAuthStatus", { token: res.data.token, role: res.data.payload.role })
+      } else {
+        throw new Error("There is no token");
+      }
+    } catch (err) { }
+  } else {
+    store.commit("SET_AUTH_CHECK")
+  }
+
+
 };
 
 const routes: Array<RouteRecordRaw> = [
