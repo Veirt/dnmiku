@@ -8,7 +8,6 @@ export const validateCreateAccount = async (
 	res: Response,
 	next: NextFunction
 ): Promise<Response | void> => {
-
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let validationResult: any = CreateAccountValidation(req.body)
 
@@ -28,7 +27,8 @@ export const validateCreateAccount = async (
 				{ message: "Username already exists", field: "AccountName" },
 			]
 		}
-	} catch (err) { }
+		// eslint-disable-next-line no-empty
+	} catch (err) {}
 
 	try {
 		await accountRepository.findOneOrFail({
@@ -42,7 +42,8 @@ export const validateCreateAccount = async (
 		} else {
 			validationResult = [{ message: "Email already exists", field: "Email" }]
 		}
-	} catch (err) { }
+		// eslint-disable-next-line no-empty
+	} catch (err) {}
 
 	if (validationResult === true) return next()
 	else res.status(400).json(validationResult)

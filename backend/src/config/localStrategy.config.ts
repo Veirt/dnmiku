@@ -15,7 +15,7 @@ passport.use(
 		async (AccountName, Password, done) => {
 			try {
 				const accountRepository =
-          getConnection("DNMembership").getRepository(Account)
+					getConnection("DNMembership").getRepository(Account)
 				const account = await accountRepository.findOne(
 					{
 						AccountName,

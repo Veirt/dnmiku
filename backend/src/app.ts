@@ -7,12 +7,10 @@ import express from "express"
 import compression from "compression"
 import passport from "passport"
 import "reflect-metadata"
-
-(async () => {
+;(async () => {
 	await createConnection(DNMembershipConfig)
 	await createConnection(DNWorldConfig)
 })()
-
 
 const app = express()
 app.use(compression())

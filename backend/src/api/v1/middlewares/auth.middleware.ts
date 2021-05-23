@@ -10,7 +10,11 @@ export const isAuthenticated = (
 	passport.authenticate("jwt", { session: false })(req, res, next)
 }
 
-export const isAdmin = (req: Request, res: Response, next: NextFunction): void => {
+export const isAdmin = (
+	req: Request,
+	res: Response,
+	next: NextFunction
+): void => {
 	passport.authenticate("jwt", { session: false }, async (err, payload) => {
 		if (err || !payload) {
 			return res.status(401).json({ code: 401, message: "Unauthorized" })

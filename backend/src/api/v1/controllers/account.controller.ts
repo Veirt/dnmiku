@@ -1,5 +1,4 @@
 import { Account } from "@entity/DNMembership/Account"
-import { signToken } from "@api/v1/helpers/jwt.helper"
 import { NextFunction, Request, Response } from "express"
 import { FindManyOptions, getConnection, ILike } from "typeorm"
 import passport from "passport"
@@ -19,7 +18,10 @@ export const getMyAccount = async (
 	})(req, res, next)
 }
 
-export const getAccounts = async (req: Request, res: Response): Promise<Response> => {
+export const getAccounts = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
 	const accountRepository = getConnection("DNMembership").getRepository(Account)
 
 	const take = parseInt(req.query.take as string) || 0
@@ -38,23 +40,23 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 		let accounts: Account[]
 		let total: number
 		if (status === "2") {
-			[accounts, total] = await accountRepository.findAndCount({
+			;[accounts, total] = await accountRepository.findAndCount({
 				...findOptions,
 				join: { alias: "accounts", leftJoin: { DNAuth: "accounts.DNAuth" } },
-				where: (qb) => {
+				where: qb => {
 					qb.where({
 						AccountName: ILike(`%${keyword}%`),
 					}).andWhere("DNAuth.CertifyingStep = 2 ")
 				},
 			})
 		} else if (status === "0") {
-			[accounts, total] = await accountRepository.findAndCount({
+			;[accounts, total] = await accountRepository.findAndCount({
 				...findOptions,
 				join: {
 					alias: "accounts",
 					leftJoin: { DNAuth: "accounts.DNAuth" },
 				},
-				where: (qb) => {
+				where: qb => {
 					qb.where([
 						{
 							AccountName: ILike(`%${keyword}%`),
@@ -65,7 +67,7 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 				},
 			})
 		} else {
-			[accounts, total] = await accountRepository.findAndCount({
+			;[accounts, total] = await accountRepository.findAndCount({
 				...findOptions,
 				where: {
 					AccountName: ILike(`%${keyword}%`),
@@ -81,14 +83,17 @@ export const getAccounts = async (req: Request, res: Response): Promise<Response
 			message: "Internal server error",
 			_links: {
 				self: {
-					href: `${req.baseUrl}${req.url}`
+					href: `${req.baseUrl}${req.url}`,
 				},
 			},
 		})
 	}
 }
 
-export const getAccountById = async (req: Request, res: Response): Promise<Response> => {
+export const getAccountById = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
 	const accountRepository = getConnection("DNMembership").getRepository(Account)
 
 	try {
@@ -100,13 +105,16 @@ export const getAccountById = async (req: Request, res: Response): Promise<Respo
 			code: 404,
 			message: "Resource not found",
 			_links: {
-				self: { href: `${req.baseUrl}${req.url}`, },
+				self: { href: `${req.baseUrl}${req.url}` },
 			},
 		})
 	}
 }
 
-export const createAdminAccount = async (req: Request, res: Response): Promise<Response> => {
+export const createAdminAccount = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
 	const accountRepository = getConnection("DNMembership").getRepository(Account)
 
 	const { AccountName, AccountLevelCode, Email, Password, cash } = req.body
@@ -140,7 +148,10 @@ export const createAdminAccount = async (req: Request, res: Response): Promise<R
 	}
 }
 
-export const editAccount = async (req: Request, res: Response): Promise<Response> => {
+export const editAccount = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
 	const accountRepository = getConnection("DNMembership").getRepository(Account)
 
 	const { AccountName, AccountLevelCode, Email, cash } = req.body
@@ -161,13 +172,16 @@ export const editAccount = async (req: Request, res: Response): Promise<Response
 			code: 500,
 			message: "Internal server error",
 			_links: {
-				self: { href: `${req.baseUrl}${req.url}`, },
+				self: { href: `${req.baseUrl}${req.url}` },
 			},
 		})
 	}
 }
 
-export const deleteAccount = async (req: Request, res: Response): Promise<Response> => {
+export const deleteAccount = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
 	const accountRepository = getConnection("DNMembership").getRepository(Account)
 
 	try {
@@ -181,7 +195,7 @@ export const deleteAccount = async (req: Request, res: Response): Promise<Respon
 			code: 500,
 			message: "Internal server error",
 			_links: {
-				self: { href: `${req.baseUrl}${req.url}`, },
+				self: { href: `${req.baseUrl}${req.url}` },
 			},
 		})
 	}

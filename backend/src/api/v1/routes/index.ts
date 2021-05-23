@@ -24,6 +24,4 @@ router.get("/status/players", cacheResponse, statusController.getPlayerStatus)
 router.post("/auth", checkAuth)
 router.post("/auth/local", loginAccount)
 
-
-
 export default router
