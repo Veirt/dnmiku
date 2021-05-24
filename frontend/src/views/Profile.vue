@@ -4,6 +4,7 @@
 			class="flex flex-col space-y-6 md:flex-row md:items-center md:space-x-6"
 		>
 			<div
+				v-show="done"
 				class="flex flex-row w-full md:w-1/2 bg-gray-100 rounded shadow-md px-3 py-2 "
 			>
 				<div
@@ -66,11 +67,12 @@
 <script setup lang="ts">
 import { account, getMyAccount } from "../composables/account.api"
 import { useStore } from "vuex"
-import { useRoute } from "vue-router"
+import { ref } from "vue"
+
+const done = ref(false)
 
 const store = useStore()
-const route = useRoute()
-getMyAccount()
+getMyAccount().then(() => (done.value = true))
 </script>
 
 <style scoped>

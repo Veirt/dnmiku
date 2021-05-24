@@ -1,5 +1,5 @@
 <template>
-	<TableLayout>
+	<TableLayout v-show="done">
 		<div>
 			<h2 class="text-2xl font-semibold leading-tight">Characters</h2>
 		</div>
@@ -224,10 +224,12 @@ import {
 	deleteCharacter,
 } from "../../composables/character.api"
 import query from "../../composables/paginationQuery"
-import { watch } from "vue"
+import { watch, ref } from "vue"
 import { useStore } from "vuex"
 
 const store = useStore()
+
+const done = ref(false)
 
 const column = [
 	"Id",
@@ -244,6 +246,6 @@ const column = [
 	"Actions",
 ]
 
-getCharacters(query.value)
+getCharacters(query.value).then(() => (done.value = true))
 watch(query.value, _ => getCharacters(query.value))
 </script>
