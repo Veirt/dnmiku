@@ -167,8 +167,11 @@ import {
 	getAccountById,
 	createAdminAccount,
 	editAccount,
+	resetAccount,
 } from "../../../composables/account.api"
 import { useRoute } from "vue-router"
+
+resetAccount()
 
 const route = useRoute()
 const id = route.params.id as string

@@ -19,6 +19,25 @@ export const account = ref({
 	},
 })
 
+export const resetAccount = () => {
+	account.value = {
+		AccountId: 0,
+		AccountName: "",
+		Email: "",
+		Password: "",
+		ConfirmPassword: "",
+		AccountLevelCode: 0,
+		cash: 0,
+		LastLoginDate: undefined,
+		RegisterDate: undefined,
+		DiscordID: null,
+		Avatar: null,
+		DNAuth: {
+			CertifyingStep: 0,
+		},
+	}
+}
+
 export const accounts = ref({
 	result: [{ ...account.value }],
 	total: 0,

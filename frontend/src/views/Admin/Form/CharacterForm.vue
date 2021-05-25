@@ -152,8 +152,11 @@ import {
 	character,
 	getCharacterById,
 	editCharacter,
+	resetCharacter,
 } from "../../../composables/character.api"
 import { useRoute } from "vue-router"
+
+resetCharacter()
 
 const route = useRoute()
 const id = route.params.id as string
