@@ -1,7 +1,7 @@
 <template>
 	<div class="flex justify-center leading-loose">
 		<form
-			@submit.prevent="editCharacter(parseInt(id))"
+			@submit.prevent="editCharacter(parseInt(id), router)"
 			class="flex-col max-w-xl p-10 m-4 bg-white rounded shadow-xl"
 		>
 			<p class="font-bold text-gray-800">CharacterId {{ $route.params.id }}</p>
@@ -154,11 +154,12 @@ import {
 	editCharacter,
 	resetCharacter,
 } from "../../../composables/character.api"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 
 resetCharacter()
 
 const route = useRoute()
+const router = useRouter()
 const id = route.params.id as string
 
 if (route.params.id) {

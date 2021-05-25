@@ -1,6 +1,7 @@
 import store from "../store"
 import axios from "../api/axios"
 import { ref } from "vue"
+import { Router } from "vue-router"
 
 export const account = ref({
 	AccountId: 0,
@@ -84,7 +85,7 @@ export const getAccountById = async (id: number) => {
 	}
 }
 
-export const createAdminAccount = async () => {
+export const createAdminAccount = async (router: Router) => {
 	try {
 		await axios({
 			method: "POST",
@@ -92,12 +93,13 @@ export const createAdminAccount = async () => {
 			headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
 			data: account.value,
 		})
+		router.back()
 	} catch (err) {
 		alert(err)
 	}
 }
 
-export const editAccount = async (id: number) => {
+export const editAccount = async (id: number, router: Router) => {
 	try {
 		await axios({
 			method: "PATCH",
@@ -105,6 +107,7 @@ export const editAccount = async (id: number) => {
 			data: account.value,
 			headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
 		})
+		router.back()
 	} catch (err) {
 		alert(err)
 	}

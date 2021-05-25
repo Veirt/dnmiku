@@ -154,9 +154,12 @@ export const editAccount = async (
 ): Promise<Response> => {
 	const accountRepository = getConnection("DNMembership").getRepository(Account)
 
-	const { AccountName, AccountLevelCode, Email, cash } = req.body
+	const { AccountName, AccountLevelCode, Email, cash, Password } = req.body
 
 	try {
+		if (Password) {
+			await accountRepository.update(req.params.id, { RLKTPassword: Password })
+		}
 		await accountRepository.update(req.params.id, {
 			AccountName,
 			AccountLevelCode,

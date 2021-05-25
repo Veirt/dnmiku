@@ -208,9 +208,11 @@ import {
 	getAccounts,
 	deleteAccount,
 } from "../../composables/account.api"
-import query from "../../composables/paginationQuery"
+import { query, resetQuery } from "../../composables/paginationQuery"
 import { watch, ref } from "vue"
 import { useStore } from "vuex"
+
+resetQuery()
 
 const store = useStore()
 const done = ref(false)

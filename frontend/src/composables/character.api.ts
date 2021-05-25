@@ -1,6 +1,7 @@
 import store from "../store"
 import axios from "../api/axios"
 import { ref } from "vue"
+import { Router } from "vue-router"
 
 export const character = ref({
 	CharacterID: 0,
@@ -74,7 +75,7 @@ export const getCharacterById = async (id: number) => {
 	}
 }
 
-export const editCharacter = async (id: number) => {
+export const editCharacter = async (id: number, router: Router) => {
 	try {
 		await axios({
 			method: "PATCH",
@@ -82,6 +83,7 @@ export const editCharacter = async (id: number) => {
 			data: character.value,
 			headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
 		})
+		router.back()
 	} catch (err) {
 		alert(err)
 	}

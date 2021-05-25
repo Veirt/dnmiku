@@ -27,28 +27,6 @@
 						</svg>
 					</div>
 				</div>
-				<div class="relative">
-					<select
-						class="block w-full h-full px-4 py-2 pr-8 leading-tight text-white bg-black border border-black rounded-r appearance-none sm:rounded-r-none sm:border-r-0 focus:outline-none"
-					>
-						<option :value="0">All</option>
-						<option :value="1">Online</option>
-						<option :value="2">Offline</option>
-					</select>
-					<div
-						class="absolute inset-y-0 right-0 flex items-center px-2 text-red-300 pointer-events-none"
-					>
-						<svg
-							class="w-4 h-4 fill-current"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-						>
-							<path
-								d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-							/>
-						</svg>
-					</div>
-				</div>
 			</div>
 			<div class="relative block mb-1 sm:mb-0">
 				<span class="absolute inset-y-0 left-0 flex items-center h-full pl-2">
@@ -225,10 +203,11 @@ import {
 	getCharacters,
 	deleteCharacter,
 } from "../../composables/character.api"
-import query from "../../composables/paginationQuery"
+import { query, resetQuery } from "../../composables/paginationQuery"
 import { watch, ref } from "vue"
 import { useStore } from "vuex"
 
+resetQuery()
 const store = useStore()
 
 const done = ref(false)
