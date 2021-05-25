@@ -8,15 +8,14 @@
 				class="flex flex-row w-full md:w-1/2 bg-gray-100 rounded shadow-md px-3 py-2 "
 			>
 				<div
+					v-if="account.Avatar"
 					class="flex md:w-48 w-30 h-auto justify-center items-center m-1 text-xl rounded-full text-white"
 				>
 					<img
 						class="rounded-full"
-						alt="A"
+						alt="Discord Avatar"
 						:src="
-							account.Avatar
-								? `https://cdn.discordapp.com/avatars/${account.DiscordID}/${account.Avatar}.png?size=4096`
-								: ``
+							`https://cdn.discordapp.com/avatars/${account.DiscordID}/${account.Avatar}.png?size=4096`
 						"
 					/>
 				</div>
