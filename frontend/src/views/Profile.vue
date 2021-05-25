@@ -43,7 +43,7 @@
 					</div>
 					<div
 						v-if="!account.DiscordID"
-						class="flex w-1/2 items-center justify-end"
+						class="flex flex-col w-1/2 items-center justify-center "
 					>
 						<div class="flex flex-col items-center justify-center">
 							<a
@@ -54,6 +54,12 @@
 								<i class="ml-2 fab fa-discord"></i>
 							</a>
 						</div>
+						<p
+							v-if="route.query.e === 'discord'"
+							class="mt-2 text-sm text-center text-red-500"
+						>
+							Your discord is already associated
+						</p>
 					</div>
 				</div>
 			</div>
@@ -66,12 +72,14 @@
 
 <script setup lang="ts">
 import { account, getMyAccount } from "../composables/account.api"
-import { useStore } from "vuex"
 import { ref } from "vue"
+import { useStore } from "vuex"
+import { useRoute } from "vue-router"
 
 const done = ref(false)
 
 const store = useStore()
+const route = useRoute()
 getMyAccount().then(() => (done.value = true))
 </script>
 

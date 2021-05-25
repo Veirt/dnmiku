@@ -51,11 +51,31 @@ router.get("/discord/callback", (req, res) => {
 					role: account.AccountLevelCode,
 				}
 
-				const token = signToken(payload, `${account.AccountId}`)
+				if (req.headers.cookie) {
+					const token = req.headers.cookie.split("token=")[1]
+					const decoded = jwt.decode(token, { json: true })
+					if (decoded) {
+						if (parseInt(decoded.sub) !== account.AccountId) {
+							return res.redirect(
+								`${process.env.FRONTEND_DOMAIN}/profile?e=discord`
+							)
+						} else {
+							return res.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
+						}
+					} else {
+						const token = signToken(payload, `${account.AccountId}`)
 
-				return res
-					.cookie("token", token)
-					.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
+						return res
+							.cookie("token", token)
+							.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
+					}
+				} else {
+					const token = signToken(payload, `${account.AccountId}`)
+
+					return res
+						.cookie("token", token)
+						.redirect(`${process.env.FRONTEND_DOMAIN}/profile`)
+				}
 			}
 		}
 	)(req, res)
