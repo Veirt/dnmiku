@@ -11,7 +11,7 @@
 						class="block w-full h-full px-4 py-2 pr-8 leading-tight text-white bg-black rounded-l appearance-none focus:outline-none focus:bg-black"
 					>
 						<option :value="10">10</option>
-						<option :value="0">All</option>
+						<option :value="30">30</option>
 					</select>
 					<div
 						class="absolute inset-y-0 right-0 flex items-center px-2 text-red-300 pointer-events-none"
@@ -59,7 +59,7 @@
 					</svg>
 				</span>
 				<input
-					v-model="query.keyword"
+					v-model.lazy="query.keyword"
 					placeholder="Search"
 					class="block w-full py-2 pl-8 pr-6 text-sm text-gray-300 placeholder-gray-400 bg-black border border-b border-black rounded appearance-none sm:rounded-l-none focus:text-white focus:placeholder-gray-300 focus:outline-none"
 				/>
@@ -78,10 +78,10 @@
 							</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody v-if="characters.result !== null">
 						<tr
+							v-if="characters.result !== null"
 							v-for="character in characters.result"
-							:key="character.CharacterID"
 						>
 							<td class="t-data">
 								<p class="t-text">
@@ -188,11 +188,13 @@
 						</tr>
 					</tbody>
 				</table>
+
 				<div
 					class="flex flex-col items-center px-5 py-5 bg-white border-t xs:flex-row xs:justify-between"
 				>
 					<span class="text-xs text-gray-900 xs:text-sm">
-						{{ characters.result.length }} Entries
+						{{ characters.result.length + query.skip }} of
+						{{ characters.total }} Entries
 					</span>
 					<div v-show="query.take !== 0" class="inline-flex mt-2 xs:mt-0">
 						<button
@@ -247,5 +249,15 @@ const column = [
 ]
 
 getCharacters(query.value).then(() => (done.value = true))
-watch(query.value, _ => getCharacters(query.value))
+watch(
+	() => query.value.keyword,
+	(newKeyword, prevKeyword) => {
+		if (newKeyword !== prevKeyword) query.value.skip = 0
+	}
+)
+watch(query.value, _ => {
+	setTimeout(() => {
+		getCharacters(query.value)
+	}, 500)
+})
 </script>
