@@ -1,7 +1,25 @@
 import { Character } from "@entity/DNWorld/Character"
 import { CharacterStatus } from "@entity/DNWorld/CharacterStatus"
-import { Request, Response } from "express"
+import { Request, Response, NextFunction } from "express"
 import { getConnection, ILike } from "typeorm"
+import passport from "passport"
+
+export const getMyCharacters = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  passport.authenticate("jwt", { session: false }, async (err, payload) => {
+    if (err) return res.status(401).json({ code: 400, message: err })
+    const characterRepository =
+      getConnection("DNWorld").getRepository(Character)
+    const [characters, total] = await characterRepository.findAndCount({
+      AccountID: payload.sub,
+    })
+
+    return res.status(200).json({ total, result: characters })
+  })(req, res, next)
+}
 
 export const getCharacters = async (
   req: Request,
