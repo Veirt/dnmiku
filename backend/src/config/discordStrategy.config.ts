@@ -6,40 +6,40 @@ import discordPassport from "passport-discord"
 const DiscordStrategy = discordPassport.Strategy
 
 passport.use(
-	new DiscordStrategy(
-		{
-			clientID: process.env.CLIENT_ID,
-			clientSecret: process.env.CLIENT_SECRET,
-			callbackURL:
-				process.env.NODE_ENV === "production"
-					? `${process.env.BACKEND_DOMAIN}${process.env.CALLBACK_URL}`
-					: process.env.CALLBACK_URL,
-			scope: ["identify"],
-		},
-		async (_, __, profile, done) => {
-			const accountRepository =
-				getConnection("DNMembership").getRepository(Account)
+  new DiscordStrategy(
+    {
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL:
+        process.env.NODE_ENV === "production"
+          ? `${process.env.BACKEND_DOMAIN}${process.env.CALLBACK_URL}`
+          : process.env.CALLBACK_URL,
+      scope: ["identify"],
+    },
+    async (_, __, profile, done) => {
+      const accountRepository =
+        getConnection("DNMembership").getRepository(Account)
 
-			try {
-				const account = await accountRepository.findOneOrFail({
-					DiscordID: profile.id,
-				})
+      try {
+        const account = await accountRepository.findOneOrFail({
+          DiscordID: profile.id,
+        })
 
-				if (account.Avatar !== profile.avatar)
-					await accountRepository.update(
-						{ DiscordID: profile.id },
-						{ Avatar: profile.avatar }
-					)
+        if (account.Avatar !== profile.avatar)
+          await accountRepository.update(
+            { DiscordID: profile.id },
+            { Avatar: profile.avatar }
+          )
 
-				return done(null, account)
-			} catch (err) {
-				if (err.name === "EntityNotFound")
-					return done(null, false, {
-						DiscordID: profile.id,
-						Avatar: profile.avatar,
-					})
-				else return done(err, false)
-			}
-		}
-	)
+        return done(null, account)
+      } catch (err) {
+        if (err.name === "EntityNotFound")
+          return done(null, false, {
+            DiscordID: profile.id,
+            Avatar: profile.avatar,
+          })
+        else return done(err, false)
+      }
+    }
+  )
 )

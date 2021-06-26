@@ -2,12 +2,12 @@ import { Account } from "@entity/DNMembership/Account"
 import { getConnection } from "typeorm"
 
 export const checkIfAdmin = async (AccountId: number): Promise<boolean> => {
-	const accountRepository = getConnection("DNMembership").getRepository(Account)
+  const accountRepository = getConnection("DNMembership").getRepository(Account)
 
-	const account = await accountRepository.findOneOrFail(
-		{ AccountId },
-		{ select: ["AccountId", "AccountLevelCode"] }
-	)
+  const account = await accountRepository.findOneOrFail(
+    { AccountId },
+    { select: ["AccountId", "AccountLevelCode"] }
+  )
 
-	return account.AccountLevelCode >= 99
+  return account.AccountLevelCode >= 99
 }

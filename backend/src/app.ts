@@ -8,8 +8,8 @@ import compression from "compression"
 import passport from "passport"
 import "reflect-metadata"
 ;(async () => {
-	await createConnection(DNMembershipConfig)
-	await createConnection(DNWorldConfig)
+  await createConnection(DNMembershipConfig)
+  await createConnection(DNWorldConfig)
 })()
 
 const app = express()
