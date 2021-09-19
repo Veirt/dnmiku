@@ -1,17 +1,13 @@
-import * as characterControllers from "@api/v1/controllers/character.controller"
-import { isAdmin, isAuthenticated } from "@api/v1/middlewares/auth.middleware"
-import { Router } from "express"
+import * as characterControllers from "@api/v1/controllers/character.controller";
+import { isAdmin } from "@api/v1/middlewares/auth.middleware";
+import { Router } from "express";
 
-const router = Router()
+const router = Router();
 
-router.get("/", isAdmin, characterControllers.getCharacters)
+router.get("/", isAdmin, characterControllers.getCharacters);
+router.get("/@me", characterControllers.getMyCharacters);
+router.get("/:id", isAdmin, characterControllers.getCharacterById);
+router.patch("/:id", isAdmin, characterControllers.editCharacter);
+router.delete("/:id", isAdmin, characterControllers.deleteCharacter);
 
-router.get("/@me", characterControllers.getMyCharacters)
-
-router.get("/:id", isAdmin, characterControllers.getCharacterById)
-
-router.patch("/:id", isAdmin, characterControllers.editCharacter)
-
-router.delete("/:id", isAdmin, characterControllers.deleteCharacter)
-
-export default router
+export default router;
