@@ -1,20 +1,38 @@
 <template>
   <div class="px-6 py-10 w-full md:py-16">
-    <div class="flex flex-col md:flex-row md:items-center flex-wrap ">
+    <div class="flex flex-col md:flex-row md:items-center flex-wrap">
       <div
         v-show="done"
-        class="flex flex-row w-full md:w-1/2 bg-gray-100 rounded shadow-md px-3 py-2 "
+        class="
+          flex flex-row
+          w-full
+          md:w-1/2
+          bg-gray-100
+          rounded
+          shadow-md
+          px-3
+          py-2
+        "
       >
         <div
           v-if="account.Avatar"
-          class="flex md:w-48 w-30 h-auto justify-center items-center m-1 text-xl rounded-full text-white"
+          class="
+            flex
+            md:w-48
+            w-30
+            h-auto
+            justify-center
+            items-center
+            m-1
+            text-xl
+            rounded-full
+            text-white
+          "
         >
           <img
             class="rounded-full"
             alt="Discord Avatar"
-            :src="
-              `https://cdn.discordapp.com/avatars/${account.DiscordID}/${account.Avatar}.png?size=4096`
-            "
+            :src="`https://cdn.discordapp.com/avatars/${account.DiscordID}/${account.Avatar}.png?size=4096`"
           />
         </div>
         <div class="flex flex-row w-full ml-5 md:ml-10">
@@ -40,12 +58,25 @@
           </div>
           <div
             v-if="!account.DiscordID"
-            class="flex flex-col w-1/2 items-center justify-center "
+            class="flex flex-col w-1/2 items-center justify-center"
           >
             <div class="flex flex-col items-center justify-center">
               <a
                 :href="`${store.getters.getApiUrl}/api/v1/oauth/discord`"
-                class="md:px-3 px-1 py-1 md:py-4 text-sm font-bold text-center text-white uppercase transition duration-200 rounded-md discord"
+                class="
+                  md:px-3
+                  px-1
+                  py-1
+                  md:py-4
+                  text-sm
+                  font-bold
+                  text-center text-white
+                  uppercase
+                  transition
+                  duration-200
+                  rounded-md
+                  discord
+                "
               >
                 Connect Discord
                 <i class="ml-2 fab fa-discord"></i>
@@ -61,12 +92,28 @@
         </div>
       </div>
       <div
-        class="flex flex-wrap flex-col items-center justify-center w-full md:w-1/2"
+        class="
+          flex flex-wrap flex-col
+          items-center
+          justify-center
+          w-full
+          md:w-1/2
+        "
       >
         <div
           v-if="characters.result.length"
           v-for="character in characters.result"
-          class="flex flex-col w-full md:w-1/2 my-3 bg-gray-100 rounded shadow-md px-3 py-2 "
+          class="
+            flex flex-col
+            w-full
+            md:w-1/2
+            my-3
+            bg-gray-100
+            rounded
+            shadow-md
+            px-3
+            py-2
+          "
         >
           <p class="text-md text-semibold">
             {{ character.CharacterName }}
@@ -82,20 +129,20 @@
 </template>
 
 <script setup lang="ts">
-import { account, getMyAccount } from "../composables/account.api"
-import { characters, getMyCharacters } from "../composables/character.api"
-import { ref } from "vue"
-import { useStore } from "vuex"
-import { useRoute } from "vue-router"
+import { account, getMyAccount } from "../composables/account.api";
+import { characters, getMyCharacters } from "../composables/character.api";
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 
-const done = ref(false)
+const done = ref(false);
 
-const store = useStore()
-const route = useRoute()
+const store = useStore();
+const route = useRoute();
 getMyAccount().then(() => {
-  done.value = true
-  getMyCharacters()
-})
+  done.value = true;
+  getMyCharacters();
+});
 </script>
 
 <style scoped>

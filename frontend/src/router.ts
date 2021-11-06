@@ -23,16 +23,17 @@ const verifyToken = async () => {
       });
 
       if (res.data.token) {
-        store.dispatch("setAuthStatus", { token: res.data.token, role: res.data.payload.role })
+        store.dispatch("setAuthStatus", {
+          token: res.data.token,
+          role: res.data.payload.role,
+        });
       } else {
         throw new Error("There is no token");
       }
-    } catch (err) { }
+    } catch (err) {}
   } else {
-    store.commit("SET_AUTH_CHECK")
+    store.commit("SET_AUTH_CHECK");
   }
-
-
 };
 
 const routes: Array<RouteRecordRaw> = [
@@ -145,7 +146,7 @@ const router = createRouter({
 router.beforeEach(async (_, __, next) => {
   if (!store.getters.getAuthCheck) {
     await verifyToken();
-    store.commit('SET_AUTH_CHECK')
+    store.commit("SET_AUTH_CHECK");
   }
   next();
 });

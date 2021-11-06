@@ -29,24 +29,24 @@ export default createStore({
   },
   actions: {
     setAuthStatus({ commit }, payload) {
-      commit('SET_AUTH_CHECK')
-      commit('SET_ACCESS_TOKEN', payload.token)
-      if (payload.role >= 99) commit('SET_ADMIN')
-    }
+      commit("SET_AUTH_CHECK");
+      commit("SET_ACCESS_TOKEN", payload.token);
+      if (payload.role >= 99) commit("SET_ADMIN");
+    },
   },
   modules: {},
   getters: {
     getApiUrl(state) {
-      return state.apiUrl
+      return state.apiUrl;
     },
     getAccessToken(state) {
-      return state.accessToken
+      return state.accessToken;
     },
     getAuthCheck(state) {
-      return state.authCheck
+      return state.authCheck;
     },
     isAdmin(state) {
-      return state.admin
+      return state.admin;
     },
     dayjs() {
       return dayjs;

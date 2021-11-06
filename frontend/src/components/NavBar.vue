@@ -26,7 +26,7 @@
       <router-link
         :to="{ name: 'Login' }"
         v-if="!store.getters.getAccessToken"
-        class="nav-item "
+        class="nav-item"
         >Login</router-link
       >
       <a
@@ -40,17 +40,17 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from "vuex"
-import { useRouter } from "vue-router"
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
-const store = useStore()
-const router = useRouter()
+const store = useStore();
+const router = useRouter();
 
 const logOut = () => {
-  document.cookie = `token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`
-  store.commit("LOG_OUT")
-  router.replace("/")
-}
+  document.cookie = `token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  store.commit("LOG_OUT");
+  router.replace("/");
+};
 </script>
 
 <style scoped>

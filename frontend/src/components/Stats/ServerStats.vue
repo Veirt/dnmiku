@@ -5,7 +5,14 @@
         <div class="w-1/2 px-2 md:w-1/2">
           <div class="mb-4 rounded-lg shadow-sm">
             <div
-              class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
+              class="
+                relative
+                overflow-hidden
+                bg-white
+                rounded-lg
+                shadow-lg
+                md:shadow-xl
+              "
             >
               <div class="relative px-3 pt-8 pb-10 text-center">
                 <i class="mb-4 text-3xl fa fa-gamepad"></i>
@@ -26,7 +33,14 @@
         <div class="w-1/2 px-2 md:w-1/2">
           <div class="mb-4 rounded-lg shadow-sm">
             <div
-              class="relative overflow-hidden bg-white rounded-lg shadow-lg md:shadow-xl"
+              class="
+                relative
+                overflow-hidden
+                bg-white
+                rounded-lg
+                shadow-lg
+                md:shadow-xl
+              "
             >
               <div class="relative px-3 pt-8 pb-10 text-center">
                 <i class="mb-4 text-3xl fa fa-home"></i>
@@ -50,15 +64,15 @@
 </template>
 
 <script setup lang="ts">
-import axios from "../../api/axios"
-import { ref } from "vue"
+import axios from "../../api/axios";
+import { ref } from "vue";
 
 const server = ref({
   game: "Loading",
   village: "Loading",
-})
-;(async () => {
-  const res = await axios.get("status/server")
-  server.value = res.data.server
-})()
+});
+(async () => {
+  const res = await axios.get("status/server");
+  server.value = res.data.server;
+})();
 </script>

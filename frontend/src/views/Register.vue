@@ -17,9 +17,9 @@
 
 <script setup lang="ts">
 import logo from "@/assets/images/dnmiku-black.png";
-import {useRoute} from "vue-router"
+import { useRoute } from "vue-router";
 
-const route = useRoute()
+const route = useRoute();
 
 document.title = route.meta.title as string;
 </script>

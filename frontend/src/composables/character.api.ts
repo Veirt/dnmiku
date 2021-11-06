@@ -1,7 +1,7 @@
-import store from "../store"
-import axios from "../api/axios"
-import { ref } from "vue"
-import { Router } from "vue-router"
+import store from "../store";
+import axios from "../api/axios";
+import { ref } from "vue";
+import { Router } from "vue-router";
 
 export const character = ref({
   CharacterID: 0,
@@ -21,9 +21,9 @@ export const character = ref({
     LikeCount: 0,
     MissionScore: 0,
   },
-})
+});
 
-export const characters = ref({ total: 0, result: [{ ...character.value }] })
+export const characters = ref({ total: 0, result: [{ ...character.value }] });
 
 export const resetCharacter = () => {
   character.value = {
@@ -44,8 +44,8 @@ export const resetCharacter = () => {
       LikeCount: 0,
       MissionScore: 0,
     },
-  }
-}
+  };
+};
 
 export const getMyCharacters = async () => {
   try {
@@ -53,13 +53,13 @@ export const getMyCharacters = async () => {
       method: "GET",
       url: "characters/@me",
       headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
-    })
-    characters.value.result = res.data.result
-    characters.value.total = res.data.total
+    });
+    characters.value.result = res.data.result;
+    characters.value.total = res.data.total;
   } catch (err) {
-    alert(err)
+    alert(err);
   }
-}
+};
 
 export const getCharacters = async (query?: QueryParams) => {
   try {
@@ -68,13 +68,13 @@ export const getCharacters = async (query?: QueryParams) => {
       url: "characters",
       params: query,
       headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
-    })
-    characters.value.result = res.data.result
-    characters.value.total = res.data.total
+    });
+    characters.value.result = res.data.result;
+    characters.value.total = res.data.total;
   } catch (err) {
-    alert(err)
+    alert(err);
   }
-}
+};
 
 export const getCharacterById = async (id: number) => {
   try {
@@ -82,12 +82,12 @@ export const getCharacterById = async (id: number) => {
       method: "GET",
       url: `characters/${id}`,
       headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
-    })
-    character.value = res.data
+    });
+    character.value = res.data;
   } catch (err) {
-    alert(err)
+    alert(err);
   }
-}
+};
 
 export const editCharacter = async (id: number, router: Router) => {
   try {
@@ -96,12 +96,12 @@ export const editCharacter = async (id: number, router: Router) => {
       url: `characters/${id}`,
       data: character.value,
       headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
-    })
-    router.back()
+    });
+    router.back();
   } catch (err) {
-    alert(err)
+    alert(err);
   }
-}
+};
 
 export const deleteCharacter = async (id: number) => {
   try {
@@ -109,9 +109,9 @@ export const deleteCharacter = async (id: number) => {
       method: "DELETE",
       url: `characters/${id}`,
       headers: { authorization: `Bearer ${store.getters.getAccessToken}` },
-    })
-    await getCharacters()
+    });
+    await getCharacters();
   } catch (err) {
-    alert(err)
+    alert(err);
   }
-}
+};

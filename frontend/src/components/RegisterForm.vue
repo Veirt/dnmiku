@@ -83,7 +83,20 @@
     <div class="relative mt-6">
       <input
         type="submit"
-        class="absolute w-full px-4 py-2 text-lg transition duration-200 text-center text-white bg-black rounded cursor-pointer hover:text-red-300"
+        class="
+          absolute
+          w-full
+          px-4
+          py-2
+          text-lg
+          transition
+          duration-200
+          text-center text-white
+          bg-black
+          rounded
+          cursor-pointer
+          hover:text-red-300
+        "
         value="REGISTER"
       />
     </div>
@@ -91,26 +104,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { useStore } from "vuex"
-import { useRouter } from "vue-router"
-import axios from "axios"
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import axios from "axios";
 
-const store = useStore()
-const router = useRouter()
+const store = useStore();
+const router = useRouter();
 
 const account = ref({
   AccountName: "",
   Email: "",
   Password: "",
   ConfirmPassword: "",
-})
+});
 
 const errors = ref({
   AccountName: new Array<string>(),
   Email: new Array<string>(),
   Password: new Array<string>(),
-})
+});
 
 const createAccount = async () => {
   try {
@@ -119,31 +132,31 @@ const createAccount = async () => {
       baseURL: store.getters.getApiUrl,
       url: "/api/v1/accounts",
       data: account.value,
-    })
+    });
 
     errors.value = {
       AccountName: new Array<string>(),
       Email: new Array<string>(),
       Password: new Array<string>(),
-    }
-    router.replace("/login")
-    alert("Success")
+    };
+    router.replace("/login");
+    alert("Success");
   } catch (err) {
     if (err.response.status === 400) {
       err.response.data.forEach((error: { field: string; message: string }) => {
         switch (error.field) {
           case "AccountName":
-            errors.value.AccountName.push(error.message)
-            break
+            errors.value.AccountName.push(error.message);
+            break;
           case "Email":
-            errors.value.Email.push(error.message)
-            break
+            errors.value.Email.push(error.message);
+            break;
           case "Password":
-            errors.value.Password.push(error.message)
-            break
+            errors.value.Password.push(error.message);
+            break;
         }
-      })
+      });
     }
   }
-}
+};
 </script>
