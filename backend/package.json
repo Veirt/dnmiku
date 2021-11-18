@@ -2,10 +2,10 @@
     "name": "dnmiku-server",
     "version": "0.1.0",
     "main": "dist/app.js",
-    "repository": "https://github.com/ExLog/dnmiku",
-    "author": "ExLog",
+    "repository": "https://github.com/Veirt/dnmiku",
+    "author": "Veirt<vveirt@gmail.com>",
     "license": "MIT",
-    "private": true,
+    "private": false,
     "scripts": {
         "start": "cross-env NODE_ENV=production node dist/app.js",
         "lint": "eslint --fix *{.ts,.js}",
