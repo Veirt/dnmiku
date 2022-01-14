@@ -1,6 +1,7 @@
 import "./config";
 import express from "express";
 import connectDatabases from "./config/typeorm";
+import cookieParser from "cookie-parser";
 import session from "express-session";
 import passport from "passport";
 
@@ -9,15 +10,20 @@ connectDatabases().then(async () => {
 
     const routerV1 = await import("./api/v1/routers");
 
+    app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+    app.use(cookieParser());
     app.use(
-        session({ secret: "test", resave: true, saveUninitialized: false })
+        session({
+            secret: "test",
+            resave: true,
+            saveUninitialized: true,
+        })
     );
 
-    await import("./api/v1/strategies/LocalStrategy");
     app.use(passport.initialize());
     app.use(passport.session());
+    await import("./api/v1/strategies/LocalStrategy");
 
     app.use("/v1", routerV1.default);
 

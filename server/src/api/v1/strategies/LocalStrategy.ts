@@ -1,9 +1,9 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { getConnection } from "typeorm";
 import { Account } from "../../../entities/Account";
+import { getAccountRepository } from "../utils/repository";
 
-const accountRepo = getConnection("member").getRepository(Account);
+const accountRepo = getAccountRepository();
 
 passport.use(
     new LocalStrategy(
@@ -34,7 +34,9 @@ passport.serializeUser((account, done) => {
 
 passport.deserializeUser(async (accountId, done) => {
     try {
-        const account = await accountRepo.findOneOrFail(accountId as number);
+        const account = await getAccountRepository().findOneOrFail(
+            accountId as number
+        );
         return done(null, account);
     } catch (err) {
         return done(err);

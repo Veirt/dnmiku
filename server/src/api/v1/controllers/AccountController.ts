@@ -20,6 +20,10 @@ export const getAccountById: Controller = async (req, res) => {
     }
 };
 
+export const getMyAccount: Controller = async (req, res) => {
+    res.json(req.user);
+};
+
 export const createAccount: Controller = async (req, res) => {
     // TODO: validation & error handling
     const data: DeepPartial<Account> = {
