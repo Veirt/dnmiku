@@ -3,10 +3,10 @@ import {
     BeforeUpdate,
     Column,
     Entity,
-    getConnection,
     PrimaryGeneratedColumn,
 } from "typeorm";
 import { getAccountRepository } from "../api/v1/utils/repository";
+import { encryptPassword } from "../utils/encryptPassword";
 
 @Entity({ name: "Accounts" })
 export class Account {
@@ -34,11 +34,11 @@ export class Account {
     @Column({ type: "tinyint", select: false, default: 0 })
     PublisherCode!: number;
 
-    @Column({ type: "varchar", length: 32, select: false, nullable: true })
+    @Column({ type: "binary", length: 20, select: false, nullable: true })
     Passphrase!: string;
 
     @Column({ type: "varchar", length: 32, select: false, nullable: true })
-    RLKTPassword!: string;
+    NxLoginPwd!: string;
 
     @Column({ type: "tinyint", select: false, default: 0 })
     SecondAuthFailCount!: number;
@@ -66,8 +66,7 @@ export class Account {
     @BeforeInsert()
     @BeforeUpdate()
     async encryptPassword() {
-        this.RLKTPassword = await encryptPassword(this.Passphrase);
-        this.Passphrase = this.RLKTPassword;
+        this.NxLoginPwd = await encryptPassword(this.NxLoginPwd);
     }
 
     async comparePassword(rawPassword: string) {
@@ -83,19 +82,3 @@ export class Account {
         return false;
     }
 }
-
-const encryptPassword = (password: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-        getConnection("member")
-            .query(
-                "SELECT UPPER(SUBSTRING(sys.fn_VarBinToHexStr(HASHBYTES('MD5', CAST(@0 AS VarChar(12)))),3,32)) AS EncryptedPassword",
-                [password]
-            )
-            .then((result) => {
-                resolve(result[0].EncryptedPassword);
-            })
-            .catch((err) => {
-                reject(err);
-            });
-    });
-};

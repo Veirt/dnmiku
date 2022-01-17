@@ -29,7 +29,7 @@ export const createAccount: Controller = async (req, res) => {
     const data: DeepPartial<Account> = {
         AccountName: req.body.AccountName,
         AccountLevelCode: req.body.AccountLevelCode,
-        Passphrase: req.body.Passphrase,
+        NxLoginPwd: req.body.Passphrase,
         cash: req.body.cash,
     };
 

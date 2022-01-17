@@ -27,7 +27,7 @@ export const registerAccount: Controller = async (req, res) => {
 
     const data: DeepPartial<Account> = {
         AccountName,
-        Passphrase,
+        NxLoginPwd: Passphrase,
         AccountLevelCode: 1,
     };
     const newAccount = accountRepo.create(data);
