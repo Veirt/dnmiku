@@ -29,7 +29,7 @@ export const registerAccount: Controller = async (req, res) => {
         AccountName,
         NxLoginPwd: Passphrase,
         mail: Email,
-        AccountLevelCode: 1,
+        AccountLevelCode: 0,
         Cash: 0,
     };
     const newAccount = accountRepo.create(data);

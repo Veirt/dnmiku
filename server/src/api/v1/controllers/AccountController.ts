@@ -28,7 +28,7 @@ export const createAccount: Controller = async (req, res) => {
     // TODO: validation & error handling
     const data: DeepPartial<Account> = {
         AccountName: req.body.AccountName,
-        AccountLevelCode: req.body.AccountLevelCode,
+        AccountLevelCode: req.body.AccountLevelCode || 0,
         NxLoginPwd: req.body.Passphrase,
         Cash: req.body.Cash || 0,
         mail: req.body.Email,
