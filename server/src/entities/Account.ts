@@ -34,6 +34,9 @@ export class Account {
     @Column({ type: "tinyint", select: false, default: 0 })
     PublisherCode!: number;
 
+    @Column({ type: "varchar", length: 60 })
+    mail!: string;
+
     @Column({ type: "binary", length: 20, select: false, nullable: true })
     Passphrase!: string;
 
@@ -71,11 +74,14 @@ export class Account {
 
     async comparePassword(rawPassword: string) {
         const encryptedRawPassword = await encryptPassword(rawPassword);
-        const account = await getAccountRepository().findOne(this.AccountID, {
-            select: ["Passphrase"],
-        });
+        const account = await getAccountRepository().findOne(
+            { AccountID: this.AccountID },
+            {
+                select: ["NxLoginPwd"],
+            }
+        );
 
-        if (encryptedRawPassword === account?.Passphrase) {
+        if (encryptedRawPassword === account?.NxLoginPwd) {
             return true;
         }
 

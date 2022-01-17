@@ -15,7 +15,6 @@ passport.use(
                 });
 
                 if (!(await account.comparePassword(passphrase))) {
-                    console.log(await account.comparePassword(passphrase));
                     throw new Error("Password incorrect");
                 }
 

@@ -21,14 +21,16 @@ export const localAuth: Controller = (req, res, next) => {
 export const registerAccount: Controller = async (req, res) => {
     // TODO: validation account name and passphrase
     // TODO: validation check whether account name is used or not
-    const { AccountName, Passphrase } = req.body;
+    const { AccountName, Passphrase, Email } = req.body;
 
     const accountRepo = getAccountRepository();
 
     const data: DeepPartial<Account> = {
         AccountName,
         NxLoginPwd: Passphrase,
+        mail: Email,
         AccountLevelCode: 1,
+        Cash: 0,
     };
     const newAccount = accountRepo.create(data);
     await accountRepo.save(newAccount);

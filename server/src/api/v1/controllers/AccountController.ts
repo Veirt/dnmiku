@@ -30,7 +30,8 @@ export const createAccount: Controller = async (req, res) => {
         AccountName: req.body.AccountName,
         AccountLevelCode: req.body.AccountLevelCode,
         NxLoginPwd: req.body.Passphrase,
-        cash: req.body.cash,
+        Cash: req.body.Cash || 0,
+        mail: req.body.Email,
     };
 
     const newAccount = accountRepository.create(data);
