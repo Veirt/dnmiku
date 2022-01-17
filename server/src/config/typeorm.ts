@@ -12,7 +12,7 @@ export default async () => {
             password: env.DATABASE_PASSWORD,
             database: "DNMembership",
             extra: { trustServerCertificate: true },
-            entities: ["dist/entities/*.js"],
+            entities: ["src/entities/*.ts"],
         },
         {
             name: "world",
@@ -22,7 +22,7 @@ export default async () => {
             password: env.DATABASE_PASSWORD,
             database: "DNWorld",
             extra: { trustServerCertificate: true },
-            entities: ["dist/entities/*.js"],
+            entities: ["src/entities/*.ts"],
         },
     ]);
 };
