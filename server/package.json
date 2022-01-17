@@ -4,6 +4,7 @@
     "description": "",
     "scripts": {
         "dev": "tsc-watch --onSuccess 'node ./dist/app.js'",
+        "start": "node ./dist/app.js",
         "build": "tsc"
     },
     "keywords": [],
