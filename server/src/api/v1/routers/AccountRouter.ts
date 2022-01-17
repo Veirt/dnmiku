@@ -5,15 +5,15 @@ import {
     getAccounts,
     getMyAccount,
 } from "../controllers/AccountController";
-import { isAuthenticated } from "../middlewares/AuthMiddleware";
+import { isAdmin, isAuthenticated } from "../middlewares/AuthMiddleware";
 
 const AccountRouter = Router();
 
 AccountRouter.use(isAuthenticated);
 
-AccountRouter.get("/", getAccounts);
+AccountRouter.get("/", isAdmin, getAccounts);
 AccountRouter.get("/@me", getMyAccount);
-AccountRouter.get("/:id", getAccountById);
-AccountRouter.post("/", createAccount);
+AccountRouter.get("/:id", isAdmin, getAccountById);
+AccountRouter.post("/", isAdmin, createAccount);
 
 export default AccountRouter;
