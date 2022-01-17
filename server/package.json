@@ -4,6 +4,7 @@
     "description": "",
     "scripts": {
         "dev": "ts-node-dev --respawn --transpile-only ./src/app",
+        "typeorm": "ts-node --transpile-only ./node_modules/typeorm/cli.js",
         "start": "ts-node ./src/app"
     },
     "keywords": [],

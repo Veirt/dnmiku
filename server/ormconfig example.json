@@ -1,0 +1,32 @@
+[
+    {
+        "name": "member",
+        "type": "mssql",
+        "host": "localhost",
+        "port": 1433,
+        "username": "DragonNest",
+        "password": "skQmsgozj!*sha",
+        "database": "DNMembership",
+        "extra": { "trustServerCertificate": true },
+        "entities": ["src/entities/*.ts"],
+        "migrations": ["src/migrations/*.ts"],
+        "cli": {
+            "migrationsDir": "src/migrations"
+        }
+    },
+    {
+        "name": "world",
+        "type": "mssql",
+        "host": "localhost",
+        "port": 1433,
+        "username": "DragonNest",
+        "password": "skQmsgozj!*sha",
+        "database": "DNWorld",
+        "extra": { "trustServerCertificate": true },
+        "entities": ["src/entities/*.ts"],
+        "migrations": ["src/migrations/*.ts"],
+        "cli": {
+            "migrationsDir": "src/migrations"
+        }
+    }
+]

@@ -49,8 +49,8 @@ export class Account {
     @Column({ type: "bit", select: false, default: 0 })
     SecondAuthLockFlag!: boolean;
 
-    @Column({ type: "int", nullable: true })
-    cash!: number;
+    @Column({ type: "int" })
+    Cash!: number;
 
     @BeforeInsert()
     fillDefaultValue() {
