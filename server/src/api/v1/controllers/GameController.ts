@@ -38,22 +38,41 @@ const makeResponse = (status: string, accountName: string, balance: number) => {
 };
 
 export const balanceInGame: Controller = async (req, res) => {
-    const { UID } = req.body;
+    const { UID: AccountName } = req.body;
 
     try {
         const account = await getAccountRepository().findOneOrFail(
-            { AccountName: UID },
+            { AccountName },
             { select: ["Cash"] }
         );
 
-        return res.send(makeResponse("S000", UID, account.Cash));
+        return res.send(makeResponse("S000", AccountName, account.Cash));
     } catch (err) {
         console.error(`Error when getting balance in game: ${err}`);
         return res.status(500).json({ message: "Unexpected error." });
     }
 };
 
-export const payInGame: Controller = (req, res) => {
-    const { UID: AccountName } = req.body;
-    return res.send("");
+export const payInGame: Controller = async (req, res) => {
+    const { "BUYER-ID": AccountName, "TOTAL-PRICE": price } = req.body;
+
+    try {
+        const account = await getAccountRepository().findOneOrFail(
+            { AccountName },
+            { select: ["Cash"] }
+        );
+
+        if (account.Cash < price) {
+            throw Error("Not enough cash.");
+        }
+
+        await getAccountRepository().update(account, {
+            Cash: account.Cash - price,
+        });
+
+        return res.send(makeResponse("S000", AccountName, account.Cash));
+    } catch (err) {
+        console.error(`Error when paying in game: ${err}`);
+        return res.status(500).json({ message: "Unexpected error." });
+    }
 };

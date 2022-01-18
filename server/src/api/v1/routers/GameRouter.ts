@@ -9,6 +9,6 @@ const GameRouter = Router();
 
 GameRouter.post("/login", loginInGame);
 GameRouter.post("/balance", balanceInGame);
-GameRouter.post("/pay", payInGame);
+GameRouter.post("/payment", payInGame);
 
 export default GameRouter;
