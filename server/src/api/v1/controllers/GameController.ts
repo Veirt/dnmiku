@@ -4,17 +4,20 @@ import { getAccountRepository } from "../utils/repository";
 export const loginInGame: Controller = async (req, res) => {
     const { id: AccountName, password: Passphrase } = req.body;
     try {
-        const account = await getAccountRepository().findOneOrFail({
-            AccountName,
-        });
+        const account = await getAccountRepository().findOneOrFail(
+            {
+                AccountName,
+            },
+            { select: ["NxLoginPwd"] }
+        );
 
-        if (!(await account.comparePassword(Passphrase))) {
+        if (account.NxLoginPwd !== (Passphrase as string).toUpperCase()) {
             // E203: Incorrect Password
             return res.send("E203");
         }
 
         // S000: success
-        return res.send("S000");
+        return res.send("S000	OK	0");
     } catch (err) {
         // E202: Account doesn't exist
         return res.send("E202");
@@ -35,15 +38,15 @@ const makeResponse = (status: string, accountName: string, balance: number) => {
 };
 
 export const balanceInGame: Controller = async (req, res) => {
-    const { UID: AccountName } = req.body;
+    const { UID } = req.body;
 
     try {
         const account = await getAccountRepository().findOneOrFail(
-            { AccountName },
+            { AccountName: UID },
             { select: ["Cash"] }
         );
 
-        return res.send(makeResponse("S000", AccountName, account.Cash));
+        return res.send(makeResponse("S000", UID, account.Cash));
     } catch (err) {
         console.error(`Error when getting balance in game: ${err}`);
         return res.status(500).json({ message: "Unexpected error." });
