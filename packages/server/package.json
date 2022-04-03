@@ -1,5 +1,5 @@
 {
-    "name": "dnmiku-server",
+    "name": "@dnmiku/server",
     "version": "0.1.0",
     "description": "",
     "scripts": {
